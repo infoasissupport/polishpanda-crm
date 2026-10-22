@@ -1,0 +1,98 @@
+/* Page-specific styles for branches.html — all shared component styles live in common.css */
+
+/* ---------- GRID ---------- */
+.branch-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+
+/* ---------- CARD ---------- */
+.branch-card{box-shadow:0px 1px 3px 0px #1018280D;background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:1.1rem;display:flex;flex-direction:column;}
+.branch-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.branch-icon{width:42px;height:42px;border-radius:11px;background:#EFF6FF;color:#1D4ED8;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.branch-name{font-size:14.5px;font-weight:600;color:#101828;margin-top:10px;}
+
+.branch-meta{display:flex;align-items:center;gap:14px;font-size:12px;color:#475467;margin:8px 0 12px;flex-wrap:wrap;}
+.branch-meta span{display:flex;align-items:center;gap:5px;}
+.branch-meta i{font-size:16px;color:#98a2b3;}
+
+.branch-status{font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;flex-shrink:0;}
+.branch-status.active{background:#ECFDF5;color:#15803D;}
+.branch-status.inactive{background:#F2F4F7;color:#475467;}
+
+.branch-detail-row{display:flex;align-items:center;justify-content:space-between;font-size:12.5px;padding:7px 0;border-top:1px solid #f0f1f3;color:#667085;}
+.branch-detail-row span:last-child{color:#344054;font-weight:500;}
+
+.branch-actions{display:flex;gap:8px;margin-top:14px;}
+.branch-actions .btn{flex:1;height:34px;font-size:12.5px;}
+.branch-edit-btn{border-color:#fa0100;color:#fff;background:#fa0100;}
+.branch-edit-btn:hover{background:var(--bg);}
+.branch-delete-btn{border:1px solid #fecaca;background:#fef2f2;color:#B91C1C;}
+.branch-delete-btn:hover{background:#fee2e2;}
+
+/* ---------- EMPTY STATE ---------- */
+.branch-empty{padding:40px 0;text-align:center;color:#98a2b3;font-size:13px;}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:700px){
+  .branch-grid{grid-template-columns:1fr;}
+}
+
+/* ==========================================================================
+   Branches page — same design as the other pages (Services, Staff, Expenses)
+   ========================================================================== */
+section#branches.view{padding:0 !important;}
+
+/* ---- Header: light background + shared pattern (shell.css), 10px 15px padding, 34px title ---- */
+#branches .view-header{
+  position:sticky;top:0;z-index:6;align-items:center;justify-content:space-between;gap:16px;
+  margin:0;padding:10px 15px;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#branches .view-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+#branches #addBranchBtn{height:42px;padding:0 18px;border-radius:12px;font-weight:600;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+/* ---- Scroll area under the fixed header ---- */
+#branches .fixedScrolldivCommon{
+  padding:10px 15px 15px;overflow-y:auto;overflow-x:hidden;
+  height:calc(100dvh - 180px - var(--shell-extra, 0px)) !important;
+}
+
+/* ---- Branch cards: same card style as Services / Staff ---- */
+#branches .branch-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px;}
+#branches .branch-card{
+  position:relative;overflow:hidden;isolation:isolate;min-width:0;padding:18px;
+  border:1px solid #e6e8ec;border-radius:16px;background:#fff;
+  box-shadow:0 12px 28px -22px rgba(16,24,40,.4);
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+#branches .branch-card::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(227,18,27,.07),transparent 70%);}
+#branches .branch-card:hover{border-color:#f3c9c9;box-shadow:0 18px 32px -20px rgba(16,24,40,.45);}
+@media (prefers-reduced-motion:no-preference){ #branches .branch-card:hover{transform:translateY(-2px);} }
+#branches .branch-icon{width:48px;height:48px;border-radius:14px;font-size:22px;background:linear-gradient(135deg,#fff1f1,#fde0e0);color:var(--accent);box-shadow:inset 0 0 0 1px rgba(227,18,27,.08);}
+#branches .branch-icon .ti{color:inherit;}
+#branches .branch-status{padding:5px 12px;border-radius:999px;font-weight:700;}
+#branches .branch-status.active{background:#ecfdf3;color:#15803d;}
+#branches .branch-name{margin-top:14px;font-size:16px;font-weight:700;text-transform:capitalize;}
+#branches .branch-meta{gap:6px;margin:10px 0 12px;}
+#branches .branch-meta span{padding:5px 10px;border-radius:999px;background:#f5f6f8;color:#344054;font-weight:500;}
+#branches .branch-meta i{font-size:15px;color:#667085;}
+#branches .branch-detail-row{padding:10px 12px;border-top:none;border-radius:10px;background:#fafafb;margin-bottom:6px;font-size:13px;}
+#branches .branch-detail-row span:last-child{color:#101828;font-weight:600;}
+#branches .branch-actions{gap:8px;margin-top:8px;padding-top:14px;border-top:1px dashed #e6e8ec;}
+#branches .branch-actions .btn{height:38px;border-radius:10px;font-size:13.5px;font-weight:600;gap:6px;}
+#branches .branch-edit-btn{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+#branches .branch-edit-btn:hover{background:#c0111a;border-color:#c0111a;}
+#branches .branch-delete-btn{background:#fff;border:1.5px solid #f6c3c3;color:#c0111a;}
+#branches .branch-delete-btn:hover{background:#fff1f1;}
+
+/* ---- Tablets / phones ---- */
+@media (max-width:1199px){
+  #branches .view-header .view-title{font-size:28px;}
+  #branches .fixedScrolldivCommon{height:calc(100dvh - 190px - var(--shell-extra, 0px)) !important;}
+}
+@media (max-width:767px){
+  #branches .view-header{padding:10px 12px;}
+  #branches .view-header .view-title{font-size:24px;}
+  #branches #addBranchBtn{height:40px;padding:0 14px;}
+  #branches .fixedScrolldivCommon{padding:10px 12px 15px;}
+  #branches .branch-grid{grid-template-columns:minmax(0,1fr);}
+}

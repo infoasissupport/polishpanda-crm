@@ -1,0 +1,571 @@
+/* Page-specific styles for queue.html — all shared component styles live in common.css */
+
+/* Completed-Today "View" popup — read-only job card summary opened in-page
+   instead of navigating to /jobcards. */
+.cjm-vehicle{display:flex;align-items:center;gap:12px;margin-bottom:12px;}
+.cjm-vc-icon{width:44px;height:44px;border-radius:10px;background:#f1f2f4;color:#94a3b8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.cjm-vc-icon svg{width:22px;height:22px;}
+.cjm-vehicle-name{font-size:14.5px;font-weight:700;color:#171a20;text-transform:capitalize;}
+
+.cjm-meta{display:flex;flex-wrap:wrap;gap:8px 14px;font-size:12.5px
+  ;color:#171a20;background:#f9fafb;border:1px solid #eef1f5;
+  border-radius:10px;padding:10px 14px;margin-bottom:12px;}
+.cjm-meta span{display:flex;align-items:center;gap:6px;}
+.cjm-meta i{font-size:14px;color:#94a3b8;}
+
+.cjm-section{background:#fff;border:1px solid #eef1f5;border-radius:12px;padding:14px;margin-bottom:12px;}
+.cjm-section h4{font-size:12px;font-weight:700;color:#171a20;text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;}
+.cjm-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.cjm-section-head h4{margin-bottom:0;}
+.cjm-checklist-count{font-size:11.5px;font-weight:700;color:#475569;background:#f1f2f4;border-radius:999px;padding:2px 10px;}
+
+.cjm-checklist-row{display:flex;align-items:center;gap:9px;padding:7px 0;font-size:13px;color:#94a3b8;}
+.cjm-checklist-row.done{color:#171a20;}
+.cjm-check{width:19px;height:19px;border-radius:6px;border:1.5px solid #d7dbe1;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;}
+.cjm-checklist-row.done .cjm-check{background:#16a34a;border-color:#16a34a;}
+
+.cjm-note{font-size:13px;color:#475569;line-height:1.5;}
+
+.cjm-photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.cjm-photo-tile{flex:0 0 64px;height:56px;border-radius:8px;background:#f1f2f4;border:1px solid #eef1f5;cursor:pointer;}
+.cjm-add-photo{flex:0 0 64px;height:56px;border-radius:10px;border:1px dashed #d7dbe1;background:none;display:flex;align-items:center;justify-content:center;color:#94a3b8;cursor:pointer;}
+.cjm-add-photo:hover{background:#f6f7f9;color:#475569;}
+
+/* Bay cards (Bay 1-4). */
+.bay-card{display:flex;flex-direction:column;transition:box-shadow .15s ease;}
+.bay-card:hover{box-shadow:0 6px 18px rgba(15,23,42,.08);}
+.bay-head, .bay-header-row{display:flex;align-items:center;
+  justify-content:space-between;gap:8px;}
+.bay-name{text-transform: capitalize; display:flex;align-items:center;gap:7px;font-size:14.5px;font-weight:700;color:#171a20;}
+.bay-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.bay-head .status-pill{text-transform:uppercase;font-weight:700;font-size:10.5px;letter-spacing:.03em;}
+
+.bay-actions{display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0;}
+.bay-action-btn{width:26px;height:26px;border-radius:7px;border:1px solid #e2e6ec;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;color:#475467;font-size:13px;}
+.bay-action-btn.delete{color:#DC2626;border-color:#fecaca;}
+.bay-action-btn.delete:hover{background:#FEF2F2;}
+
+.bay-body{display:flex;gap:14px;align-items:center;margin-top:12px;}
+.bay-hero{width:76px;height:76px;border-radius:14px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.bay-hero svg{width:40px;height:40px;}
+.bay-info{flex:1;min-width:0;}
+
+.bay-vehicle{font-size:15px;font-weight:700;color:#172033; text-transform: capitalize;}
+.bay-vehicle-empty{font-weight:500;color:var(--text-3);}
+.bay-model{margin-top:1px;font-size:12.5px;color:#70757e; text-transform: capitalize;}
+.bay-service{margin-top:2px;font-size:12px;color:#70757e;line-height:1.4; text-transform: capitalize;
+  display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;cursor:help;}
+
+.bay-footer{display:flex;align-items:center;gap:6px;margin-top:12px;padding-top:10px;border-top:1px solid #f0f2f5;color:#70757e;font-size:11.5px;}
+.bay-footer i{font-size:15px;color:#6d28d9;}
+
+.bay-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;color:#70757e;font-size:11.5px;}
+.bay-meta-item{display:flex;align-items:center;gap:5px;}
+.bay-meta-item i{font-size:15px;color:#1d4ed8;}
+.bay-meta-item:last-child i{color:#fa0100;}
+.bay-empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px 0 6px;}
+.bay-empty-icon{width:76px;height:76px;border-radius:14px;background:linear-gradient(135deg,#e0f2fe 0%,#ede9fe 100%);
+  border:1px solid #dbeafe;box-shadow:0 6px 14px rgba(59,130,246,.15);
+  color:#3b82f6;display:flex;align-items:center;justify-content:center;
+  margin-bottom:10px;}
+.bay-empty-icon svg{width:38px;height:38px;}
+.bay-empty-icon svg circle{stroke:#f59e0b;fill:#fef3c7;}
+.bay-empty-title{font-size:14px;font-weight:700;color:#171a20;}
+.bay-empty-sub{margin-top:2px;font-size:12px;color:#70757e;}
+
+.view-job-btn{width:100%;height:36px;margin-top:12px;border-radius:10px;
+  font-size:12.5px;font-weight:600;gap:6px;background:#fff;
+  border:1px solid var(--accent);color:var(--accent);}
+.view-job-btn:hover{background:#f8f9fb;}
+.view-job-btn i{font-size:15px;color:var(--accent);}
+
+#queueWaitlistRows .start-wash-btn{height:36px;padding:0 16px;border-radius:10px;font-size:12.5px;font-weight:600;gap:6px;}
+#queueWaitlistRows .start-wash-btn i{font-size:15px;}
+
+
+
+/* Completed washes table — dark header, numbered rows, green completed pill, outlined View */
+#completedTableScroll{border:1px solid #eef0f3;border-radius:12px;}
+#completedTableScroll thead th{background:#111418;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:15px 12px;border-bottom:none;white-space:nowrap;}
+#completedTableScroll thead tr th:first-child{border-top-left-radius:12px;}
+#completedTableScroll thead tr th:last-child{border-top-right-radius:12px;}
+#completedTableScroll .wl-col-num,#queueCompletedRows .cw-td-num{width:44px;text-align:center;}
+
+#queueCompletedRows td{padding:16px 12px;vertical-align:middle;border-bottom:1px solid #eef0f3;}
+#queueCompletedRows tr:last-child td{border-bottom:none;}
+#queueCompletedRows tr.cw-row:nth-child(even) td{background:#fafbfc;}
+#queueCompletedRows tr.cw-row:hover td{background:#f5f6f8;}
+#queueCompletedRows .cw-td-num{color:#101828!important;font-size:13px;font-weight:600;}
+#queueCompletedRows .wl-cell{display:flex;align-items:center;gap:12px;}
+#queueCompletedRows .wl-icon{width:40px;height:40px;border-radius:10px;background:#fdecec;color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#queueCompletedRows .wl-icon svg{width:20px;height:20px;}
+#queueCompletedRows .wl-vehicle{color:#101828;font-size:13.5px;font-weight:700;line-height:1.3;text-transform:capitalize;}
+#queueCompletedRows .wl-customer{color:#101828;font-size:13.5px;font-weight:700;line-height:1.25;text-transform:capitalize;}
+#queueCompletedRows .wl-service{color:#667085;font-size:13px;line-height:1.3;text-transform:capitalize;}
+#queueCompletedRows .cw-completed-pill{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:#E7F7EE;color:#15803D;font-size:12.5px;font-weight:600;white-space:nowrap;}
+#queueCompletedRows .cw-completed-pill svg{flex-shrink:0;}
+#queueCompletedRows .view-job-btn-sm{height:38px;padding:0 20px;border-radius:10px;font-size:13px;font-weight:600;gap:8px;background:#fff;border:1.5px solid var(--accent);color:var(--accent);}
+#queueCompletedRows .view-job-btn-sm:hover{background:#fff5f5;}
+#queueCompletedRows .view-job-btn-sm svg{flex-shrink:0;}
+
+/* Pagination with numbered pages (completed washes) */
+#completed .table-pagination{border:none;padding:16px 4px 4px;font-size:13px;color:#475467;}
+
+/* Completed washes — card layout (tablets and phones) */
+@media (max-width:1199px){
+  #completedTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}
+  #completedTableScroll table,#completedTableScroll tbody,#completedTableScroll tr,#completedTableScroll td{display:block;width:100%;}
+  #completedTableScroll thead{display:none;}
+  #completed .table-pagination{flex-wrap:wrap;gap:10px;}
+
+  #queueCompletedRows tr.cw-row{
+    display:grid;grid-template-columns:1fr 1fr;
+    grid-template-areas:"vehicle vehicle" "customer completed" "service staff" "action action";
+    column-gap:14px;row-gap:10px;background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:14px;margin-bottom:10px;
+  }
+  #queueCompletedRows tr.cw-row td{padding:0;border:none;width:auto;background:transparent!important;}
+  #queueCompletedRows tr.cw-row td.cw-td-num{display:none;}
+  #queueCompletedRows td.cw-td-vehicle{grid-area:vehicle;padding-bottom:10px;border-bottom:1px dashed #e5e7eb;}
+  #queueCompletedRows td.cw-td-customer{grid-area:customer;}
+  #queueCompletedRows td.cw-td-completed{grid-area:completed;justify-self:end;align-self:end;}
+  #queueCompletedRows td.cw-td-service{grid-area:service;}
+  #queueCompletedRows td.cw-td-staff{grid-area:staff;}
+  #queueCompletedRows td.cw-td-action{grid-area:action;}
+  #queueCompletedRows td.cw-td-action .view-job-btn-sm{width:100%;justify-content:center;}
+  #queueCompletedRows td.cw-td-customer::before,#queueCompletedRows td.cw-td-service::before,#queueCompletedRows td.cw-td-staff::before{
+    display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#98a2b3;margin-bottom:4px;
+  }
+  #queueCompletedRows td.cw-td-customer::before{content:"Customer";}
+  #queueCompletedRows td.cw-td-service::before{content:"Service";}
+  #queueCompletedRows td.cw-td-staff::before{content:"Staff";}
+  #queueCompletedRows tr:not(.cw-row) td{padding:24px 0;}
+}
+/* tablets: cards sit side by side instead of stretching full width */
+@media (min-width:641px) and (max-width:1199px){
+  #completedTableScroll tbody#queueCompletedRows{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+  #queueCompletedRows tr.cw-row{margin-bottom:0;}
+  #queueCompletedRows tr:not(.cw-row){grid-column:1 / -1;}
+}
+
+/* Waitlist table — same Start Wash / delete actions as before, now in table rows. */
+#queueWaitlistRows .wl-cell{display:flex;align-items:center;gap:10px;}
+#queueWaitlistRows .wl-icon{width:36px;height:36px;border-radius:9px;background:#FFF1E8;display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;}
+#queueWaitlistRows .wl-icon svg{width:18px;height:18px;}
+#queueWaitlistRows .wl-customer{color:#171a20;font-size:13px;font-weight:700;line-height:1.25;text-transform:capitalize;}
+#queueWaitlistRows .wl-vehicle{color:#171a20;font-size:13px;font-weight:600;line-height:1.3;}
+#queueWaitlistRows .wl-service{color:#70757e;font-size:12.5px;line-height:1.3;}
+#queueWaitlistRows .wl-actions{display:flex;align-items:center;gap:6px;}
+#queueWaitlistRows .wl-delete-btn{width:36px;padding:0;background:#fdecec;color:#991b1b;border:none;flex-shrink:0;}
+#queueWaitlistRows .wl-delete-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+#queueWaitlistRows .wl-delete-btn svg{width:16px;height:16px;}
+#queueWaitlistRows .wl-edit-btn{width:36px;padding:0;background:#EFF6FF;color:#1D4ED8;border:none;flex-shrink:0;}
+#queueWaitlistRows .wl-edit-btn:hover{background:#dbeafe;color:#1e40af;}
+#queueWaitlistRows .wl-edit-btn svg{width:16px;height:16px;}
+
+   .card{
+      margin-bottom: 12px!important;
+   }
+
+.cw-search{max-width: 346px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 36px;
+  padding: 0 10px;
+  border: 1px solid #e2e6ec;
+
+  border-radius: 10px;
+  transition: border-color .15s ease;
+  width: 100%;}
+.cw-search:focus-within{border-color:#C9D3E2;background:#fff;}
+.cw-search i{font-size:15px;color:#94a3b8;flex-shrink:0;}
+.cw-search input{background:none;border:none;outline:none;color:#172033;
+   font-family:var(--font);font-size:13px;width:100%; text-transform: capitalize;}
+.cw-search input::placeholder{color:#94a3b8;}
+@media (max-width:768px){
+  .cw-search{width:100%;}
+  .card-title{flex-wrap:wrap;row-gap:10px;}
+}
+
+
+.wl-service{
+  color: #000;
+}
+
+#completedJobModalBody {
+  gap: 0;
+}
+
+
+.styleFleMain{
+display:flex;align-items:center;gap:10px; width:100%;
+@media (max-width:1199px){
+flex-direction: column;
+}
+}
+/* Dashboard cards deep-link to #waitlist / #completed */
+#queue #waitlist,#queue #completed{scroll-margin-top:16px;}
+
+/* =====================================================================
+   Waitlist redesign — accent title, red search, dark header, new columns
+   ===================================================================== */
+#waitlist .card-title{gap:12px;}
+.wl-title{display:flex;align-items:center;gap:12px;font-size:20px;font-weight:700;color:#101828;}
+.wl-title::before{content:'';width:4px;height:24px;border-radius:4px;background:var(--accent);flex-shrink:0;}
+#waitlist .cw-search,#completed .cw-search{height:40px;max-width:330px;padding:0 14px;gap:10px;border-color:#e4e7ec;background:#fff;}
+#waitlist .cw-search svg path,#completed .cw-search svg path{stroke:var(--accent);}
+#waitlist .cw-search input::placeholder,#completed .cw-search input::placeholder{color:#98a2b3;text-transform:none;}
+
+#waitlistTableScroll{border:1px solid #eef0f3;border-radius: 12px 12px 0px 0px;}
+#waitlistTableScroll thead th{background:#111418;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:15px 12px;border-bottom:none;white-space:nowrap;}
+#waitlistTableScroll thead tr th:first-child{border-top-left-radius:12px;}
+#waitlistTableScroll thead tr th:last-child{border-top-right-radius:12px;}
+#waitlistTableScroll .wl-col-num,#queueWaitlistRows .wl-td-num{width:44px;text-align:center;}
+
+#queueWaitlistRows td{padding:16px 12px;vertical-align:middle;border-bottom:1px solid #eef0f3;}
+#queueWaitlistRows tr:last-child td{border-bottom:none;}
+#queueWaitlistRows tr.wl-row:hover td{background:#fafbfc;}
+#queueWaitlistRows .wl-td-num{color:#667085!important;font-size:13px;}
+#queueWaitlistRows .wl-icon{width:40px;height:40px;border-radius:10px;background:#fdecec;color:var(--accent);}
+#queueWaitlistRows .wl-icon svg{width:20px;height:20px;}
+#queueWaitlistRows .wl-vehicle{font-size:13.5px;font-weight:700;color:#101828;text-transform:capitalize;}
+#queueWaitlistRows .wl-customer{font-size:13.5px;font-weight:700;color:#101828;}
+#queueWaitlistRows .wl-service{font-size:13px;color:#344054;text-transform:capitalize;}
+#queueWaitlistRows .wl-arrival{display:inline-flex;align-items:center;gap:7px;font-size:13px;color:#344054;white-space:nowrap;}
+#queueWaitlistRows .wl-arrival svg{color: #1D4ED8;flex-shrink:0;}
+#queueWaitlistRows .wl-wait{display:inline-block;min-width:36px;text-align:center;padding:5px 12px;border-radius:8px;background:#FFF1E0;color:#C2410C;font-size:12px;font-weight:600;white-space:nowrap;}
+
+#queueWaitlistRows .wl-actions{gap:8px;}
+#queueWaitlistRows .wl-actions .start-wash-btn{height:38px;padding:0 18px;border-radius:10px;font-size:13px;font-weight:600;gap:8px;white-space:nowrap;}
+#queueWaitlistRows .wl-actions .start-wash-btn .ti{color:#fff;}
+#queueWaitlistRows .wl-edit-btn,#queueWaitlistRows .wl-delete-btn{width:38px;height:38px;border-radius:10px;}
+#queueWaitlistRows .wl-delete-btn{background:#fdecec;color:#dc2626;}
+
+/* Waitlist — card layout (tablets and phones) */
+@media (max-width:640px){
+  #waitlist .cw-search,#completed .cw-search{max-width:none;}
+}
+@media (max-width:1199px){
+  #waitlistTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}
+  #waitlistTableScroll table,#waitlistTableScroll tbody,#waitlistTableScroll tr,#waitlistTableScroll td{display:block;width:100%;}
+  #waitlistTableScroll thead{display:none;}
+
+  #queueWaitlistRows tr.wl-row{
+    display:grid;grid-template-columns:1fr 1fr;
+    grid-template-areas:"vehicle vehicle" "customer service" "arrival wait" "actions actions";
+    gap:12px;background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:14px;margin-bottom:10px;
+  }
+  #queueWaitlistRows tr.wl-row td{padding:0;border:none;width:auto;background:transparent!important;}
+  #queueWaitlistRows tr.wl-row td.wl-td-num{display:none;}
+  #queueWaitlistRows td.wl-td-vehicle{grid-area:vehicle;padding-bottom:10px;border-bottom:1px dashed #e5e7eb;}
+  #queueWaitlistRows td.wl-td-customer{grid-area:customer;}
+  #queueWaitlistRows td.wl-td-service{grid-area:service;}
+  #queueWaitlistRows td.wl-td-arrival{grid-area:arrival;}
+  #queueWaitlistRows td.wl-td-wait{grid-area:wait;}
+  #queueWaitlistRows td.wl-td-actions{grid-area:actions;padding-top:10px;border-top:1px dashed #e5e7eb;}
+  #queueWaitlistRows td.wl-td-customer::before,#queueWaitlistRows td.wl-td-service::before,
+  #queueWaitlistRows td.wl-td-arrival::before,#queueWaitlistRows td.wl-td-wait::before{
+    display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:#98a2b3;margin-bottom:4px;
+  }
+  #queueWaitlistRows td.wl-td-customer::before{content:"Customer";}
+  #queueWaitlistRows td.wl-td-service::before{content:"Service";}
+  #queueWaitlistRows td.wl-td-arrival::before{content:"Arrival Time";}
+  #queueWaitlistRows td.wl-td-wait::before{content:"Wait Time";}
+  #queueWaitlistRows .wl-actions .start-wash-btn{flex:1;justify-content:center;}
+  #queueWaitlistRows tr:not(.wl-row) td{padding:24px 0;}
+}
+/* tablets: cards sit side by side instead of stretching full width */
+@media (min-width:641px) and (max-width:1199px){
+  #waitlistTableScroll tbody#queueWaitlistRows{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px;}
+  #queueWaitlistRows tr.wl-row{margin-bottom:0;}
+  #queueWaitlistRows tr:not(.wl-row){grid-column:1 / -1;}
+}
+#queueWaitlistRows .wl-td-arrival,#queueWaitlistRows .wl-td-wait{text-transform:none;}
+
+/* Completed washes: Today / Total tabs */
+#completed .cw-tab{display:inline-flex;align-items:center;gap:10px;height:40px;padding:0 16px;border-radius:10px;border:1px solid #e4e7ec;background:#fff;color:#101828;font-family:var(--font);font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .15s ease,border-color .15s ease,color .15s ease;}
+#completed .cw-tab:hover{background:#f8f9fb;}
+#completed .cw-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+#completed .cw-tab.active:hover{background:#e00100;}
+#completed .cw-tab:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+#completed .cw-tab svg{flex-shrink:0;}
+@media (max-width:640px){
+  #completed .toolbar{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  #completed .cw-tab{justify-content:center;padding:0 10px;font-size:12.5px;gap:6px;}
+}
+
+/* Empty state for waitlist / completed tables */
+#queue tr.q-empty-row td{padding:0;border-bottom:none;background:transparent;text-transform:none;}
+.q-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 16px 40px;}
+.q-empty-icon{width:92px;height:92px;border-radius:50%;background:#fdecec;color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.q-empty-title{font-size:17px;font-weight:700;color:#101828;margin-bottom:4px;}
+.q-empty-sub{font-size:13.5px;color:#475467;}
+@media (max-width:1199px){
+  #queueWaitlistRows tr.q-empty-row td,#queueCompletedRows tr.q-empty-row td{padding:0;}
+}
+@media (max-width:640px){
+  .q-empty{padding:28px 12px 32px;}
+}
+
+/* ==========================================================================
+   Queue page redesign (header, summary cards, bays, waitlist, completed)
+   ========================================================================== */
+/* header */
+#queue .q-header{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  margin:0px 0 0px;}
+#queue .q-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);}
+#queue .q-live-dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 rgba(227,18,27,.5);animation:q-pulse 1.8s ease-out infinite;}
+@keyframes q-pulse{0%{box-shadow:0 0 0 0 rgba(227,18,27,.5);}70%{box-shadow:0 0 0 8px rgba(227,18,27,0);}100%{box-shadow:0 0 0 0 rgba(227,18,27,0);}}
+@media (prefers-reduced-motion:reduce){#queue .q-live-dot{animation:none;}}
+#queue .q-title{font-size:30px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;
+  line-height:1.15;}
+#queue .q-sub{font-size:14.5px;color:#475467;margin-top:4px;}
+#queue .q-header-btn{height:44px;padding:0 18px;font-size:14.5px;font-weight:600;border-radius:12px;box-shadow:0 10px 22px -8px rgba(227,18,27,.7);flex-shrink:0;}
+
+/* summary cards */
+#queue .q-stats{display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-bottom:0px;}
+#queue .q-stat{
+  --q-ink:#e3121b;--q-tile:#ffe0e0;--q-tint:#fff0f0;
+  display:flex;align-items:center;gap:14px;padding:16px 18px;
+  border:1px solid #d6d6d6;border-radius:10px;
+  background:linear-gradient(135deg,#fff 0%,#fff 50%,var(--q-tint) 100%);
+  box-shadow:0 10px 24px -16px rgba(16,24,40,.25);
+}
+#queue .q-stat--orange{--q-ink:#f97316;--q-tile:#ffe8d4;--q-tint:#fff4ea;}
+#queue .q-stat--green{--q-ink:#16a34a;--q-tile:#d6f5e1;--q-tint:#ecfbf1;}
+#queue .q-stat--blue{--q-ink:#2563eb;--q-tile:#dce8ff;--q-tint:#eef4ff;}
+#queue .q-stat--red{--q-ink:#e3121b;--q-tile:#ffe0e0;--q-tint:#fff0f0;}
+#queue .q-stat-icon{width:52px;height:52px;border-radius:14px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;background:var(--q-tile);color:var(--q-ink);}
+#queue .q-stat-label{font-size:14px;font-weight:700;color:#101828;}
+#queue .q-stat-value{font-size:26px;font-weight:800;color:#0b0b0c;line-height:1.15;margin-top:2px;font-variant-numeric:tabular-nums;}
+#queue .q-stat-sub{font-size:12.5px;color:#667085;margin-top:2px;}
+
+/* section cards */
+#queue .q-section{ margin-bottom: 0px!important;  
+   border:1px solid #d6d6d6;border-radius:10px;padding:18px;
+   box-shadow:0 10px 24px -16px rgba(16,24,40,.22);margin-bottom:14px;}
+#queue .q-section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px;}
+#queue .q-section-title{display:inline-flex;align-items:center;gap:10px;font-size:19px;font-weight:700;color:#0b0b0c;text-transform:none;}
+#queue .q-section-title::before{display:none !important;}
+#queue .q-section-icon{width:36px;height:36px;border-radius:10px;background:#fff0f0;color:var(--accent);display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+#queue .q-count{display:inline-flex;align-items:center;justify-content:center;min-width:26px;height:24px;padding:0 8px;border-radius:999px;background:#fff0f0;color:var(--accent);font-size:12.5px;font-weight:700;}
+#queue .q-legend{display:flex;align-items:center;gap:14px;flex-wrap:wrap;font-size:12.5px;font-weight:600;color:#475467;}
+#queue .q-legend-item{display:inline-flex;align-items:center;gap:6px;}
+#queue .q-dot{width:9px;height:9px;border-radius:50%;}
+#queue .q-dot--washing{background:#16a34a;}
+#queue .q-dot--starting{background:#f59e0b;}
+#queue .q-dot--empty{background:#cbd5e1;}
+
+/* bay cards */
+#queue .q-bays{display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;}
+#queue .bay-card{position:relative;padding:16px;border-radius:10px;border:1px solid #eef0f3;background:#fff;box-shadow:0 6px 18px -12px rgba(16,24,40,.25);overflow:hidden;}
+#queue .bay-card::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:#cbd5e1;}
+#queue .bay-card--washing::before{background:linear-gradient(90deg,#16a34a,#4ade80);}
+#queue .bay-card--starting::before{background:linear-gradient(90deg,#f59e0b,#fbbf24);}
+#queue .bay-card--washing{background:linear-gradient(180deg,#f3fcf6 0%,#fff 45%);}
+#queue .bay-card--starting{background:linear-gradient(180deg,#fff9ee 0%,#fff 45%);}
+#queue .bay-card--empty{background:#fbfbfc;border:1.5px dashed #d8dde5;box-shadow:none;}
+#queue .bay-card--empty::before{display:none;}
+#queue .bay-card:hover{box-shadow:0 12px 26px -14px rgba(16,24,40,.35);}
+#queue .bay-name{font-size:15.5px;font-weight:800;}
+#queue .bay-dot{width:9px;height:9px;}
+#queue .bay-head .status-pill,#queue .bay-header-row .status-pill{border-radius:999px;padding:3px 10px;font-size:11px;font-weight:700;}
+#queue .bay-hero{width:64px;height:64px;border-radius:16px;}
+#queue .bay-vehicle{font-size:17px;font-weight:800;color:#0b0b0c;letter-spacing:.02em;}
+#queue .bay-model{font-size:13px;}
+#queue .bay-service{font-size:12.5px;color:#475467;font-weight:500;}
+#queue .bay-footer{color:#344054;font-weight:600;font-size:13px;}
+#queue .bay-footer i{color:var(--accent);}
+#queue .bay-meta{justify-content:flex-start;flex-wrap:wrap;gap:8px;}
+#queue .bay-meta-item{padding:4px 10px;border-radius:999px;background:#f4f5f7;color:#344054;font-weight:600;font-size:12px;}
+#queue .bay-meta-item i,#queue .bay-meta-item:last-child i{color:#667085;font-size:14px;}
+#queue .bay-card--washing .bay-meta-item:last-child{background:#e6f9ef;color:#15803d;}
+#queue .bay-card--starting .bay-meta-item:last-child{background:#fff4e0;color:#b45309;}
+#queue .bay-card--washing .bay-meta-item:last-child i{color:#16a34a;}
+#queue .bay-card--starting .bay-meta-item:last-child i{color:#d97706;}
+#queue .view-job-btn{height:40px;margin-top:14px;border:1.5px solid var(--accent);color:var(--accent);background:#fff;font-weight:600;border-radius:10px;}
+#queue .view-job-btn:hover{background:var(--accent);color:#fff;}
+#queue .view-job-btn:hover i{color:#fff;}
+#queue .bay-empty-state{padding:18px 0 8px;}
+#queue .bay-empty-icon{width:60px;height:60px;border-radius:16px;background:#eef1f5;color:#94a3b8;}
+#queue .bay-empty-icon svg{width:30px;height:30px;}
+#queue .bay-empty-icon svg circle{stroke:#94a3b8;fill:#e2e8f0;}
+#queue .bay-empty-title{font-size:14.5px;font-weight:700;color:#344054;margin-top:10px;}
+#queue .bay-empty-sub{color:#16a34a;font-weight:600;}
+
+/* waitlist + completed tables: light header like the dashboard */
+#queue .table-scroll{border:1px solid #eef0f3;border-radius:14px;}
+#queue .table-scroll thead th,
+#queue #completedTableScroll thead th{
+background: #f4f5f7 !important;
+  color: #000 !important;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: 0;
+  text-transform: none;
+  padding: 12px;
+  border-bottom: 1px solid #eef0f3;
+}
+#queue .table-scroll thead tr th:first-child{border-top-left-radius:14px;}
+#queue .table-scroll thead tr th:last-child{border-top-right-radius:14px;}
+#queue .cw-search{height:42px;border-radius:12px;border:1px solid #e7e7ea;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#queue .cw-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#queue .cw-search svg path{stroke:var(--accent);}
+#queue .cw-tab.active{background:var(--accent);border-color:var(--accent);color:#fff;}
+
+@media (max-width:1199px){
+  #queue .q-stats{grid-template-columns:repeat(2,minmax(0,1fr));}
+  #queue .q-title{font-size:26px;}
+}
+@media (max-width:767px){
+  #queue .q-header{align-items:stretch;}
+  #queue .q-header-btn{justify-content:center;}
+  #queue .q-stat{padding:14px;gap:10px;}
+  #queue .q-stat-icon{width:44px;height:44px;}
+  #queue .q-stat-value{font-size:22px;}
+  #queue .q-legend{width:100%;}
+}
+
+.fixedScrolldivCommon {
+overflow: auto;
+  height: calc(100dvh - 183px - var(--shell-extra, 0px)) !important;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Hero header with the car photo, same treatment as the dashboard */
+
+#queue .q-header{
+  position:relative;isolation:isolate;overflow:hidden;align-items:center;
+padding:10px 15px;
+  background:
+    linear-gradient(90deg,#fafafa 0%,#fafafa 34%,rgba(250,250,250,.88) 44%,rgba(250,250,250,0) 66%),
+    url("../images/dash-hero-car.jpg") right 18% center / auto 150% no-repeat,
+    #1b1b1d;
+}
+#queue .q-header::before{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(118deg,transparent 0 46%,rgba(227,18,27,.55) 46.6%,transparent 49%),
+    linear-gradient(118deg,transparent 0 52%,rgba(227,18,27,.28) 52.4%,transparent 55%);
+}
+#queue .q-header::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(244,244,245,0),#f6f6f7);
+}
+#queue .q-title{font-size:34px;}
+
+@media (max-width:1199px){
+  #queue .q-header{background-position:center,right -40px center,center;}
+  #queue .q-title{font-size:28px;}
+  #queue .q-header + .fixedScrolldivCommon{height: calc(100dvh - 224px - var(--shell-extra, 0px)) !important;position:relative;z-index:1; padding: 0px 15px;
+}
+}
+@media (max-width:767px){
+  #queue .q-header{
+    background:linear-gradient(180deg,rgba(250,250,250,.94) 0%,rgba(250,250,250,.86) 60%,rgba(250,250,250,.6) 100%),url("../images/dash-hero-car.jpg") center / cover no-repeat,#1b1b1d;}
+  #queue .q-header + .fixedScrolldivCommon{margin-top:-52px;}
+}
+/* shorter hero than the dashboard: scale the photo so the car's body shows */
+@media (min-width:768px){
+  #queue .q-header{padding-top:30px;padding-bottom:84px;
+    background:
+      linear-gradient(90deg,#fafafa 0%,#fafafa 34%,rgba(250,250,250,.88) 44%,rgba(250,250,250,0) 66%),
+      url("../images/dash-hero-car.jpg") right 18% top 62% / auto 210% no-repeat,
+      #1b1b1d;}
+}
+/* match the dashboard hero exactly: same height, same photo size and position */
+@media (min-width:768px){
+  #queue .q-header{padding: 22px 26px 69px;
+    background:
+      linear-gradient(90deg,#fafafa 0%,#fafafa 34%,rgba(250,250,250,.88) 44%,rgba(250,250,250,0) 66%),
+      url("../images/dash-hero-car.jpg") right 18% center / auto 150% no-repeat,
+      #1b1b1d;}
+}
+@media (min-width:768px) and (max-width:1199px){
+  #queue .q-header{padding:18px 16px 70px;background-position:center,right -40px center,center;}
+}
+/* mirror the dashboard hero as it is now: 15px padding, no overlap, same height */
+@media (min-width:768px){
+  #queue .q-header{margin:0 !important;
+    padding:10px 15px !important;min-height:auto !important;align-items:center;}
+  #queue .q-header + .fixedScrolldivCommon{margin-top:0 !important;
+  padding: 0 15px;
+  }
+}
+/* header stays fixed at the top while the page content scrolls under it */
+#queue .q-header{position:sticky !important;top:0;z-index: index 1;}
+@media (max-width:767px){
+
+  #queue .q-header + .fixedScrolldivCommon{margin-top:0 !important;}
+}
+
+#queue .bay-card{
+margin-bottom: 0px!important; border: 1px #d6d6d6 dashed;
+}
+/* ==========================================================================
+   Waitlist table — desktop redesign (tablets/phones use the card layout)
+   ========================================================================== */
+@media (min-width:1200px){
+  /* table + pagination read as one card; height follows the rows (no empty white block) */
+  #queue #waitlistTableScroll{height:auto;max-height:520px;
+    border:1px solid #e6e8ec;border-bottom:none;border-radius:10px 10px 0 0;background:#fff;}
+  #queue #waitlist .table-pagination{border:1px solid #e6e8ec;border-top:1px solid #eef0f3;border-radius:0 0 16px 16px;background:#fafafb;padding:12px 16px;}
+
+  #queue #waitlistTableScroll thead th{
+    background:#fafafb !important;color: #000 !important;
+  font-size: 14px;
+  font-weight: 900;
+    text-transform:capitalize;letter-spacing:.06em;padding:14px 16px;border-bottom:1px solid #eef0f3;
+  }
+  #queue #waitlistTableScroll thead th:last-child{text-align:right;padding-right:20px;}
+
+  #queueWaitlistRows tr.wl-row td{padding:14px 16px;border-bottom:1px solid #f1f2f5;vertical-align:middle;transition:background-color .15s ease;}
+  #queueWaitlistRows tr.wl-row:last-child td{border-bottom:none;}
+  #queueWaitlistRows tr.wl-row:hover td{background:#fff8f8;}
+  #queueWaitlistRows tr.wl-row:hover td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+
+  /* queue position */
+  #queueWaitlistRows tr.wl-row td.wl-td-num{color:#98a2b3 !important;font-size:13px;font-weight:700;}
+
+  #queueWaitlistRows .wl-icon{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#fff1f1,#fde0e0);box-shadow:inset 0 0 0 1px rgba(227,18,27,.08);}
+  #queueWaitlistRows .wl-vehicle{font-size:14px;font-weight:700;color:#101828;}
+  #queueWaitlistRows .wl-customer{font-size:14px;font-weight:600;color:#101828;}
+  #queueWaitlistRows .wl-service{display:inline-flex;align-items:center;padding:5px 11px;border-radius:999px;background:#f2f4f7;color:#344054;font-size:12.5px;font-weight:500;white-space:nowrap;}
+  #queueWaitlistRows .wl-arrival{font-weight:500;color:#344054;}
+  #queueWaitlistRows .wl-wait{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;font-weight:700;}
+  #queueWaitlistRows .wl-wait::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+  #queueWaitlistRows td.wl-td-actions{text-align:right;padding-right:20px;}
+  #queueWaitlistRows .wl-actions{justify-content:flex-end;}
+  #queueWaitlistRows .wl-actions .start-wash-btn{height:38px;padding:0 18px;border-radius:10px;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+}
+
+/* ==========================================================================
+   Queue tables — pagination redesign: footer bar joined to the table,
+   segmented pager  [‹ Prev | 1 2 3 | Next ›]
+   ========================================================================== */
+#queue .table-pagination{color:#667085;font-size:13px;font-weight:500;}
+#queue .pagination-btns.sw-pager{gap:0;padding:3px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#queue .pagination-btns.sw-pager > .btn{height:32px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:#344054;font-weight:600;}
+#queue .pagination-btns.sw-pager > .btn:hover:not(:disabled){background:#f5f6f8;}
+#queue .pagination-btns.sw-pager > .btn:disabled,
+#queue .pagination-btns.sw-pager > .btn:disabled:hover{background:transparent;color:#c0c5cf;}
+#queue .sw-pager .pagination-pages{gap:2px;padding:0 4px;margin:0 2px;border-left:1px solid #eef0f3;border-right:1px solid #eef0f3;}
+#queue .sw-pager .page-num{min-width:32px;height:32px;border:none;border-radius:9px;background:transparent;color:#475467;}
+#queue .sw-pager .page-num:hover{background:#f5f6f8;color:#101828;}
+#queue .sw-pager .page-num.active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}
+
+@media (min-width:1200px){
+  /* table + footer read as one card */
+  #queue #completedTableScroll{height:auto;max-height:520px;
+    border:1px solid #e6e8ec;border-bottom:none;border-radius:10px 10px 0 0;background:#fff;}
+  #queue #waitlist .table-pagination,
+  #queue #completed .table-pagination{border:1px solid #e6e8ec;
+    border-top:1px solid #eef0f3;border-radius:0 0 10px 10px;background:#fafafb;padding:10px 12px 10px 18px;}
+}
+@media (max-width:1199px){
+  #queue .table-pagination{border:none;background:transparent;padding:14px 2px 2px;}
+}

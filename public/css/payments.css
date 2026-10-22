@@ -1,0 +1,635 @@
+/* Page-specific styles for payments.html — all shared component styles live in common.css */
+
+.inv-row{cursor:pointer;}
+.chip{
+  height: 36px;
+}
+.toolbar input{
+  height: 36px;
+
+}
+/* ---------- INVOICE PREVIEW CARD ---------- */
+.inv-preview-meta{font-size:12px;color:#70757e;margin-bottom:12px;}
+
+.inv-preview-box{background:#f9fafb;border:1px solid #eef1f5;border-radius:12px;padding:2px 14px;margin-bottom:14px;}
+.inv-preview-row{display:flex;justify-content:space-between;gap:10px;font-size:13px;padding:10px 0;border-bottom:1px solid #eef1f5;color:#171a20;}
+.inv-preview-row span:first-child{color:#70757e;}
+.inv-preview-total{display:flex;justify-content:space-between;gap:10px;font-size:16px;font-weight:700;padding:12px 0;color:#171a20;}
+
+.inv-preview-actions{display:flex;gap:8px;}
+
+.inv-preview-payment{margin-top:16px;border-top:1px solid #eef1f5;padding-top:16px;}
+.inv-preview-payment label{display:block;font-size:11px;color:#94a3b8;text-transform:uppercase;letter-spacing:.03em;margin-bottom:6px;font-weight:700;}
+
+/* ---------- FILTER DROPDOWN ---------- */
+.pay-filter-field{display:flex;align-items:center;gap:6px;font-size:13px;color:#667085;font-weight:500;}
+.pay-filter-field select{height:36px;padding:0 10px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;cursor:pointer;}
+
+/* ---------- CUSTOM DATE RANGE FILTER ---------- */
+#customRangeChip{display:flex;align-items:center;gap:5px;}
+#customRangeChip i{font-size:13px;transition:transform .15s ease;}
+#customRangeDropdown:has(#invDateRangeMenu.open) #customRangeChip i{transform:rotate(180deg);}
+/* position:fixed + JS-computed coordinates (see payments.js) so this dropdown
+   escapes .table-wrap's overflow:hidden instead of being clipped by it. */
+#invDateRangeMenu{position:fixed;min-width:230px;width:230px;right:auto;}
+#invDateRangeMenu .field{margin-bottom:10px;}
+#invDateRangeMenu .field:last-of-type{margin-bottom:0;}
+
+
+.grid-2{
+  .table-scroll {
+    height: calc(100dvh - 300px - var(--shell-extra, 0px)) !important;
+}
+
+}
+
+.card{
+  border-radius: 10px;
+}
+
+#payments .view-header{
+  padding: 0px!important;
+}
+
+/* Keep the search/filter toolbar pinned above the invoice rows while
+   scrolling, sitting just below the sticky page header (.view-header).
+   .table-wrap's overflow:hidden (used to clip the toolbar's square top
+   corners to its rounded card shape) would otherwise become the sticky
+   containing block instead of the actual scrolling ancestor (.view), so
+   it's turned off here and the toolbar rounds its own top corners instead. */
+#payments .table-wrap{overflow: visible;}
+#payments .toolbar{
+
+  background: #fff;
+  border-radius: 10px;
+}
+
+.paymentsCommonMainAll{
+overflow: auto;
+  height: calc(100dvh - 177px - var(--shell-extra, 0px));
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+  .tablefiletrFlex{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
+ 
+  }
+}
+
+.table-wrap {
+   .table-scroll {
+    height: calc(100dvh - 313px - var(--shell-extra, 0px)) !important;
+    overflow: auto;
+  }
+}
+
+/* Below this width the 2fr/1fr split (invoice list + preview card) squeezes
+   both panels too narrow to use — stack them full-width instead and let the
+   page's own scroll (.view) carry the height, same as every other page's
+   mobile layout. */
+@media (max-width:992px){
+  .paymentsCommonMainAll{
+    grid-template-columns: 1fr;
+overflow: auto;
+   height: calc(100dvh - 271px - var(--shell-extra, 0px));
+  }
+  .table-wrap .table-scroll{
+    height: 60vh !important;
+  }
+  .toolbar{
+    align-items: stretch;
+  }
+  .toolbar input{
+    width: 100%;
+    flex: 1 1 100%;
+  }
+}
+@media (max-width:1199px){
+  .paymentsCommonMainAll{
+
+   height: calc(100dvh - 271px - var(--shell-extra, 0px));
+  }
+}
+/* =====================================================================
+   Payments redesign — toolbar, card-style rows, pagination, preview
+   ===================================================================== */
+
+/* ---------- Layout: list column may shrink (its table scrolls inside), preview keeps 330px ---------- */
+.paymentsCommonMainAll{grid-template-columns:minmax(0,2.5fr) minmax(330px,1fr);}
+.paymentsCommonMainAll > .tablefiletrFlex{min-width:0;}
+@media (max-width:992px){
+  .paymentsCommonMainAll{grid-template-columns:minmax(0,1fr);}
+}
+
+/* ---------- Toolbar ---------- */
+#payments .toolbar{gap:14px;padding:14px 16px;border:1px solid #eef0f3;border-radius:14px;}
+#payments .toolbar input[placeholder^="Search" i]{
+  height:40px;width:auto;flex:1 1 220px;max-width:380px;min-width:0;
+  border-radius:10px;border:1px solid #e4e7ec;padding-left:40px;font-size:13px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fa0100' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='M21 21l-6-6'/%3E%3C/svg%3E");
+  background-position:14px center;background-size:17px 17px;
+}
+#payments .toolbar input::placeholder{color:#98a2b3;}
+.pay-filter-field{gap:10px;}
+.pay-filter-field label,.pay-filter-label{font-size:13px;font-weight:600;color:#101828;white-space:nowrap;}
+.pay-filter-field select{
+  height:40px;min-width:104px;padding:0 34px 0 14px;border:1px solid #e4e7ec;border-radius:10px;font-size:13px;color:#101828;
+  -webkit-appearance:none;appearance:none;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 12px center/15px 15px;
+}
+#customRangeDropdown{position:relative;}
+#customRangeChip{height:40px;padding:0 14px;gap:8px;border:1px solid #e4e7ec;border-radius:10px;font-size:13px;color:#101828;white-space:nowrap;}
+#customRangeChip .pay-cal-icon{color:#344054;flex-shrink:0;}
+#customRangeChip i{margin-left:6px;color:#667085;}
+
+/* ---------- Table: dark rounded header + card rows ---------- */
+#payments .table-wrap{border:1px solid #eef0f3;border-radius:14px;background:#fff;}
+#payments .table-scroll{border:none;border-radius:10px 10px 0 0;padding:8px 8px 0;}
+#payments .table-scroll table{border-collapse:separate;border-spacing:0 8px;}
+#payments .table-scroll thead th{
+  background:#111418;color:#fff;font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.25;
+  padding:14px 6px;border-bottom:none;white-space:normal;
+}
+#payments .table-scroll thead th.col-num,#payments .table-scroll thead th:nth-child(2){white-space:nowrap;}
+#payments .table-scroll thead tr th:first-child{border-radius:10px 0 0 10px;padding-left:10px;}
+#payments .table-scroll thead tr th:last-child{border-radius:0 10px 10px 0;}
+
+#invoiceTableBody td{
+  padding:14px 6px;background:#fff;font-size:12.5px;color:#101828!important;vertical-align:middle;
+  border-top:1px solid #eef0f3;border-bottom:1px solid #eef0f3;transition:background .15s ease,border-color .15s ease;
+}
+#invoiceTableBody td:first-child{border-left:1px solid #eef0f3;border-radius:10px 0 0 10px;padding-left:10px;}
+#invoiceTableBody td:last-child{border-right:1px solid #eef0f3;border-radius:0 10px 10px 0;}
+#invoiceTableBody tr:hover td{background:#fafbfc;}
+#invoiceTableBody tr.selected td{background:#fdf0f0;border-color:#f8d7d7;}
+
+#payments .col-num{width:28px;text-align:center;color:#667085!important;}
+
+#invoiceTableBody .inv-id{font-weight:600;white-space:nowrap;}
+#invoiceTableBody .inv-veh-no{white-space:nowrap;text-transform:uppercase;}
+#invoiceTableBody .inv-veh-model{text-transform:capitalize;}
+#invoiceTableBody .inv-amount{white-space:nowrap;font-weight:500;}
+#invoiceTableBody .inv-wash-date{white-space:nowrap;}
+#invoiceTableBody .inv-wash-count{display:flex;align-items:center;gap:5px;margin-top:4px;font-size:11.5px;font-weight:600;color:#10B981;white-space:nowrap;}
+#invoiceTableBody .tag{display:inline-block;font-size:11.5px;font-weight:500;padding:4px 9px;border-radius:6px;white-space:nowrap;}
+
+
+
+/* ---------- Pagination ---------- */
+#payments .table-pagination{border:none;border-top:1px solid #eef0f3;border-radius:0 0 14px 14px;padding:14px 16px;font-size:13px;color:#475467;}
+
+/* ---------- Invoice preview card ---------- */
+#payments .card-title{margin-bottom:10px;}
+.inv-preview-heading{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:#101828;}
+.inv-preview-heading svg{color:var(--accent);flex-shrink:0;}
+.inv-gst-badge{font-size:12px;font-weight:600;color:var(--accent);background:#fdecec;padding:5px 12px;border-radius:8px;white-space:nowrap;}
+.inv-preview-meta{font-size:12.5px;color:#667085;margin-bottom:16px;}
+
+.inv-preview-party{display:grid;grid-template-columns:1fr 1fr;gap:12px;background:#f8f9fb;border:1px solid #eef0f3;border-radius:12px;padding:14px;margin-bottom:14px;}
+.inv-party{display:flex;align-items:center;gap:12px;min-width:0;}
+.inv-party-avatar{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.inv-party-avatar--customer{background:#fdecec;color:var(--accent);}
+.inv-party-avatar--vehicle{background:#eaecf0;color:#101828;}
+.inv-party-text{min-width:0;}
+.inv-party-name{font-size:14px;font-weight:700;color:#101828;text-transform:capitalize;line-height:1.3;overflow-wrap:anywhere;}
+#previewVehiclePlate{text-transform:uppercase;}
+.inv-party-sub{font-size:12px;color:#667085;text-transform:capitalize;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+
+.inv-preview-box{background:#fff;border:1px solid #eef0f3;border-radius:12px;padding:0 14px;margin-bottom:16px;overflow:hidden;}
+.inv-preview-row{padding:13px 0;font-size:13px;}
+.inv-preview-row span:first-child{color:#475467;}
+.inv-preview-row .mono,.inv-preview-total .mono{font-family:var(--font);font-size:13px;font-weight:500;color:#101828;}
+.inv-preview-total{margin:0 -14px;padding:16px 14px;background:#fdf0f0;font-size:18px;font-weight:700;color:#101828;}
+.inv-preview-total .mono{font-size:18px;font-weight:700;}
+
+/* Buttons size to their content, then share the leftover width */
+.inv-preview-actions{display:flex;gap:8px;}
+.inv-preview-actions .btn{flex:1 1 auto;min-width:0;height:44px;padding:0 12px;border-radius:10px;font-size:14px;font-weight:600;gap:8px;white-space:nowrap;}
+.inv-preview-actions .btn .ti,.inv-preview-actions .btn svg{font-size:17px;color:inherit!important;}
+.inv-btn-whatsapp{background:#16A34A;color:#fff;border:1px solid #16A34A;}
+.inv-btn-whatsapp:hover{background:#15803D;}
+.inv-btn-pdf{background:var(--accent);color:#fff;border:1px solid var(--accent);}
+.inv-btn-pdf:hover{background:#d90100;}
+.inv-btn-edit{background:#fff;color:#101828;border:1px solid #d0d5dd;}
+.inv-btn-edit:hover{background:#f5f6f8;}
+
+/* ---------- Tablets and phones: rows become stacked cards ---------- */
+@media (max-width:1199px){
+  #payments .toolbar{flex-wrap:wrap;}
+  #payments .toolbar input[placeholder^="Search" i]{max-width:none;flex-basis:100%;}
+  #payments .table-wrap{border:none;background:transparent;}
+  #payments .table-scroll{height:auto!important;overflow:visible;padding:0;}
+  #payments .table-scroll table,#payments .table-scroll tbody{display:block;width:100%;margin:0;}
+  #payments .table-scroll thead{display:none;}
+  #payments .table-pagination{margin-top:4px;background:#fff;border:1px solid #eef0f3;border-radius:12px;flex-wrap:wrap;gap:10px;}
+
+  #invoiceTableBody tr{
+    display:grid;grid-template-columns:1fr auto auto;
+    grid-template-areas:
+      "id status status"
+      "cust cust cust"
+      "vno vmodel vmodel"
+      "amt method method"
+      "wash wash wash";
+    column-gap:12px;row-gap:8px;align-items:center;
+    background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:14px;margin-bottom:10px;
+  }
+  #invoiceTableBody tr.selected{background:#fdf0f0;border-color:#f8d7d7;}
+  #invoiceTableBody tr td,#invoiceTableBody tr td:first-child,#invoiceTableBody tr td:last-child{
+    display:block;padding:0;border:none;border-radius:0;background:transparent;width:auto;
+  }
+  #invoiceTableBody tr:hover td,#invoiceTableBody tr.selected td{background:transparent;}
+  #invoiceTableBody tr td.col-num,#invoiceTableBody tr td.col-num:first-child{display:none;}
+  #invoiceTableBody td.inv-id{grid-area:id;font-size:14px;}
+  #invoiceTableBody td.inv-status{grid-area:status;justify-self:end;}
+  #invoiceTableBody td.inv-customer{grid-area:cust;font-weight:600;}
+  #invoiceTableBody td.inv-veh-no{grid-area:vno;color:#475467!important;}
+  #invoiceTableBody td.inv-veh-model{grid-area:vmodel;color:#475467!important;justify-self:end;}
+  #invoiceTableBody td.inv-amount{grid-area:amt;font-size:15px;font-weight:700;padding-top:4px;}
+  #invoiceTableBody td.inv-method{grid-area:method;justify-self:end;padding-top:4px;}
+  #invoiceTableBody tr td.inv-wash{grid-area:wash;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:#667085!important;}
+  #invoiceTableBody td.inv-wash .inv-wash-count{margin-top:0;}
+}
+@media (max-width:640px){
+  .inv-preview-actions .btn{font-size:13px;}
+}
+
+/* KPI Cards */
+.pay-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:12px;margin-bottom:0px;}
+/* Same card as the dashboard KPI (.dash-stat-card); bottom wave comes from common.css */
+.pay-kpi{display:flex;align-items:center;gap:14px;padding:13px 14px 28px;background:#fff;border:1px solid #eef0f3;border-radius:20px;box-shadow:0px 1px 3px 0px #1018280D;}
+@media(max-width:1199px){.pay-kpi{border-radius:15px;flex-direction:column;align-items:start;}}
+.pay-kpi-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.pay-kpi-body{display:flex;flex-direction:column;min-width:0;}
+.pay-kpi-label{font-size:18px;color:#000;font-weight:700;text-transform:capitalize;}
+@media(max-width:1199px){.pay-kpi-label{font-size:14px;}}
+.pay-kpi-value{font-size:24px;font-weight:700;color:#0f1115;margin-top:4px;font-variant-numeric:tabular-nums;}
+.pay-kpi-sub{font-size:12px;color:#98a2b3;margin-top:2px;text-transform:capitalize;}
+.pay-kpi:nth-child(1){--kpi-wave:#10B981;}
+.pay-kpi:nth-child(2){--kpi-wave:#3B82F6;}
+.pay-kpi:nth-child(3){--kpi-wave:#A855F7;}
+
+/* ---- Invoice preview: products included in the service ---- */
+.inv-incl{margin:2px 0 10px;background:#fff;border:1px solid #e8ecf2;border-radius:10px;overflow:hidden;}
+.inv-incl-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;background:#f8fafc;border-bottom:1px solid #eef1f5;}
+.inv-incl-title{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:#475569;}
+.inv-incl-title svg{color:var(--accent);flex-shrink:0;}
+.inv-incl-count{font-size:10.5px;font-weight:600;color:#0369a1;background:#e0f2fe;padding:2px 8px;border-radius:999px;white-space:nowrap;}
+.inv-incl-list{padding:2px 12px;}
+.inv-incl-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;}
+.inv-incl-row + .inv-incl-row{border-top:1px dashed #e8ecf2;}
+.inv-incl-info{min-width:0;}
+.inv-incl-name{font-size:13px;font-weight:600;color:#171a20;text-transform:capitalize;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.inv-incl-meta{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:2px;font-size:11.5px;color:#70757e;}
+.inv-incl-hsn{font-size:10.5px;color:#64748b;background:#f1f5f9;border:1px solid #e2e8f0;padding:0 6px;border-radius:5px;line-height:16px;}
+.inv-incl-amt{font-size:13px;font-weight:600;color:#171a20;white-space:nowrap;}
+.inv-incl-foot{display:flex;justify-content:space-between;gap:10px;padding:8px 12px;border-top:1px solid #eef1f5;background:#fcfcfd;font-size:12px;color:#70757e;}
+.inv-incl-foot .mono{font-weight:700;color:#171a20;}
+
+/* Timeframe filter sits in the page header, left of Export */
+.pay-header-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-left:auto;}
+
+/* ==========================================================================
+   Header: same design and alignment as the Queue page header
+   (light background + shared pattern from shell.css, 10px 15px padding,
+   34px title, content inset 15px to line up with the title)
+   ========================================================================== */
+section#payments .view-header{
+  align-items:center;justify-content:space-between;gap:16px;
+  margin:0 0 0px;padding:10px 15px !important;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#payments .view-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+#payments .paymentsCommonMainAll{padding:0 15px;}
+/* header grew by ~20px: take it back from the scroll area below */
+
+
+@media (max-width:1199px){
+  #payments .view-header .view-title{font-size:28px;}
+  #payments .paymentsCommonMainAll{grid-template-columns: 1fr; height: calc(100dvh - 227px - var(--shell-extra, 0px));}
+  
+}
+@media (max-width:767px){
+  section#payments .view-header{padding:10px 12px !important;}
+
+}
+
+/* ==========================================================================
+   KPI cards: same design as the Dashboard KPI cards
+   (tinted gradient, 64px icon tile, bold label, large value, #ccc border)
+   ========================================================================== */
+#payments .pay-kpi-grid{gap:10px;margin-bottom:0px; padding: 0 12px;}
+#payments .pay-kpi{
+  --kpi-tint:#ecfbf1;--kpi-ink:#16a34a;--kpi-tile:#d6f5e1;
+  flex-direction:row;align-items:flex-start;gap:16px;
+  padding:20px !important;border:1px solid #ccc;border-radius:10px;
+  background:linear-gradient(160deg,#ffffff 0%,#ffffff 38%,var(--kpi-tint) 100%);
+  box-shadow:0 14px 30px -18px rgba(16,24,40,.38); margin-bottom: 10px;  
+}
+#payments .pay-kpi:nth-child(1){--kpi-tint:#ecfbf1;--kpi-ink:#16a34a;--kpi-tile:#d6f5e1;}
+#payments .pay-kpi:nth-child(2){--kpi-tint:#eef4ff;--kpi-ink:#2563eb;--kpi-tile:#dce8ff;}
+#payments .pay-kpi:nth-child(3){--kpi-tint:#f5f0ff;--kpi-ink:#7c3aed;--kpi-tile:#ebe1ff;}
+/* the icon colours are inline in the markup; the card palette wins */
+#payments .pay-kpi-icon{width:64px;height:64px;border-radius:16px;font-size:30px;
+  background:var(--kpi-tile) !important;color:var(--kpi-ink) !important;
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--kpi-ink) 10%,transparent);}
+#payments .pay-kpi-label{font-size:16px;font-weight:700;color:#0b0b0c;}
+#payments .pay-kpi-value{font-size:32px;font-weight:800;color:#0b0b0c;line-height:1.1;margin-top:8px;}
+#payments .pay-kpi-sub{font-size:13px;color:#667085;margin-top:4px;text-transform:none;}
+@media (max-width:1199px){
+  #payments .pay-kpi-icon{width:52px;height:52px;border-radius:14px;font-size:26px;}
+  #payments .pay-kpi-value{font-size:26px;}
+}
+@media (max-width:767px){
+  #payments .pay-kpi{flex-direction:column;gap:10px;min-height:0;padding:14px !important;}
+  #payments .pay-kpi-label{font-size:14px;}
+}
+
+/* ==========================================================================
+   Invoice table + pagination — redesign (matches the Queue / Job Cards tables):
+   one card, light header, divider rows, selected row with a red edge,
+   footer bar joined to the table, segmented pager
+   ========================================================================== */
+#payments .toolbar{border:1px solid #ccc;border-radius:10px;}
+@media (min-width:1200px){
+  #payments .table-wrap{border:1px solid #ccc;border-radius:16px;background:#fff;box-shadow:0 12px 28px -20px rgba(16,24,40,.35);}
+  #payments .table-scroll{padding:0;border-radius:16px 16px 0 0;}
+  #payments .table-scroll table{border-collapse:separate;border-spacing:0;}
+
+  #payments .table-scroll thead th{
+    background:#fafafb;color:#000;font-size:14px;font-weight:900;text-transform:capitalize;letter-spacing:.06em;
+    padding:14px 12px;border-bottom:1px solid #eef0f3;white-space:nowrap;
+  }
+  #payments .table-scroll thead tr th:first-child{border-radius:16px 0 0 0;padding-left:16px;}
+  #payments .table-scroll thead tr th:last-child{border-radius:0 16px 0 0;padding-right:16px;}
+
+  #invoiceTableBody td,
+  #invoiceTableBody td:first-child,
+  #invoiceTableBody td:last-child{
+    padding:14px 12px;font-size:13px;background:#fff;border:none;border-bottom:1px solid #f1f2f5;border-radius:0;
+  }
+  #invoiceTableBody td:first-child{padding-left:16px;}
+  #invoiceTableBody td:last-child{padding-right:16px;}
+  #invoiceTableBody tr{cursor:pointer;}
+  #invoiceTableBody tr:last-child td{border-bottom:none;}
+  #invoiceTableBody tr:hover td{background:#fff8f8;}
+  #invoiceTableBody tr.selected td{background:#fdf0f0;border-bottom-color:#f6dede;}
+  #invoiceTableBody tr:hover td:first-child,
+  #invoiceTableBody tr.selected td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+  #payments .col-num{color:#98a2b3 !important;font-weight:700;}
+
+  #invoiceTableBody .inv-id{font-weight:700;color:#101828 !important;}
+  #invoiceTableBody .inv-customer{font-weight:600;text-transform:capitalize;}
+  #invoiceTableBody .inv-veh-no{font-family:var(--mono);font-size:12.5px;letter-spacing:.02em;}
+  #invoiceTableBody .inv-amount{font-weight:700;}
+  #invoiceTableBody .tag{padding:5px 11px;border-radius:999px;font-size:12px;font-weight:600;}
+
+  /* footer bar joined to the table */
+  #payments .table-pagination{border:none;border-top:1px solid #eef0f3;border-radius:0 0 16px 16px;background:#fafafb;padding:10px 12px 10px 18px;}
+}
+
+/* segmented pager  [‹ Prev | 1 2 3 | Next ›] */
+#payments .table-pagination{color:#667085;font-size:13px;font-weight:500;}
+#payments .pagination-btns.sw-pager{gap:0;padding:3px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#payments .pagination-btns.sw-pager > .btn{height:32px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:#344054;font-weight:600;}
+#payments .pagination-btns.sw-pager > .btn:hover:not(:disabled){background:#f5f6f8;}
+#payments .pagination-btns.sw-pager > .btn:disabled,
+#payments .pagination-btns.sw-pager > .btn:disabled:hover{background:transparent;color:#c0c5cf;}
+#payments .sw-pager .pagination-pages{gap:2px;padding:0 4px;margin:0 2px;border-left:1px solid #eef0f3;border-right:1px solid #eef0f3;}
+#payments .sw-pager .page-num{min-width:32px;height:32px;border:none;border-radius:9px;background:transparent;color:#475467;}
+#payments .sw-pager .page-num:hover{background:#f5f6f8;color:#101828;}
+#payments .sw-pager .page-num.active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}
+
+/* ==========================================================================
+   Invoice preview — redesign: receipt-style card
+   header band with icon tile, party chips, dashed line items,
+   bold total band, tidy actions + payment panel
+   ========================================================================== */
+#payments .paymentsCommonMainAll > .card{
+  position:relative;overflow:hidden;padding:0;border:1px solid #ccc;
+  border-radius:10px;background:#fff;
+  box-shadow:0 12px 28px -20px rgba(16,24,40,.35);align-self:start;
+}
+/* header band */
+#payments .paymentsCommonMainAll > .card > .card-title{
+margin: 0;
+  padding: 9px 10px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: linear-gradient(180deg,#fff6f6 0%,#fff 100%);
+}
+#payments .inv-preview-heading{font-size:19px;font-weight:800;color:#0b0b0c;letter-spacing:-.2px;}
+#payments .inv-preview-heading svg{width:38px;height:38px;padding:8px;border-radius:11px;background:#fdecec;box-sizing:border-box;}
+#payments .inv-gst-badge{border-radius:999px;padding:5px 12px;font-weight:700;border:1px solid #f8d0d0;background:#fff;}
+#payments .inv-preview-meta{margin: 0;
+  padding: 0 20px 10px 60px;
+  font-size: 12.5px;
+  color: #667085;}
+
+/* customer / vehicle */
+#payments .inv-preview-party{margin:0 10px 10px;padding:12px;gap:10px;background:#fafafb;border:1px solid #eef0f3;border-radius:14px;}
+#payments .inv-party{padding:8px;border-radius:10px;background:#fff;border:1px solid #f0f1f4;}
+#payments .inv-party-avatar{width:38px;height:38px;border-radius:10px;}
+#payments .inv-party-name{font-size:13.5px;}
+
+/* line items: receipt look with dashed dividers */
+#payments .inv-preview-box{margin:0 10px 10px;padding:4px 10px 0;border:1px solid #eef0f3;border-radius:14px;}
+#payments .inv-preview-row{padding:5px 0;border-bottom:1px dashed #e4e7ec;font-size:13px;}
+#payments .inv-preview-row span:first-child{color:#475467;}
+#payments .inv-preview-row .mono{font-weight:600;color:#101828;}
+#payments #discountRow .mono{color:#16a34a;}
+/* total band */
+#payments .inv-preview-total{
+  margin:6px -16px 0;padding: 7px 16px;display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(135deg,#e3121b 0%,#b80d14 100%);color:#fff;font-size:15px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.06em;
+}
+#payments .inv-preview-total .mono{font-size:22px;font-weight:800;color:#fff;letter-spacing:0;text-transform:none;}
+#payments #splitCashRow,#payments #splitUpiRow{padding:9px 0;}
+
+/* actions */
+#payments .inv-preview-actions{padding:0 15px 18px;gap:8px;}
+#payments .inv-preview-actions .btn{height:42px;border-radius:11px;font-size:13.5px;}
+#payments .inv-btn-whatsapp{box-shadow:0 6px 14px -8px rgba(22,163,74,.8);}
+#payments .inv-btn-pdf{box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+/* discount + receive payment panel */
+#payments .inv-preview-payment{margin:0;padding:16px 20px 7px;border-top:1px dashed #e4e7ec;background:#fafafb;}
+#payments .inv-preview-payment label{color:#667085;font-size:11px;letter-spacing:.06em;}
+#payments .inv-preview-payment select,
+#payments .inv-preview-payment input{height:40px !important;border-radius:10px !important;border:1px solid #e4e7ec !important;background:#fff !important;}
+#payments .inv-preview-payment select:focus,
+#payments .inv-preview-payment input:focus{outline:none;border-color:var(--accent) !important;box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#payments .inv-preview-payment .btn{height:40px !important;border-radius:10px;}
+
+/* alignment fixes: the preview card must fit its grid column (number/text inputs have an
+   intrinsic min-width that pushed the card past the right edge), and the payment-panel
+   controls share one height, font and button style */
+#payments .paymentsCommonMainAll > .card{min-width:0;}
+#payments .inv-preview-payment > div{align-items:center;}
+#payments .inv-preview-payment input,
+#payments .inv-preview-payment select{min-width:0;font-size:13px !important;padding:0 10px !important;}
+#payments .inv-preview-payment #discountTypeSelect{flex:0 0 92px;width:92px !important;}
+#payments .inv-preview-payment #payMethodSelect{flex:1 1 auto;}
+#payments .inv-preview-payment .btn{flex:0 0 auto;padding:0 16px !important;font-size:13.5px;font-weight:600;white-space:nowrap;}
+#payments #applyDiscountBtn{background:#fff;color:var(--accent);border:1.5px solid var(--accent);}
+#payments #applyDiscountBtn:hover{background:#fff5f5;}
+#payments #markAsPaidBtn{box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+/* two-column layout: the invoice table stretches so its card ends level with the
+   preview card (rows past that height scroll inside the table) */
+@media (min-width:1200px){
+  #payments .paymentsCommonMainAll{align-items:stretch;}
+  #payments .paymentsCommonMainAll > .tablefiletrFlex{align-self:stretch;}
+  #payments .tablefiletrFlex > .table-wrap{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;}
+  #payments .table-wrap .table-scroll{height:auto !important;min-height:calc(100dvh - 333px - var(--shell-extra, 0px));}
+  #payments .table-wrap .table-pagination{flex-shrink:0;margin-top:auto;}
+}
+
+/* ==========================================================================
+   Payments page — layout to match the approved mockup
+   (KPI cards unchanged). Header, toolbar, table, pager, invoice preview.
+   ========================================================================== */
+#payments .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+/* ---- Header: title + subtitle, timeframe, Export ---- */
+#payments .pay-header-text{display:flex;flex-direction:column;min-width:0;}
+#payments .pay-header-sub{font-size:14.5px;color:#475467;margin-top:2px;}
+#payments .pay-header-actions{gap:12px;}
+#payments .pay-filter-field--icon{position:relative;}
+#payments .pay-field-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#344054;pointer-events:none;}
+#payments .pay-filter-field--icon select{height:44px;min-width:150px;padding-left:42px;border-radius:12px;border-color:#e4e7ec;font-size:14px;font-weight:600;}
+#payments .pay-export-btn{height:44px;padding:0 22px;border-radius:12px;font-size:15px;font-weight:600;gap:8px;box-shadow:0 8px 18px -10px rgba(227,18,27,.8);}
+#payments .pay-export-btn .ti{color:#fff;font-size:18px;}
+@media (max-width:767px){
+  #payments .pay-header-sub{font-size:13px;}
+  #payments .pay-header-actions{width:100%;}
+  #payments .pay-filter-field--icon{flex:1;}
+  #payments .pay-filter-field--icon select{width:100%;}
+}
+
+/* ---- Toolbar: search, status, custom range, Search button ---- */
+#payments .toolbar{gap:10px;padding:14px;align-items:center;}
+#payments .toolbar input[placeholder^="Search" i]{
+  height:44px;max-width:none;flex:1 1 260px;border-radius:12px;padding-left:44px;font-size:13.5px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23667085' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='10' cy='10' r='7'/%3E%3Cpath d='M21 21l-6-6'/%3E%3C/svg%3E");
+  background-position:15px center;background-size:18px 18px;
+}
+#payments .toolbar input[placeholder^="Search" i]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#payments .toolbar .pay-filter-field select{height:44px;min-width:130px;border-radius:12px;font-weight:600;}
+#payments #customRangeChip{height:44px;border-radius:12px;padding:0 14px;font-weight:500;}
+#payments .pay-search-btn{height:44px;padding:0 18px;border-radius:12px;font-size:14px;font-weight:600;gap:8px;box-shadow:0 8px 18px -10px rgba(227,18,27,.8);}
+@media (max-width:1199px){
+  #payments .toolbar{flex-wrap:wrap;}
+  #payments .toolbar input[placeholder^="Search" i]{flex-basis:100%;}
+  #payments .pay-search-btn{margin-left:auto;}
+}
+
+/* ---- Table (desktop): readable header, roomy rows, chevron per row ---- */
+@media (min-width:1200px){
+  #payments .table-scroll thead th{background:#f8f9fb;color:#101828;font-size:13px;font-weight:700;text-transform:none;letter-spacing:0;padding:15px 12px;}
+  #invoiceTableBody td,#invoiceTableBody td:first-child,#invoiceTableBody td:last-child{padding:15px 12px;}
+  #invoiceTableBody td:first-child{padding-left:16px;}
+  #invoiceTableBody td:last-child{position:relative;padding-right:44px;}
+  #invoiceTableBody td:last-child::after{
+    content:"";position:absolute;right:16px;top:50%;width:16px;height:16px;transform:translateY(-50%);
+    background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23344054' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E") no-repeat center/16px 16px;
+  }
+  #invoiceTableBody tr:hover td:first-child,#invoiceTableBody tr.selected td:first-child{box-shadow:none;}
+  #invoiceTableBody tr.selected td{background:#fdeeee;}
+  #payments .table-pagination{background:#fff;padding:14px 16px 14px 18px;}
+}
+
+/* ---- Pager: separate square buttons  [<] [1] [>] ---- */
+#payments .pagination-btns.sw-pager{gap:8px;padding:0;border:none;background:transparent;box-shadow:none;}
+#payments .pagination-btns.sw-pager > .btn{width:38px;height:38px;padding:0;justify-content:center;border:1px solid #e4e7ec;border-radius:10px;background:#fff;color:#344054;}
+#payments .pagination-btns.sw-pager > .btn:disabled,
+#payments .pagination-btns.sw-pager > .btn:disabled:hover{background:#fff;color:#c0c5cf;}
+#payments .sw-pager .sw-pager-label{display:none;}
+#payments .sw-pager .pagination-pages{gap:8px;padding:0;margin:0;border:none;}
+#payments .sw-pager .page-num{min-width:38px;height:38px;border:1px solid #e4e7ec;border-radius:10px;background:#fff;}
+#payments .sw-pager .page-num.active{border-color:var(--accent);}
+
+/* ---- Invoice preview ---- */
+#payments .paymentsCommonMainAll > .card > .card-title{padding:20px 20px 4px;background:linear-gradient(180deg,#fff4f4 0%,#fff 100%);}
+#payments .inv-preview-heading{font-size:20px;gap:12px;}
+#payments .inv-preview-heading svg{width:48px;height:48px;padding:11px;border-radius:14px;}
+#payments .inv-preview-meta{padding:0 20px 14px 80px;margin-top:-14px;font-size:13px;}
+#payments .inv-gst-badge{padding:6px 14px;border-radius:10px;border:1.5px solid #f3b4b4;color:var(--accent);background:#fff;}
+
+#payments .inv-preview-party{margin:0 20px 16px;padding:0;gap:10px;background:transparent;border:none;}
+#payments .inv-party{padding:12px;border:1px solid #eceef2;border-radius:12px;background:#fff;}
+#payments .inv-party-avatar{width:40px;height:40px;border-radius:10px;}
+
+#payments .inv-svc-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 20px 8px;font-size:16px;font-weight:600;color:#101828;text-transform:capitalize;}
+#payments .inv-svc-head .mono{font-family:var(--font);font-size:17px;font-weight:800;}
+
+/* item table */
+#payments .inv-items{margin:0 20px 12px;border:1px solid #eceef2;border-radius:12px;overflow:hidden;background:#fff;}
+#payments .inv-items-head,#payments .inv-item-row{display:grid;grid-template-columns:24px minmax(0,1fr) 40px 78px 84px;gap:8px;align-items:center;padding:10px 12px;}
+#payments .inv-items-head{background:#f4f6fa;font-size:12.5px;font-weight:600;color:#344054;}
+#payments .inv-items-head span:nth-child(n+4),#payments .inv-item-row > span:nth-child(n+4){text-align:right;}
+#payments .inv-items-head span:nth-child(3),#payments .inv-item-row > .inv-item-qty{text-align:center;}
+#payments .inv-item-row{border-top:1px solid #f1f2f5;font-size:13px;color:#101828;}
+#payments .inv-item-num{color:#667085;}
+#payments .inv-item-name{display:flex;align-items:center;gap:6px;min-width:0;flex-wrap:wrap;}
+#payments .inv-item-label{font-weight:700;text-transform:capitalize;}
+#payments .inv-item-hsn{font-size:11px;color:#475467;background:#f2f4f7;border:1px solid #e4e7ec;border-radius:6px;padding:1px 7px;white-space:nowrap;}
+#payments .inv-item-row .mono{font-family:var(--font);font-weight:500;}
+#payments .inv-item-sc{display:flex;align-items:center;justify-content:space-between;padding:11px 12px;border-top:1px solid #e3eaf8;background:#eef3fd;font-size:13px;font-weight:700;color:#1e293b;}
+#payments .inv-item-sc .mono{font-family:var(--font);}
+
+/* summary */
+#payments .inv-preview-box{margin:0 20px 14px;padding:2px 14px;border:1px solid #eceef2;border-radius:12px;}
+#payments .inv-preview-row{padding:9px 0;border-bottom:1px solid #f1f2f5;}
+#payments .inv-preview-box .inv-preview-row:last-child{border-bottom:none;}
+
+/* total band */
+#payments .inv-preview-total{
+  margin:0 20px 14px;padding:15px 18px;border-radius:12px;
+  text-transform:none;letter-spacing:0;font-size:17px;font-weight:600;
+  box-shadow:0 10px 22px -12px rgba(227,18,27,.8);
+}
+#payments .inv-preview-total .mono{font-size:24px;}
+#payments .inv-preview-split{margin:0 20px;}
+#payments .inv-preview-split .inv-preview-row{font-size:13px;color:#475467;}
+
+/* actions */
+#payments .inv-preview-actions{padding:0 20px 16px;}
+#payments .inv-preview-actions .btn{height:46px;font-size:14.5px;}
+
+/* discount + receive payment side by side */
+#payments .inv-preview-payment{background:#fff;border-top:1px solid #eceef2;padding:16px 20px 20px;}
+#payments .inv-pay-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;}
+#payments .inv-pay-group{min-width:0;}
+#payments .inv-preview-payment label{font-size:13px;font-weight:700;color:#101828;text-transform:none;letter-spacing:0;margin-bottom:8px;}
+#payments .inv-pay-row{display:flex;align-items:center;gap:6px;}
+#payments .inv-preview-payment #discountTypeSelect{flex:0 0 78px;width:78px !important;}
+#payments .inv-preview-payment #discountInput{flex:1 1 auto;}
+#payments #splitPaymentFields{margin-top:12px;}
+
+/* ==========================================================================
+   One scroll area under the fixed header: KPI cards + invoice table + preview
+   ========================================================================== */
+#paymentsScrollArea{
+  display:flex;flex-direction:column;gap:10px;
+  height:calc(100dvh - 180px - var(--shell-extra, 0px));
+  overflow-y:auto;overflow-x:hidden;padding:10px 0 15px;
+}
+/* the inner layout no longer needs its own height or scroll — the outer area scrolls */
+#paymentsScrollArea .paymentsCommonMainAll{height:auto !important;overflow:visible;flex-shrink:0;}
+#paymentsScrollArea .pay-kpi-grid{flex-shrink:0;}
+@media (max-width:767px){
+  /* header wraps (actions on their own row): a little more room for it */
+  #paymentsScrollArea{height:calc(100dvh - 225px - var(--shell-extra, 0px));}
+}
+
+/* invoice preview item table: columns that fit the narrow card */
+#payments .inv-items-head,#payments .inv-item-row{grid-template-columns:20px minmax(0,1fr) 34px 68px 72px;gap:6px;padding:10px;}
+#payments .inv-items-head span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+#payments .inv-item-name{flex-wrap:wrap;}
+#payments .inv-item-label{overflow-wrap:anywhere;}

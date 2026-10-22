@@ -1,0 +1,191 @@
+/* Page-specific styles for reports.html — all shared component styles live in common.css */
+
+#peakHoursChart, #staffPerformanceChart, #dailyRevenueChart, #topServicesChart{height:220px;overflow:hidden;}
+
+.report-empty{
+  min-height:180px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:6px;
+  color:#8792ac;
+  padding:16px;
+}
+
+.report-empty-title{
+  font-size:14px;
+  font-weight:600;
+  color:#101a33;
+}
+
+.report-empty-body{
+  font-size:12px;
+  line-height:1.5;
+  max-width:320px;
+  color:#8792ac;
+}
+
+/* ---------- KPI cards (light theme, matches dashboard) ---------- */
+#reports .kpi-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px;}
+#reports .kpi{position:relative;padding:13px 18px 28px;background:#fff;border:1px solid #ddd;border-radius:20px;box-shadow:0px 1px 3px 0px #1018280D;color:#142144;overflow:hidden;}
+#reports .kpi-label{display:flex;align-items:center;gap:10px;color:#000;
+  font-size:18px;font-weight:600;line-height:1.2;letter-spacing:.01em;
+@media (max-width: 1199px) {
+font-size: 14px;
+}
+
+}
+#reports .kpi-label svg{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;}
+#reports .kpi-value{margin:12px 0 0;color:#101a33;font-family:var(--font);font-size:26px;font-weight:800;line-height:1.1;letter-spacing:-.03em;font-variant-numeric:tabular-nums;}
+#reports .kpi-delta{display:flex;align-items:center;gap:6px;margin:9px 0 0;padding:0;background:none;color:#8792ac;font-size:11px;font-weight:600;line-height:1;}
+#reports .kpi-delta.up{color:#25b876;}
+#reports .kpi-delta.down{color:#e36363;}
+
+#reports .kpi--green .kpi-label svg{color:#25b876;}
+#reports .kpi--red .kpi-label svg{color:#e36363;}
+#reports .kpi--blue .kpi-label svg{color:#3798ed;}
+#reports .kpi--purple .kpi-label svg{color:#7658ff;}
+
+/* ---------- Header + chart controls (light theme) ---------- */
+#reports .view-header .btn{background:#fff;color:#344054;border:1px solid #e2e6ec;}
+#reports .view-header .btn:hover{background:#f8f9fb;}
+#reports .chart-actions{gap:7px;}
+#reports .chart-type-select{height:32px;min-width:100px;display:flex;align-items:center;gap:7px;padding:0 9px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#273a6b;position:relative;cursor:pointer;}
+#reports .chart-type-select>i:first-child{color:#ff7a1a;font-size:16px;}
+#reports .chart-type-select>i:last-child{color:#718096;font-size:15px;pointer-events:none;}
+#reports .chart-type-value{min-width:0;flex:1;color:#273a6b;font:600 12px var(--font);}
+#reports .chart-type-select select{appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;}
+
+@media (max-width: 1100px) {
+  #reports .kpi-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+}
+
+@media (max-width: 1199px) {
+ .kpi-grid { grid-template-columns: 1fr 1fr!important; }
+}
+.grid-2{
+  margin-bottom: 12px;
+}
+
+/* common.css collapses .grid-2 to 1 column below a 1100px WINDOW width, but
+   that check ignores the sidebar (~250px) eating into the actual content
+   width — so it fires long before the two chart cards actually run out of
+   room, stacking them needlessly. Keep 2 columns until the content area is
+   genuinely too narrow for two readable charts. */
+#reports .grid-2{grid-template-columns:1fr 1fr;}
+@media (max-width: 820px){
+  #reports .grid-2{grid-template-columns:1fr;}
+}
+
+/* Interactive KPIs */
+.kpi[onclick]:hover {
+
+  box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+}
+
+.btn {
+  @media (max-width: 768px) 
+    {
+      height: 36px;
+   
+    }
+  }
+
+  .view {
+  @media (max-width: 768px) 
+    {
+   padding: 12px 9px 39px;
+    }
+  }
+
+
+
+/* Header: timeframe dropdown with icon + red Export Report button */
+.rep-timeframe{position:relative;display:inline-flex;align-items:center;cursor:pointer;}
+.rep-timeframe-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#101828;pointer-events:none;z-index:1;}
+.rep-timeframe select{
+  height:42px;min-width:200px;padding:0 40px 0 42px;border:1px solid #e4e7ec;border-radius:10px;color:#101828;font-family:var(--font);font-size:14px;font-weight:500;
+  -webkit-appearance:none;appearance:none;cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23101828' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center/15px 15px;
+}
+.rep-timeframe select:hover{border-color:#d0d5dd;}
+.rep-timeframe select:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+#reports .view-header .rep-export-btn{height:42px;padding:0 20px;border-radius:10px;font-size:14px;font-weight:600;gap:8px;white-space:nowrap;background:var(--accent);color:#fff;border:1px solid var(--accent);}
+#reports .view-header .rep-export-btn:hover{background:#e00100;color:#fff;}
+#reports .rep-export-btn svg{flex-shrink:0;}
+@media (max-width:640px){
+  #reports .view-header > div:last-child{width:100%;flex-wrap:wrap;}
+  .rep-timeframe{flex:1 1 100%;}
+  .rep-timeframe select{width:100%;min-width:0;}
+  #reports .view-header .rep-export-btn{flex:1 1 100%;justify-content:center;}
+}
+
+/* ==========================================================================
+   Reports page — same design as the other pages (Queue, Dashboard, Expenses)
+   ========================================================================== */
+section#reports.view{padding:0 !important;}
+
+/* ---- Header: light background + shared pattern (shell.css), 10px 15px padding, 34px title ---- */
+#reports .view-header{
+  position:sticky;top:0;z-index:6;align-items:center;justify-content:space-between;gap:16px;
+  margin:0;padding:10px 15px;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#reports .view-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+#reports .rep-timeframe select{height:42px;border-radius:12px;font-weight:600;}
+#reports .view-header .rep-export-btn{border-radius:12px;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+/* ---- Scroll area under the fixed header (header grew ~20px) ---- */
+#reports .fixedScrolldivCommon{
+  display:flex;flex-direction:column;gap:12px;padding:0px 15px 15px;
+  height:calc(100dvh - 163px - var(--shell-extra, 0px)) !important;overflow-y:auto;overflow-x:hidden;
+}
+#reports .fixedScrolldivCommon > *{flex-shrink:0;}
+#reports .kpi-grid,#reports .grid-2{margin-bottom:0 !important;gap:12px;}
+
+/* ---- KPI cards: Queue stat cards (tinted gradient, icon tile, bold value) ---- */
+#reports .kpi{
+  --q-ink:#16a34a;--q-tile:#d6f5e1;--q-tint:#ecfbf1;
+  padding:16px 18px !important;border:1px solid #d6d6d6;border-radius:10px;
+  background:linear-gradient(135deg,#fff 0%,#fff 50%,var(--q-tint) 100%);
+  box-shadow:0 10px 24px -16px rgba(16,24,40,.25);transition:box-shadow .18s ease,border-color .18s ease;
+}
+#reports .kpi--green{--q-ink:#16a34a;--q-tile:#d6f5e1;--q-tint:#ecfbf1;}
+#reports .kpi--red{--q-ink:#e3121b;--q-tile:#ffe0e0;--q-tint:#fff0f0;}
+#reports .kpi--blue{--q-ink:#2563eb;--q-tile:#dce8ff;--q-tint:#eef4ff;}
+#reports .kpi--purple{--q-ink:#7c3aed;--q-tile:#ebe1ff;--q-tint:#f5f0ff;}
+#reports .kpi[onclick]:hover{border-color:#bdbdbd;box-shadow:0 14px 28px -16px rgba(16,24,40,.35);}
+#reports .kpi-label{gap:12px;font-size:14px;font-weight:700;color:#101828;}
+#reports .kpi-label svg{width:52px;height:52px;padding:13px;border-radius:14px;background:var(--q-tile);color:var(--q-ink) !important;box-sizing:border-box;}
+#reports .kpi-label .timeframe-label{font-weight:500;color:#667085;}
+#reports .kpi-value{margin-top:12px;font-size:28px;font-weight:800;color:#0b0b0c;}
+#reports .kpi-delta{font-size:12px;}
+
+/* ---- Chart panels: same as the Dashboard panels ---- */
+#reports .grid-2 > .card{min-width:0;margin:0;padding:18px 20px;
+  border:1px solid #ccc;border-radius:10px;background:#fff;box-shadow:0 12px 28px -20px rgba(16,24,40,.35);}
+#reports .card-title{display:flex;align-items:center;flex-wrap:wrap;gap:10px;font-size:18px;font-weight:700;color:#0b0b0c;margin-bottom:12px;}
+#reports .card-title::before{content:"";width:4px;height:22px;border-radius:4px;background:var(--accent);flex-shrink:0;}
+#reports .card-title .timeframe-label{font-size:13px;font-weight:500;color:#667085;}
+#reports .card-title-actions{margin-left:auto;}
+#reports .chart-type-select{height:36px;min-width:110px;padding:0 12px;border:1px solid #e4e7ec;border-radius:10px;background:#fff;}
+#reports .chart-type-select:hover{border-color:#d0d5dd;}
+#reports .chart-type-select>i:first-child{color:var(--accent);}
+#reports .chart-type-value{color:#101828;font:600 13px var(--font);}
+
+/* ---- Tablets / phones ---- */
+@media (max-width:1199px){
+  #reports .view-header .view-title{font-size:28px;}
+  #reports .fixedScrolldivCommon{padding: 0px 15px 44px; height:calc(100dvh - 190px - var(--shell-extra, 0px)) !important;}
+}
+@media (max-width:767px){
+  #reports .view-header{flex-direction:column;align-items:stretch;gap:10px;padding:10px 12px;}
+  #reports .view-header .view-title{font-size:24px;}
+  #reports .view-header > div:last-child{flex-wrap:wrap;}
+  #reports .fixedScrolldivCommon{height: calc(100dvh - 220px - var(--shell-extra, 0px)) !important;}
+  #reports .kpi{padding:14px !important;}
+  #reports .kpi-label svg{width:44px;height:44px;padding:11px;}
+  #reports .kpi-value{font-size:22px;}
+  #reports .grid-2 > .card{padding:14px;}
+}

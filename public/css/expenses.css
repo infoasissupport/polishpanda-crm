@@ -1,0 +1,354 @@
+/* Page-specific styles for expenses.html — all shared component styles live in common.css */
+
+/* ---------- HEADER ---------- */
+.exp-header-left{display:flex;align-items:center;gap:12px;}
+.exp-header-icon{width:44px;height:44px;border-radius:12px;background:#FFF1E8;color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+
+/* ---------- KPI CARDS ---------- */
+.exp-kpi-grid{display:grid;grid-template-columns:repeat(auto-fit, minmax(328px, 1fr));gap:12px;margin-bottom:12px;}
+.exp-kpi{display:flex;align-items:center;gap:12px;padding: 13px 18px 28px;background:#fff;border:1px solid #eef0f3;border-radius:16px;box-shadow:0 1px 3px 0 rgba(16,24,40,0.05);}
+.exp-kpi-icon{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.exp-kpi-label{font-size:18px;color:#000;font-weight:700;}
+.exp-kpi-value{font-size:22px;font-weight:700;color:#101828;margin-top:2px;line-height:1.15;}
+.exp-kpi-sub{font-size:11.5px;color:#98a2b3;margin-top:3px;}
+
+@media (max-width:1100px){ .exp-kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+@media (max-width:520px){ .exp-kpi-grid{grid-template-columns:1fr 1fr} }
+
+/* ---------- TOOLBAR ---------- */
+.exp-toolbar{flex-wrap:wrap;}
+.exp-search-box{flex:1 1 260px;min-width:200px;display:flex;
+    align-items:center;gap:8px;border:1px solid #e2e6ec;
+    border-radius:10px;padding:0 12px;height:36px; background: #fff;
+  @media (max-width:1199px){ 
+min-width: 100%;
+  }
+  }
+.exp-search-box i{color:#98a2b3;font-size:15px;}
+.exp-search-box input{ text-transform: capitalize; flex:1;border:none;outline:none;font-size:13px;color:#172033;height:100%;background:transparent;}
+
+.exp-filter-field select{height:36px;padding:0 10px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;cursor:pointer;}
+
+.exp-date-range{margin-left:auto;
+  @media (max-width:1199px){ 
+margin-left: 0;
+  }
+}
+.exp-date-range-btn{display:flex;align-items:center;gap:8px;height:38px;padding:0 12px;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:13px;font-weight:500;cursor:pointer;}
+.exp-date-range-btn i:first-child{color:#98a2b3;font-size:15px;}
+.exp-date-range-btn i:last-child{color:#98a2b3;font-size:13px;}
+
+/* ---------- SORTABLE HEADERS ---------- */
+.exp-sortable{cursor:pointer;user-select:none;white-space:nowrap;}
+.exp-sortable:hover{color:#fff;}
+.exp-sort-icon{opacity:.55;margin-left:3px;vertical-align:-1px;}
+.exp-sortable.sort-active .exp-sort-icon{opacity:1;color:var(--accent);}
+
+/* ---------- DATE CELL ---------- */
+.exp-date-cell{display:flex;align-items:center;gap:10px;}
+.exp-date-day{font-size:19px;font-weight:700;color:#101828;line-height:1;min-width:22px;}
+.exp-date-month{font-size:12.5px;font-weight:600;color:#101828;}
+.exp-date-sub{font-size:11px;color:#98a2b3;margin-top:1px;}
+
+/* ---------- NAME / DETAILS CELL ---------- */
+.exp-name-cell{display:flex;align-items:center;gap:10px;}
+.exp-icon-badge{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;}
+.exp-name{font-size:13.5px; text-transform: capitalize; font-weight:600;color:#101828;text-transform:none;}
+.exp-sub{font-size:12px;color:#98a2b3;margin-top:1px;text-transform:none;max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+
+/* ---------- CATEGORY PILL ---------- */
+.exp-cat-pill{display:inline-block;font-size:11.5px;font-weight:600;padding:4px 10px;border-radius:999px;text-transform:none;}
+
+/* ---------- AMOUNT / NOTES ---------- */
+.exp-amount{font-weight:700;color:#101828;font-family:var(--mono);}
+.exp-notes{color:#98a2b3;font-size:12.5px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;text-transform:none;}
+
+/* ---------- ACTION BUTTONS ---------- */
+.exp-actions{display:flex;align-items:center;gap:6px;}
+.exp-action-btn{width:30px;height:30px;border-radius:8px;border:1px solid #e2e6ec;background:#fff;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.exp-action-btn.edit{color:#2563EB;border-color:#bfdbfe;}
+.exp-action-btn.edit:hover{background:#EFF6FF;}
+.exp-action-btn.delete{color:#DC2626;border-color:#fecaca;}
+.exp-action-btn.delete:hover{background:#FEF2F2;}
+
+/* ---------- PAGINATION ---------- */
+.table-wrap {
+.table-scroll {
+    height: calc(100dvh - 417px - var(--shell-extra, 0px)) !important; border-radius: 0px; border: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .pagination-btns {
+    width: auto!important;
+    justify-content: space-between;
+  }
+}
+
+/* Expenses table — mobile card layout (replaces cramped 7-column table on small screens) */
+/* rows become cards on tablets and phones */
+@media (max-width:1199px){
+  #expenses .table-wrap{border:none;border-radius:0;background:transparent;overflow:visible;}
+  #expenses .table-scroll{height:auto!important;overflow:visible;border:none;}
+  #expenses .table-scroll table,
+  #expenses .table-scroll tbody,
+  #expenses .table-scroll td{display:block;width:100%;}
+  #expenses .table-scroll tr{width:100%;}
+  #expenses .table-scroll thead{display:none;}
+  #expenses .table-pagination{border-top:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:12px;}
+
+  #expTableBody tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "date cat"
+      "name name"
+      "branch amount"
+      "notes notes"
+      "actions actions";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #expTableBody tr td{padding:0;border-bottom:none;}
+
+  #expTableBody tr td.col-sl{display:none;}
+  #expTableBody tr td:nth-child(2){grid-area:date;align-self:center;}
+  #expTableBody tr td:nth-child(4){grid-area:cat;justify-self:end;align-self:center;}
+  #expTableBody tr td:nth-child(3){grid-area:name;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #expTableBody tr td:nth-child(3) .exp-sub{display:none;}
+  #expTableBody tr td:nth-child(5){grid-area:branch;font-size:13px;color:#171a20;}
+  #expTableBody tr td:nth-child(6){grid-area:amount;justify-self:end;text-align:right;font-size:15px;}
+  #expTableBody tr td:nth-child(5)::before,
+  #expTableBody tr td:nth-child(6)::before{display:block;font-size:10.5px;color:#98a2b3;text-transform:uppercase;letter-spacing:.03em;font-weight:700;margin-bottom:2px;}
+  #expTableBody tr td:nth-child(5)::before{content:'Branch';}
+  #expTableBody tr td:nth-child(6)::before{content:'Amount';}
+  #expTableBody tr td:nth-child(7){grid-area:notes;font-size:12.5px;color:#98a2b3;max-width:none;white-space:normal;overflow:visible;text-overflow:clip;padding-top:8px;border-top:0.5px dashed #e5e7eb;}
+  #expTableBody tr td:nth-child(8){grid-area:actions;}
+  #expTableBody tr td:nth-child(8) .exp-actions{justify-content:flex-end;}
+}
+
+@media (max-width: 576px) {
+  .toolbar {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    padding: 0px 0px 10px !important;
+    box-shadow: none;
+    border: none;
+  }
+}
+
+
+.view {
+  @media (max-width: 768px) {
+    
+   padding: 12px 9px 51px;
+    }
+  }
+
+  .inputMainall{
+width:140px;border: 1px solid #d1d5db; background:#fff; padding:6px 10px; font-size:13px; border-radius:8px;
+ 
+  @media (max-width: 768px) {
+width:90px;
+height:32px; 
+  }
+}
+/* Search box — white, soft border, red icon (matches the other page searches) */
+.exp-search-box{height:40px;padding:0 14px;gap:10px;border:1px solid #e4e7ec;background:#fff;border-radius:10px;align-items:center;}
+.exp-search-box:focus-within{border-color:#d0d5dd;box-shadow:0 0 0 3px rgba(250,1,0,.08);}
+.exp-search-box i.ti-search{color:var(--accent);font-size:17px;flex-shrink:0;}
+.exp-search-box input{font-size:14px;color:#101828;}
+.exp-search-box input::placeholder{color:#98a2b3;text-transform:none;}
+
+/* Filter dropdowns with leading icons (category, branch, date range) */
+.exp-field{position:relative;display:inline-flex;align-items:center;cursor:pointer;}
+.exp-field-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#101828;pointer-events:none;z-index:1;}
+.exp-toolbar .exp-field select{
+  height:42px;min-width:160px;padding:0 38px 0 44px;border:1px solid #e4e7ec;border-radius:10px;color:#101828;font-family:var(--font);font-size:14px;font-weight:500;
+  -webkit-appearance:none;appearance:none;cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23101828' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center/15px 15px;
+}
+.exp-toolbar .exp-field select:hover{border-color:#d0d5dd;}
+.exp-toolbar .exp-field select:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+
+.exp-date-range-btn{height:42px;padding:0 14px;gap:10px;border:1px solid #e4e7ec;color:#101828;font-size:14px;font-weight:500;}
+.exp-date-range-btn:hover{border-color:#d0d5dd;}
+.exp-date-range-btn:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+.exp-date-range-btn .exp-field-icon-inline{color:#101828;flex-shrink:0;}
+.exp-date-range-btn i:last-child{color:#101828;font-size:15px;margin-left:10px;}
+
+@media (max-width:1199px){
+  .exp-toolbar .exp-field{flex:1 1 calc(50% - 6px);}
+  .exp-toolbar .exp-field select{width:100%;min-width:0;}
+}
+
+/* Expense rows — boxed day, blue name badge, soft tinted action buttons */
+#expTableBody td{padding:14px 12px;vertical-align:middle;border-bottom:1px solid #eef0f3;}
+#expTableBody td.col-sl{color:#101828!important;font-weight:500;font-size:14px;}
+.exp-date-cell{gap:12px;}
+.exp-date-day{width:44px;height:44px;min-width:44px;border:1px solid #e4e7ec;border-radius:10px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:700;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.04);}
+.exp-date-month{font-size:13px;font-weight:600;color:#101828;}
+.exp-date-sub{font-size:12px;color:#667085;margin-top:2px;}
+.exp-name-cell{gap:12px;}
+.exp-icon-badge{width:40px;height:40px;border-radius:10px;background:#EEF4FF;color:#2563EB;font-size:18px;}
+.exp-icon-badge .ti{color:inherit;}
+.exp-name{font-size:14px;font-weight:600;}
+.exp-cat-pill{font-size:12px;padding:5px 12px;}
+#expTableBody td:nth-child(5){font-size:14px;color:#101828!important;}
+.exp-amount{font-family:var(--font);font-size:14px;}
+.exp-notes{color:#98a2b3;}
+.exp-actions{gap:8px;}
+.exp-action-btn{width:40px;height:40px;border-radius:10px;border:none;}
+.exp-action-btn svg{width:18px;height:18px;}
+.exp-action-btn.edit{background:#EFF6FF;color:#2563EB;}
+.exp-action-btn.edit:hover{background:#dbeafe;}
+.exp-action-btn.delete{background:#FEF2F2;color:#DC2626;}
+.exp-action-btn.delete:hover{background:#fde2e2;}
+@media (max-width:640px){
+  #expTableBody td{border-bottom:none;padding:0;}
+}
+
+/* Clear / Apply filter buttons (same as Job Cards) */
+.exp-toolbar .exp-btn-clear,.exp-toolbar .exp-btn-apply{height:42px;padding:0 20px;border-radius:10px;font-size:14px;font-weight:600;gap:8px;white-space:nowrap;}
+.exp-toolbar .exp-btn-clear{background:#fff;color:#101828;border:1px solid #d0d5dd;}
+.exp-toolbar .exp-btn-clear:hover{background:#f5f6f8;}
+.exp-toolbar .exp-btn-apply{border:1px solid var(--accent);}
+.exp-toolbar .exp-btn-apply:hover{background:#e00100;}
+@media (max-width:1199px){
+  .exp-toolbar .exp-btn-clear,.exp-toolbar .exp-btn-apply{flex:1 1 calc(50% - 6px);justify-content:center;}
+}
+
+/* ==========================================================================
+   Expenses page — same design as the other pages (Queue, Leads, Staff)
+   ========================================================================== */
+section#expenses.view{padding:0 !important;}
+
+/* ---- Header: light background + shared pattern (shell.css), 10px 15px padding, 34px title ---- */
+#expenses .view-header{
+  position:sticky;top:0;z-index:6;align-items:center;justify-content:space-between;gap:16px;
+  margin:0;padding:10px 15px;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#expenses .view-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+#expenses .exp-header-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+#expenses .exp-header-actions .btn{height:42px;padding:0 16px;border-radius:12px;font-weight:600;font-size:14px;gap:6px;white-space:nowrap;}
+#expenses #exportExpensesBtn{background:#fff;color:#101828;border:1px solid #d0d5dd;}
+#expenses #exportExpensesBtn:hover{background:#f5f6f8;}
+#expenses #newExpenseBtn{box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+#expenses #expGlobalDateFilter{width:150px;height:42px;padding:0 12px;border:1px solid #e4e7ec;border-radius:12px;font-size:14px;font-weight:600;color:#101828;}
+
+/* ---- Scroll area under the fixed header (header grew ~20px) ---- */
+#expenses .fixedScrolldivCommon{
+  display:flex;flex-direction:column;gap:12px;padding:0px 15px 15px;
+  height:calc(100dvh - 162px - var(--shell-extra, 0px)) !important;overflow-y:auto;overflow-x:hidden;
+}
+#expenses .fixedScrolldivCommon > *{flex-shrink:0;}
+#expenses .exp-kpi-grid{margin-bottom:0;gap:10px;}
+
+/* ---- KPI cards: Queue stat cards ---- */
+#expenses .exp-kpi{
+  --q-tint:#eef4ff;
+  gap:14px;padding:16px 18px !important;border:1px solid #d6d6d6;border-radius:10px;
+  background:linear-gradient(135deg,#fff 0%,#fff 50%,var(--q-tint) 100%);
+  box-shadow:0 10px 24px -16px rgba(16,24,40,.25);
+}
+#expenses .exp-kpi:nth-child(1){--q-tint:#eef4ff;}
+#expenses .exp-kpi:nth-child(2){--q-tint:#ecfbf1;}
+#expenses .exp-kpi:nth-child(3){--q-tint:#f5f0ff;}
+#expenses .exp-kpi:nth-child(4){--q-tint:#fff4ea;}
+#expenses .exp-kpi:nth-child(5){--q-tint:#fff0f0;}
+#expenses .exp-kpi:nth-child(6){--q-tint:#ecfbf1;}
+#expenses .exp-kpi-icon{width:52px;height:52px;border-radius:14px;font-size:24px;box-shadow:inset 0 0 0 1px rgba(16,24,40,.05);}
+#expenses .exp-kpi-icon .ti{color:inherit;}
+#expenses .exp-kpi-label{font-size:14px;font-weight:700;color:#101828;}
+#expenses .exp-kpi-value{font-size:26px;font-weight:800;color:#0b0b0c;}
+#expenses .exp-kpi-sub{font-size:12.5px;color:#667085;}
+
+/* ---- Toolbar + table: one card, light header, roomy rows (desktop) ---- */
+#expenses .exp-toolbar{padding:14px 16px;border:none;border-bottom:1px solid #eef0f3;gap:10px;}
+#expenses .exp-search-box{height:42px;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#expenses .exp-search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#expenses .exp-toolbar .exp-field select,#expenses .exp-date-range-btn{border-radius:12px;}
+#expenses .exp-btn-clear,#expenses .exp-btn-apply{height:42px;border-radius:12px;font-weight:600;}
+#expenses .exp-btn-apply{box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+@media (min-width:1200px){
+  #expenses .table-wrap{border:1px solid #e6e8ec;border-radius:10px;background:#fff;box-shadow:0 12px 28px -20px rgba(16,24,40,.35);}
+  #expenses .table-scroll thead th{background:#fafafb;color:#000;font-size:14px;font-weight:900;text-transform:capitalize;letter-spacing:.02em;padding:14px 12px;border-bottom:1px solid #eef0f3;white-space:nowrap;}
+  #expenses .exp-sortable:hover{color:var(--accent);}
+  #expTableBody tr:hover td{background:#fff8f8;}
+  #expTableBody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+  #expTableBody tr:last-child td{border-bottom:none;}
+  #expenses .table-pagination{border:none;
+    border-top:1px solid #eef0f3;border-radius:0 0 10px 10px;background:#fafafb;padding:10px 12px 10px 18px;}
+}
+
+/* ---- Segmented pager ---- */
+#expenses .table-pagination{color:#667085;font-size:13px;font-weight:500;}
+#expenses .pagination-btns.sw-pager{gap:0;padding:3px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#expenses .pagination-btns.sw-pager > .btn{height:32px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:#344054;font-weight:600;}
+#expenses .pagination-btns.sw-pager > .btn:hover:not(:disabled){background:#f5f6f8;}
+#expenses .pagination-btns.sw-pager > .btn:disabled,
+#expenses .pagination-btns.sw-pager > .btn:disabled:hover{background:transparent;color:#c0c5cf;}
+#expenses .sw-pager .pagination-pages{gap:2px;padding:0 4px;margin:0 2px;border-left:1px solid #eef0f3;border-right:1px solid #eef0f3;}
+#expenses .sw-pager .page-num{min-width:32px;height:32px;border:none;border-radius:9px;background:transparent;color:#475467;}
+#expenses .sw-pager .page-num:hover{background:#f5f6f8;color:#101828;}
+#expenses .sw-pager .page-num.active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}
+
+/* ---- Tablets / phones: rows are cards (layout above), side by side on tablets ---- */
+@media (max-width:1199px){
+  #expenses .view-header .view-title{font-size:28px;}
+  #expenses .exp-toolbar{padding:0 0 4px;border:none;background:transparent;}
+  #expenses .table-scroll tbody{display:grid !important;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:12px;}
+  #expTableBody tr{margin-bottom:0;border-color:#e6e8ec;border-radius:16px;box-shadow:0 12px 28px -22px rgba(16,24,40,.4);}
+  #expenses .table-pagination{margin-top:12px;border:1px solid #e6e8ec;border-radius:12px;background:#fff;}
+  #expenses .fixedScrolldivCommon{height:calc(100dvh - 217px - var(--shell-extra, 0px)) !important;}
+}
+@media (max-width:767px){
+  #expenses .view-header{flex-direction:column;align-items:stretch;gap:10px;padding:10px 12px;}
+  #expenses .view-header .view-title{font-size:24px;}
+  #expenses .exp-header-actions{display:grid;grid-template-columns:1fr 1fr;}
+  #expenses .exp-header-actions .btn{width:100%;height:40px;justify-content:center;}
+  #expenses #expGlobalDateFilter{grid-column:1 / -1;width:100%;height:40px;}
+  #expenses .fixedScrolldivCommon{padding:10px 12px 15px;height:calc(100dvh - 285px - var(--shell-extra, 0px)) !important;}
+  #expenses .table-scroll tbody{grid-template-columns:1fr;}
+  #expenses .exp-kpi{padding:14px !important;gap:10px;}
+  #expenses .exp-kpi-icon{width:44px;height:44px;}
+  #expenses .exp-kpi-value{font-size:22px;}
+}
+
+/* ---- Expense cards (≤1199px): tidy alignment ---- */
+@media (max-width:1199px){
+  #expTableBody tr{padding:16px;row-gap:12px;}
+  /* cells size to their grid area, so right-aligned ones really sit on the right */
+  #expTableBody tr td{width:auto !important;min-width:0;}
+  #expTableBody tr td:nth-child(4){justify-self:end;text-align:right;}
+  #expTableBody tr td:nth-child(3){padding-bottom:12px;border-bottom:1px dashed #e6e8ec;}
+  #expTableBody tr td:nth-child(5),
+  #expTableBody tr td:nth-child(6){align-self:start;}
+  /* notes in a soft box */
+  #expTableBody tr td:nth-child(7){padding:10px 12px;border-radius:10px;background:#f8f9fb;color:#475467 !important;font-size:12.5px;line-height:1.5;}
+  /* actions as a footer */
+  #expTableBody tr td:nth-child(8){padding-top:12px;border-top:1px dashed #e6e8ec;}
+  #expTableBody tr td:nth-child(8) .exp-actions{justify-content:flex-end;gap:8px;}
+  #expTableBody .exp-action-btn{width:38px;height:38px;border-radius:10px;}
+}
+@media (max-width:1199px){
+  #expTableBody tr td.exp-notes--empty{display:none;}   /* no notes: no empty box on the card */
+}
+
+/* ---- Custom date range popup: stay on screen on tablets and phones ---- */
+@media (max-width:1199px){
+  #expenses #expDateRangeMenu{left:0;right:auto;min-width:0;width:min(300px, calc(100vw - 32px));}
+}
+@media (max-width:767px){
+  #expenses .exp-date-range{flex:1 1 100%;}
+  #expenses .exp-date-range-btn{width:100%;justify-content:space-between;}
+  #expenses #expDateRangeMenu{right:0;width:auto;}
+  #expenses #expDateRangeMenu .field input{width:100%;min-width:0;}
+}

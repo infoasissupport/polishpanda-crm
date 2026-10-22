@@ -1,0 +1,54 @@
+/* Page-specific styles for Manager Accounts */
+#managers .table-wrap {
+  margin-top: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg, 12px);
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+
+#managers .toolbar {
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+
+#managers .toolbar input {
+  width: 100%;
+  max-width: 380px;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-body);
+  color: var(--text);
+  font-size: 0.875rem;
+  outline: none;
+}
+
+#managers table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#managers th, #managers td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.875rem;
+}
+
+#managers th {
+  background: var(--bg-body);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+#managers tr:last-child td {
+  border-bottom: none;
+}

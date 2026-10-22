@@ -1,0 +1,398 @@
+/* Page-specific styles for dashboard.html — all shared component styles live in common.css */
+
+#dashboard .grid-2 > .card{min-width:0;}
+#revenueChart{height:220px;width:100%;max-width:100%;overflow:hidden;}
+.chart-actions{gap:7px;}
+.chart-type-select{height:32px;min-width:112px;display:flex;align-items:center;gap:7px;padding:0 9px;border:1px solid #cbd5e1;border-radius:10px;background:#fff;color:#273a6b;position:relative;cursor:pointer;}
+.chart-type-select>i:first-child{color:#ff7a1a;font-size:16px;}.chart-type-select>i:last-child{color:#718096;font-size:15px;pointer-events:none;}
+.chart-type-value{min-width:0;flex:1;color:#273a6b;font:600 12px var(--font);}
+.chart-type-select select{appearance:none;position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;cursor:pointer;}
+.chart-report-link{padding: 10px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  text-transform: capitalize;
+  transition: 0.4s;}
+.chart-report-link:hover{border-color:var(--bg);color:var(--bg);}
+
+
+
+/* Live queue rows — active bays and waitlist bookings share the same card layout */
+#dashboardQueueRows .status-pill{align-self:flex-start;margin-top:1px;padding:4px 10px;border-radius:999px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;}
+
+#dashboardQueueRows .wl-row{padding:12px;border:1px solid #eef1f5;border-radius:12px;margin-bottom:10px;background:#fff;}
+#dashboardQueueRows .wl-row:last-child{margin-bottom:0;}
+#dashboardQueueRows .wl-top{display:flex;gap:10px;align-items:flex-start;}
+#dashboardQueueRows .wl-icon{width:52px;height:52px;border-radius:10px;
+  background:#FFF1E8;display:flex;align-items:center;
+  justify-content:center;color:var(--accent);flex-shrink:0;
+@media(max-width:1199px){
+width:42px;height:42px;
+}
+
+}
+#dashboardQueueRows .wl-icon svg{width:24px;height:24px;}
+#dashboardQueueRows .wl-info{flex:1;min-width:0;}
+#dashboardQueueRows .wl-customer{color:#171a20;font-size:13.5px;font-weight:700;line-height:1.25;text-transform:capitalize;}
+#dashboardQueueRows .wl-vehicle{margin-top:2px;color:#70757e;font-size:12px;line-height:1.3;}
+#dashboardQueueRows .wl-service{margin-top:2px;color:#70757e;font-size:12px;line-height:1.3;}
+/* ---------- KPI / STAT CARDS (same design language as the Services page stat cards) ---------- */
+#dashboard .dash-stats-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;margin-bottom:10px;}
+#dashboard .dash-stat-card{background:#fff;border:1px solid #eef0f3;border-radius:20px;
+  padding:13px 14px 28px;box-shadow:0px 1px 3px 0px #1018280D;display:flex;align-items:center;gap:14px;
+@media(max-width:1199px){
+  border-radius:15px;
+  flex-direction:column;
+  align-items:start;
+}
+}
+#dashboard .dash-stat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#dashboard .dash-stat-body{display:flex;flex-direction:column;min-width:0;}
+#dashboard .dash-stat-label{font-size:18px;color:#000;font-weight:700;
+  text-transform:capitalize;
+@media(max-width:1199px){
+font-size: 14px;
+}
+}
+#dashboard .dash-stat-value{font-size:24px;font-weight:700;color:#0f1115;margin-top:4px;font-variant-numeric:tabular-nums;}
+#dashboard .dash-stat-sub{font-size:12px;color:#98a2b3;margin-top:2px;text-transform:capitalize;}
+
+#dashboard .dash-badge-purple{background:#F5F3FF;color:#6D28D9;}
+#dashboard .dash-badge-amber{background:#FFF7ED;color:#C2410C;}
+#dashboard .dash-badge-green{background:#ECFDF5;color:#15803D;}
+#dashboard .dash-badge-blue{background:#EFF6FF;color:#1D4ED8;}
+#dashboard .dash-badge-teal{background:#F0FDFA;color:#0F766E;}
+#dashboard .dash-badge-pink{background:#FDF2F8;color:#BE185D;}
+#dashboard .dash-badge-red{background:#FEF2F2;color:#B91C1C;}
+
+@media(max-width:1100px){#dashboard .dash-stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+.flexScrollingMainall{
+overflow: auto;
+  max-height: 247px;
+}
+
+@media(max-width:1100px){#dashboard .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap: 9px;
+  margin-bottom: 9px;} }
+@media(max-width:520px){#dashboard .kpi-grid{grid-template-columns:1fr;}
+.grid-2{
+  gap: 10px !important;
+}
+}
+#dashboard .dash-stats-grid{gap: 10px;
+  margin-bottom: 10px;}
+.nbServicesFlex{
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+}
+.grid-2{
+  grid-template-columns: 1fr 1fr;
+  @media(max-width:1199px){
+  grid-template-columns: 1fr;
+}
+}
+/* Clickable KPI cards */
+#dashboard .dash-stat-card.is-link{cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;}
+#dashboard .dash-stat-card.is-link:hover{border-color:#bbb;box-shadow:0 8px 20px -8px rgba(16,24,40,.18);}
+#dashboard .dash-stat-card.is-link:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+@media (prefers-reduced-motion:reduce){ #dashboard .dash-stat-card.is-link:hover{transform:none;} }
+
+
+#dashboard .dash-stats-grid1{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:10px;margin-bottom:10px;
+@media (max-width:1199px){
+grid-template-columns:repeat(3,minmax(0,1fr));
+}
+@media (max-width:992px){
+grid-template-columns:repeat(2,minmax(0,1fr));
+}
+}
+/* Revenue chart header: icon + title, chart-type and date-range dropdowns */
+.dash-chart-heading{display:flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:#101828;min-width:0;}
+.dash-chart-heading svg{color:var(--accent);flex-shrink:0;}
+#dashboard .chart-actions{display:flex;align-items:center;gap:10px;
+ }
+#dashboard .chart-type-select{height:34px;min-width:0;gap:8px;padding:0 12px;border:1px solid #e4e7ec;border-radius:10px;background:#fff;}
+#dashboard .chart-type-select:hover{border-color:#d0d5dd;}
+
+#dashboard .chart-type-value{font:500 13px var(--font);color:#101828;white-space:nowrap;padding-right:14px;}
+#dashboard .chart-type-select>i:last-child{color:#667085;font-size:15px;}
+.chart-select-icon{flex-shrink:0;color:#344054;}
+.chart-select-icon--accent{color:var(--accent);}
+@media (max-width:1199px){
+  .dash-chart-heading{font-size:17px;}
+  #dashboard .card-title:has(.dash-chart-heading){flex-wrap:wrap;gap:10px;}
+}
+
+/* Live queue header + empty state */
+.dash-open-queue{display:inline-flex;align-items:center;gap:8px;padding:9px 13px;font-size:13px;}
+.dash-open-queue svg{flex-shrink:0;}
+.dash-queue-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:28px 16px 32px;}
+.dash-queue-empty-icon{position:relative;width:92px;height:92px;border-radius:50%;background:#fdecec;color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.dash-queue-empty-icon > svg:first-child{width:38px;height:38px;}
+.dash-queue-empty-spark{position:absolute;top:18px;right:18px;width:14px;height:14px;}
+.dash-queue-empty-title{font-size:17px;font-weight:700;color:#101828;margin-bottom:4px;}
+.dash-queue-empty-sub{font-size:13.5px;color:#475467;}
+
+/* Page title icon */
+.dash-page-title{display:flex;align-items:center;gap:10px;}
+.dash-page-title svg{color:var(--accent);flex-shrink:0;}
+@media (max-width:1199px){ .dash-page-title svg{width:22px;height:22px;} }
+
+/* ==========================================================================
+   Dashboard redesign (welcome hero, KPI cards, live queue table, bottom panels)
+   ========================================================================== */
+/* one scroll area for the whole page so the hero scrolls away with the content */
+
+
+/* ---- Welcome hero ---- */
+#dashboard .dash-hero{
+  position:relative;isolation:isolate;overflow:hidden;
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+padding:10px 15px 10px;
+  background:
+    linear-gradient(90deg,#fafafa 0%,#fafafa 34%,rgba(250,250,250,.88) 44%,rgba(250,250,250,0) 66%),
+    url("../images/dash-hero-car.jpg") right 18% center / auto 150% no-repeat,
+    #1b1b1d;
+}
+#dashboard .dash-hero::before{ /* red light streaks over the photo */
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:
+    linear-gradient(118deg,transparent 0 46%,rgba(227,18,27,.55) 46.6%,transparent 49%),
+    linear-gradient(118deg,transparent 0 52%,rgba(227,18,27,.28) 52.4%,transparent 55%);
+}
+#dashboard .dash-hero::after{ /* fade into the page under the cards */
+  content:"";position:absolute;left:0;right:0;bottom:0;height:60px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(244,244,245,0),#f6f6f7);
+}
+#dashboard .dash-hero-eyebrow{font-size:13px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);}
+#dashboard .dash-hero .dash-page-title{font-size:34px;font-weight:800;
+  color:#0b0b0c;letter-spacing:-.5px;line-height:1.15;margin-top:0px;}
+#dashboard .dash-hero-sub{font-size:15px;color:#344054;margin-top:4px;}
+#dashboard .dash-hero-btn{height:46px;padding:0 20px;font-size:15px;font-weight:600;border-radius:12px;box-shadow:0 10px 22px -8px rgba(227,18,27,.7);}
+#dashboard .dash-hero + .fixedScrolldivCommon{position:relative;z-index:1;
+  padding: 0 15px;}
+
+/* ---- KPI cards ---- */
+#dashboard .dash-stats-grid{gap:12px;margin-bottom:10px;}
+#dashboard .dash-stats-grid1{gap:12px;margin-bottom:10px;}
+#dashboard .dash-kpi{
+  --kpi-tint:#fff1f1;--kpi-ink:#e3121b;--kpi-tile:#ffe1e1;--kpi-wave:#e3121b;
+  position:relative;align-items:flex-start;gap:16px;padding:18px 18px 34px;
+  border: 1px solid #d6d6d6;border-radius:10px;
+  background:linear-gradient(135deg,#ffffff 0%,#ffffff 45%,var(--kpi-tint) 100%);
+  box-shadow:0 10px 24px -14px rgba(16,24,40,.25);
+}
+#dashboard .dash-kpi::after{opacity:.22;height:min(42%,52px);}
+#dashboard .dash-kpi--red{--kpi-tint:#fff0f0;--kpi-ink:#e3121b;--kpi-tile:#ffe0e0;--kpi-wave:#e3121b;}
+#dashboard .dash-kpi--orange{--kpi-tint:#fff4ea;--kpi-ink:#f97316;--kpi-tile:#ffe8d4;--kpi-wave:#f97316;}
+#dashboard .dash-kpi--green{--kpi-tint:#ecfbf1;--kpi-ink:#16a34a;--kpi-tile:#d6f5e1;--kpi-wave:#22c55e;}
+#dashboard .dash-kpi--blue{--kpi-tint:#eef4ff;--kpi-ink:#2563eb;--kpi-tile:#dce8ff;--kpi-wave:#3b82f6;}
+#dashboard .dash-kpi--teal{--kpi-tint:#ecfbf8;--kpi-ink:#0f766e;--kpi-tile:#d3f4ee;--kpi-wave:#14b8a6;}
+#dashboard .dash-kpi--pink{--kpi-tint:#fdf0f7;--kpi-ink:#be185d;--kpi-tile:#fbdcec;--kpi-wave:#ec4899;}
+#dashboard .dash-kpi .dash-stat-icon{width:64px;height:64px;border-radius:16px;background:var(--kpi-tile);color:var(--kpi-ink);}
+#dashboard .dash-kpi .dash-stat-label{font-size:16px;font-weight:700;color:#0b0b0c;padding-right:34px;}
+#dashboard .dash-kpi-line{display:flex;align-items:center;gap:14px;margin-top:6px;}
+#dashboard .dash-kpi .dash-stat-value{font-size:30px;font-weight:800;color:#0b0b0c;margin:0;line-height:1.1;}
+#dashboard .dash-kpi .dash-stat-sub{font-size:13px;color:#667085;margin-top:4px;text-transform:none;}
+#dashboard .dash-kpi-delta{display:flex;flex-direction:column;line-height:1.2;}
+#dashboard .dash-kpi-delta:empty{display:none;}
+#dashboard .dash-kpi-delta-pct{display:inline-flex;align-items:center;gap:3px;font-size:14px;font-weight:700;}
+#dashboard .dash-kpi-delta-sub{font-size:12px;color:#667085;}
+#dashboard .dash-kpi-delta--up .dash-kpi-delta-pct{color:#16a34a;}
+#dashboard .dash-kpi-delta--flat .dash-kpi-delta-pct{color:#16a34a;}
+#dashboard .dash-kpi-delta--down .dash-kpi-delta-pct{color:#dc2626;}
+#dashboard .dash-kpi-go{
+  position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:#fff;border:1.5px solid color-mix(in srgb,var(--kpi-ink) 35%,#fff);color:var(--kpi-ink);
+  transition:background-color .18s ease,color .18s ease;
+}
+#dashboard .dash-kpi.is-link:hover .dash-kpi-go{background:var(--kpi-ink);
+  color:#fff;}
+
+
+/* ---- Panels (live queue, chart, bottom row) ---- */
+#dashboard .dash-panel{border: 1px solid #d6d6d6;border-radius:10px;padding:18px;box-shadow:0 10px 24px -16px rgba(16,24,40,.22);}
+#dashboard .dash-panel-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap;}
+#dashboard .dash-panel-title{display:inline-flex;align-items:center;gap:10px;font-size:20px;font-weight:700;color:#0b0b0c;}
+#dashboard .dash-panel-title--sm{font-size:17px;}
+#dashboard .dash-panel-icon{color:var(--accent);display:inline-flex;}
+#dashboard .dash-outline-btn{
+  display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 16px;border-radius:10px;
+  border:1.5px solid var(--accent);color:var(--accent);background:#fff;font-size:14px;font-weight:600;text-decoration:none;
+  transition:background-color .18s ease,color .18s ease;
+}
+#dashboard .dash-outline-btn:hover{background:var(--accent);color:#fff;}
+#dashboard .dash-outline-btn--sm{height:32px;padding:0 12px;font-size:13px;}
+
+#dashboard .dash-table-wrap{overflow-x:auto;}
+#dashboard .dash-table{width:100%;border-collapse:separate;border-spacing:0;font-size:13.5px;}
+#dashboard .dash-table thead th{background:#f4f5f7;color:#344054;font-weight:600;font-size:13px;text-align:left;padding:10px 12px;white-space:nowrap;border:0;}
+#dashboard .dash-table thead th:first-child{border-radius:10px 0 0 10px;}
+#dashboard .dash-table thead th:last-child{border-radius:0 10px 10px 0;}
+#dashboard .dash-table tbody td{padding:11px 12px;border-bottom:1px solid #f0f1f3;color:#344054;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis;}
+#dashboard .dash-table tbody tr:last-child td{border-bottom:0;}
+#dashboard .dash-table--sm tbody td{padding:9px 10px;font-size:13px;}
+#dashboard .dash-table--sm thead th{padding:9px 10px;font-size:12.5px;}
+#dashboard .dash-td-strong{font-weight:600;color:#101828 !important;}
+#dashboard .dash-main-grid .dash-table-wrap{max-height:290px;overflow:auto;}
+
+#dashboard .dash-pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:600;background:#f2f4f7;color:#475467;text-transform:capitalize;}
+#dashboard .dash-pill--waiting,#dashboard .dash-pill--pending,#dashboard .dash-pill--confirmed{background:#fff4e5;color:#c2410c;}
+#dashboard .dash-pill--starting{background:#eef4ff;color:#1d4ed8;}
+#dashboard .dash-pill--washing,#dashboard .dash-pill--inprogress{background:#e6f9ef;color:#15803d;}
+#dashboard .dash-pill--completed,#dashboard .dash-pill--paid{background:#e6f9ef;color:#15803d;}
+#dashboard .dash-pill--cancelled,#dashboard .dash-pill--overdue{background:#fdecec;color:#b91c1c;}
+
+#dashboard .dash-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:22px 10px 8px;color:#475467;text-align:center;}
+#dashboard .dash-empty > svg{color:#475467;}
+#dashboard .dash-empty-sub{font-size:13.5px;color:#475467;}
+#dashboard .dash-empty--queue{padding:26px 10px 14px;}
+#dashboard .dash-empty-art{position:relative;width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 50% 40%,#ffe9e9,#fde3e3 70%);color:#6b7280;display:flex;align-items:center;justify-content:center;margin-bottom:8px;}
+#dashboard .dash-empty-clock{position:absolute;top:14px;right:14px;color:var(--accent);background:#fff;border-radius:50%;display:inline-flex;}
+#dashboard .dash-empty-title{font-size:16px;font-weight:700;color:#101828;}
+#dashboard .dash-empty-cta{margin-top:10px;height:42px;padding:0 20px;border-radius:10px;font-weight:600;}
+
+#dashboard .dash-bottom-grid{display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:10px;}
+#dashboard .dash-bottom-grid .dash-table-wrap{max-height:250px;overflow:auto;}
+
+@media (max-width:1399px){
+  #dashboard .dash-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+}
+@media (max-width:1199px){
+  #dashboard .dash-hero{background-position:center,right -40px center,center;}
+  #dashboard .dash-hero .dash-page-title{font-size:28px;}
+  #dashboard .dash-kpi{flex-direction:row;align-items:flex-start;}
+  #dashboard .dash-kpi .dash-stat-icon{width:52px;height:52px;border-radius:14px;}
+  #dashboard .dash-kpi .dash-stat-value{font-size:26px;}
+}
+@media (max-width:767px){
+  #dashboard .dash-hero{gap:12px;
+    background:linear-gradient(180deg,rgba(250,250,250,.94) 0%,rgba(250,250,250,.86) 60%,rgba(250,250,250,.6) 100%),url("../images/dash-hero-car.jpg") center / cover no-repeat,#1b1b1d;}
+  #dashboard .dash-hero-btn{justify-content:center;}
+
+  #dashboard .dash-bottom-grid{grid-template-columns:1fr;}
+  #dashboard .dash-kpi{flex-direction:column;gap:10px;padding:14px 14px 30px;}
+  #dashboard .dash-kpi-line{flex-wrap:wrap;gap:8px;}
+  #dashboard .dash-kpi .dash-stat-label{font-size:14px;}
+  #dashboard .dash-kpi-go{top:12px;right:12px;width:26px;height:26px;}
+}
+
+/* tables fit their card: fixed columns, long text truncates with an ellipsis */
+#dashboard .dash-table-wrap{overflow-x:hidden;}
+#dashboard .dash-table{table-layout:fixed;}
+#dashboard .dash-table thead th{text-transform:none;letter-spacing:0;overflow:hidden;text-overflow:ellipsis;}
+#dashboard .dash-table tbody td{max-width:none;}
+#dashboard .dash-table th:first-child,#dashboard .dash-table td:first-child{padding-left:14px;}
+#dashboard .dash-main-grid .dash-table-wrap{max-height:340px;overflow-y:auto;}
+#dashboard .dash-main-grid .dash-table th:nth-child(1){width:44px;}
+#dashboard .dash-main-grid .dash-table th:nth-child(5){width:16%;}
+#dashboard .dash-main-grid .dash-table th:nth-child(6){width:15%;}
+#dashboard .dash-bottom-grid .dash-table-wrap{max-height:none;overflow-y:visible;}
+/* recent appointments: time | customer | vehicle | service | status */
+#dashboard .dash-bottom-grid .dash-panel:nth-child(1) .dash-table th:nth-child(1){width:19%;}
+#dashboard .dash-bottom-grid .dash-panel:nth-child(1) .dash-table th:nth-child(5){width:24%;}
+/* recent payments: invoice | customer | amount | date | status */
+#dashboard .dash-bottom-grid .dash-panel:nth-child(2) .dash-table th:nth-child(1){width:30%;}
+#dashboard .dash-bottom-grid .dash-panel:nth-child(2) .dash-table th:nth-child(3){width:16%;}
+#dashboard .dash-bottom-grid .dash-panel:nth-child(2) .dash-table th:nth-child(5){width:21%;}
+/* top services: service | count | revenue */
+#dashboard .dash-bottom-grid .dash-panel:nth-child(3) .dash-table th:nth-child(2){width:22%;}
+#dashboard .dash-bottom-grid .dash-panel:nth-child(3) .dash-table th:nth-child(3){width:28%;}
+#dashboard .dash-empty-art{width:84px;height:84px;}
+/* bottom row: 3 across only on wide screens; otherwise 2 + Top Services full width */
+@media (max-width:1699px){
+  #dashboard .dash-bottom-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+  #dashboard .dash-bottom-grid .dash-panel:nth-child(3){grid-column:1 / -1;}
+}
+/* phones: tables keep a readable width and scroll sideways */
+@media (max-width:767px){
+  #dashboard .dash-bottom-grid{grid-template-columns:1fr;}
+  #dashboard .dash-table-wrap,
+  #dashboard .dash-bottom-grid .dash-table-wrap{overflow-x:auto;}
+  #dashboard .dash-table{table-layout:auto;min-width:560px;}
+  #dashboard .dash-bottom-grid .dash-panel:nth-child(3) .dash-table{min-width:0;}
+  #dashboard .dash-table tbody td{max-width:180px;}
+}
+#dashboard .dash-main-grid .dash-table th:nth-child(5){width:21%;}
+/* grid cards must not stretch to their table's width (tables scroll inside instead) */
+#dashboard .dash-bottom-grid > .dash-panel,
+#dashboard .dash-main-grid > .dash-panel{min-width:0;}
+/* no wave: even padding all round */
+#dashboard .dash-kpi{padding-bottom:18px !important;}
+@media (max-width:767px){ #dashboard .dash-kpi{padding-bottom:14px !important;} }
+
+/* bottom row: Recent Payments + Top Services side by side (Recent Appointments removed) */
+#dashboard .dash-bottom-grid{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);}
+#dashboard .dash-bottom-grid .dash-panel:nth-child(n){grid-column:auto;}
+#dashboard .dash-bottom-grid .dash-table th{width:auto;}
+#dashboard .dash-panel:has(#dashRecentPayments) .dash-table th:nth-child(1){width:30%;}
+#dashboard .dash-panel:has(#dashRecentPayments) .dash-table th:nth-child(3){width:15%;}
+#dashboard .dash-panel:has(#dashRecentPayments) .dash-table th:nth-child(4){width:18%;}
+#dashboard .dash-panel:has(#dashRecentPayments) .dash-table th:nth-child(5){width:17%;}
+#dashboard .dash-panel:has(#dashTopServices) .dash-table th:nth-child(2){width:20%;}
+#dashboard .dash-panel:has(#dashTopServices) .dash-table th:nth-child(3){width:28%;}
+@media (max-width:1199px){ #dashboard .dash-bottom-grid{grid-template-columns:1fr;} }
+/* ==========================================================================
+   Redesign v2: welcome hero over a dark car photo, KPI cards overlap its
+   bottom edge, tinted KPI waves, softer panels
+   ========================================================================== */
+/* ---- Hero ---- */
+section#dashboard .dash-hero{min-height:auto !important;}
+#dashboard .dash-hero{align-items:center;}
+#dashboard .dash-hero-text{display:flex;flex-direction:column;gap:2px;min-width:0;}
+#dashboard .dash-hero-eyebrow{font-size:13px;letter-spacing:.04em;}
+#dashboard .dash-hero .dash-page-title{font-size:36px;line-height:1.15;margin:0;}
+#dashboard .dash-hero-sub{font-size:16px;margin-top:2px;}
+#dashboard .dash-hero-btn{flex-shrink:0;}
+/* no car photo: light hero; the red ribbon + dot-grid pattern comes from shell.css (shared by every page header) */
+section#dashboard .dash-hero{background:linear-gradient(180deg,#fbfbfb 0%,#f5f5f6 100%) !important;}
+#dashboard .dash-hero::after{content:none;}
+@media (min-width:768px){
+  #dashboard .dash-hero{margin:0;padding:10px 15px 10px;}
+
+  /* cards slide up over the bottom of the photo */
+  #dashboard .dash-hero + .fixedScrolldivCommon{padding:0 15px 15px;
+    height:calc(100dvh - 210px - var(--shell-extra, 0px) + 46px);}
+}
+@media (min-width:768px) and (max-width:1199px){
+
+  #dashboard .dash-hero .dash-page-title{font-size:30px;}
+  #dashboard .dash-hero-sub{font-size:14px;}
+  #dashboard .dash-hero + .fixedScrolldivCommon{height:calc(100dvh - 210px - var(--shell-extra, 0px) + 46px);}
+}
+@media (max-width:767px){
+  #dashboard .dash-hero .dash-page-title{font-size:28px;}
+  #dashboard .dash-hero-sub{font-size:14px;}
+}
+
+/* ---- KPI cards ---- */
+#dashboard .dash-stats-grid,#dashboard .dash-stats-grid1{gap:10px;margin-bottom:10px;}
+#dashboard .dash-kpi{
+padding:20px !important;border:1px solid #ccc;border-radius:10px;
+  background:linear-gradient(160deg,#ffffff 0%,#ffffff 38%,var(--kpi-tint) 100%);
+  box-shadow:0 14px 30px -18px rgba(16,24,40,.38);
+}
+#dashboard .dash-kpi.is-link:hover{box-shadow:0 18px 34px -18px rgba(16,24,40,.45);}
+
+#dashboard .dash-kpi .dash-stat-icon{box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--kpi-ink) 10%,transparent);}
+#dashboard .dash-kpi .dash-stat-value{font-size:32px;}
+#dashboard .dash-kpi-line{gap:18px;margin-top:8px;}
+@media (max-width:767px){ #dashboard .dash-kpi{min-height:0;padding:14px !important;} }
+
+/* ---- Panels ---- */
+#dashboard .dash-panel{border:1px solid #ccc;border-radius:10px;padding:18px 20px;background:#fff;
+  box-shadow:0 12px 28px -20px rgba(16,24,40,.35);}
+#dashboard .dash-main-grid{gap:10px;}
+#dashboard .dash-panel-icon{width:34px;height:34px;border-radius:10px;align-items:center;justify-content:center;background:#fff1f1;}
+#dashboard .dash-panel-title--sm .dash-panel-icon{width:30px;height:30px;}
+#dashboard .dash-table thead th{background:#f5f6f8;color:#344054;}
+#dashboard .dash-table tbody tr:hover td{background:#fafafa;}
+#dashboard .dash-empty-art{background:radial-gradient(circle at 50% 40%,#ffecec,#fbdede 72%);}

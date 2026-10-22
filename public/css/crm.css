@@ -1,0 +1,156 @@
+/* Page-specific styles for crm.html — all shared component styles live in common.css */
+
+#crmTableBody .qsub{margin-top:1px;}
+
+.row-delete-btn{width:32px;height:32px;border-radius:10px;border:none;background:#fdecec;color:#991b1b;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.row-delete-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+
+/* Header row: title left, search centered, export button right */
+.crm-header{display:grid;grid-template-columns:1fr minmax(0,480px) 1fr;align-items:center;gap:16px;}
+.crm-header .view-title{justify-self:start;}
+.crm-header #crmExportBtn{justify-self:end;}
+
+.crm-header-search{justify-self:center;width:100%;display:flex;align-items:center;gap:8px;
+  height:36px;padding:0 14px;border:1px solid #C9D3E2;border-radius:10px;background:#fff;}
+.crm-header-search:focus-within{border-color:var(--accent);}
+.crm-header-search i{font-size:16px;color:#8b93a3;flex-shrink:0;}
+.crm-header-search input { text-transform: capitalize; flex:1;min-width:0;background:none;border:none;outline:none;font-family:var(--font);font-size:14px;color:#172033;}
+.crm-header-search input::placeholder{color:#94a3b8;}
+
+@media (max-width:860px){
+  .crm-header{display:flex;flex-wrap:wrap;row-gap:10px;}
+  .crm-header .view-title{order:1;flex:1 1 auto;justify-self:auto;}
+  .crm-header #crmExportBtn{order:2;flex:0 0 auto;justify-self:auto;}
+  .crm-header-search{order:3;flex:1 1 100%;width:100%;justify-self:auto;max-width:none;}
+}
+
+/* Customers table — mobile card layout (replaces cramped 8-column table on small screens) */
+@media (max-width:1199px){
+
+.table-wrap{
+border: none;
+}
+.table-scroll{
+  border: none;
+}
+  #crm .table-wrap{ padding-bottom: 40px; border:none;border-radius:0;
+    background:transparent;overflow:scroll; height: calc(100dvh - 211px - var(--shell-extra, 0px));}
+  #crm .table-scroll{height:auto!important;overflow:visible;}
+  #crm .table-scroll table,
+  #crm .table-scroll tbody,
+  #crm .table-scroll td{display:block;width:100%;}
+  #crm .table-scroll tr{width:100%;}
+  #crm .table-scroll thead{display:none;}
+  #crm .table-pagination{border-top:none;margin-top:10px;background:#fff;border:1px solid #ddd;border-radius:12px;}
+
+  #crmTableBody tr{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-areas:
+      "vehname cartype"
+      "vehnum lastwash"
+      "services services"
+      "customer action";
+    column-gap:14px;
+    row-gap:8px;
+    background:#fff;
+    border:1px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #crmTableBody tr td{padding:0;border-bottom:none;color:#171a20;}
+
+  #crmTableBody tr td.col-sl{display:none;}
+  #crmTableBody tr td:nth-child(3){grid-area:vehname;font-size:15px;font-weight:700;align-self:start;}
+  #crmTableBody tr td:nth-child(6){grid-area:cartype;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.03em;color:#475569;justify-self:end;align-self:start;}
+  #crmTableBody tr td:nth-child(4){grid-area:vehnum;font-size:13px;color:#70757e;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #crmTableBody tr td:nth-child(5){display:none;}
+  #crmTableBody tr td:nth-child(7){grid-area:services;font-size:13px;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;}
+  #crmTableBody tr td:nth-child(8){grid-area:lastwash;font-size:13px;padding-bottom:8px;border-bottom:0.5px dashed #e5e7eb;justify-self:end;text-align:right;}
+  #crmTableBody tr td:nth-child(2){grid-area:customer;font-size:13.5px;font-weight:700;align-self:center;}
+  #crmTableBody tr td:nth-child(9){grid-area:action;align-self:center;}
+  #crmTableBody tr td:nth-child(9) > div{justify-content:flex-end;}
+
+  #crmTableBody tr td:nth-child(2)::before{content:"Customer";}
+  #crmTableBody tr td:nth-child(7)::before{content:"Services";}
+  #crmTableBody tr td:nth-child(8)::before{content:"Last Wash";}
+  #crmTableBody tr td:nth-child(2)::before,
+  #crmTableBody tr td:nth-child(7)::before,
+  #crmTableBody tr td:nth-child(8)::before{
+    display:block;
+    font-size:10px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:#94a3b8;
+    margin-bottom:2px;
+  }
+}
+
+
+/* Search box — same style as the Queue page searches (red icon, soft border) */
+.crm-header-search{height:40px;padding:0 14px;gap:10px;border:1px solid #e4e7ec;border-radius:10px;background:#fff;}
+.crm-header-search:focus-within{border-color:#d0d5dd;box-shadow:0 0 0 3px rgba(250,1,0,.08);}
+.crm-header-search svg{flex-shrink:0;}
+.crm-header-search svg path{stroke:var(--accent);}
+.crm-header-search input{font-size:13.5px;color:#101828;}
+.crm-header-search input::placeholder{color:#98a2b3;text-transform:none;}
+
+/* ==========================================================================
+   Same design as the Queue page: header, table and pagination
+   ========================================================================== */
+/* ---- Header: light background + shared pattern (shell.css), 10px 15px padding, 34px title ---- */
+#crm .view-header.crm-header{
+  margin:0 0 0px;padding:10px 15px;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#crm .crm-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+#crm .crm-header-search{height:42px;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#crm .crm-header-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#crm #crmExportBtn{height:42px;padding:0 18px;border-radius:12px;font-weight:600;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+/* content lines up with the title */
+#crm > .table-wrap{margin:0 15px;}
+@media (max-width:1199px){
+  #crm .crm-header .view-title{font-size:28px;}
+}
+@media (max-width:767px){
+  #crm .view-header.crm-header{padding:10px 12px;}
+  #crm > .table-wrap{margin:0;}
+}
+
+/* ---- Table (desktop; tablets/phones keep the card layout) ---- */
+@media (min-width:1200px){
+  /* header grew ~20px: the table area gives it back */
+  #crm .table-wrap{border:1px solid #e6e8ec;border-radius:16px;background:#fff;overflow:hidden;box-shadow:0 12px 28px -20px rgba(16,24,40,.35);}
+  #crm .table-wrap .table-scroll{height:calc(100dvh - 236px - var(--shell-extra, 0px)) !important;border:none;border-radius:10px 10px 0 0;}
+  #crm .table-scroll thead th{
+    background:#fafafb;color:#000;font-size:14px;font-weight:900;text-transform:capitalize;letter-spacing:.06em;
+    padding:14px 16px;border-bottom:1px solid #eef0f3;white-space:nowrap;
+  }
+  #crm .table-scroll thead th:last-child{text-align:right;padding-right:20px;}
+
+  #crmTableBody td{padding:14px 16px;border-bottom:1px solid #f1f2f5;vertical-align:middle;transition:background-color .15s ease;}
+  #crmTableBody tr:last-child td{border-bottom:none;}
+  #crmTableBody tr:hover td{background:#fff8f8;}
+  #crmTableBody tr:hover td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+  #crmTableBody td.col-sl{color:#98a2b3 !important;font-weight:700;}
+  #crmTableBody td:last-child{text-align:right;padding-right:20px;}
+  #crmTableBody td:last-child > div{justify-content:flex-end;}
+
+  /* footer bar joined to the table */
+  #crm .table-pagination{border:none;border-top:1px solid #eef0f3;border-radius:0 0 16px 16px;background:#fafafb;padding:10px 12px 10px 18px;}
+}
+
+/* ---- Segmented pager  [< Prev | 1 2 3 | Next >] ---- */
+#crm .table-pagination{color:#667085;font-size:13px;font-weight:500;}
+#crm .pagination-btns.sw-pager{gap:0;padding:3px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#crm .pagination-btns.sw-pager > .btn{height:32px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:#344054;font-weight:600;}
+#crm .pagination-btns.sw-pager > .btn:hover:not(:disabled){background:#f5f6f8;}
+#crm .pagination-btns.sw-pager > .btn:disabled,
+#crm .pagination-btns.sw-pager > .btn:disabled:hover{background:transparent;color:#c0c5cf;}
+#crm .sw-pager .pagination-pages{gap:2px;padding:0 4px;margin:0 2px;border-left:1px solid #eef0f3;border-right:1px solid #eef0f3;}
+#crm .sw-pager .page-num{min-width:32px;height:32px;border:none;border-radius:9px;background:transparent;color:#475467;}
+#crm .sw-pager .page-num:hover{background:#f5f6f8;color:#101828;}
+#crm .sw-pager .page-num.active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}

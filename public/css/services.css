@@ -1,0 +1,355 @@
+/* Page-specific styles for services.html — all shared component styles live in common.css */
+
+/* ---------- HEADER ---------- */
+.btn-services-primary{background:#2F6FED;color:#fff;border-color:#1D4ED8;}
+.btn-services-primary:hover{background:#255ed1;}
+
+/* ---------- STATS ---------- */
+.svc-stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  margin-bottom:12px;}
+.svc-stat-card{background:#fff;border:1px solid #eef0f3;border-radius:20px;
+  padding: 12px 14px;
+  box-shadow: 0px 1px 3px 0px #1018280D;display:flex;align-items:center;gap:14px;
+@media(max-width:1199px){
+flex-direction: column;
+align-items: start;
+}
+}
+.svc-stat-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.svc-stat-body{display:flex;flex-direction:column;min-width:0;}
+.svc-stat-label{font-size:13px;color:#667085;font-weight:500;}
+.svc-stat-value{font-size:24px;font-weight:700;color:#0f1115;margin-top:4px;}
+.svc-stat-sub{font-size:12px;color:#98a2b3;margin-top:2px;}
+
+/* ---------- COLOR BADGES (shared by stat icons + card icons) ---------- */
+.svc-badge-blue{background:#EFF6FF;color:#1D4ED8;}
+.svc-badge-green{background:#ECFDF5;color:#15803D;}
+.svc-badge-orange{background:#FFF7ED;color:#C2410C;}
+.svc-badge-purple{background:#F5F3FF;color:#6D28D9;}
+.svc-badge-pink{background:#FDF2F8;color:#BE185D;}
+.svc-badge-red{background:#FEF2F2;color:#B91C1C;}
+.svc-badge-teal{background:#F0FDFA;color:#0F766E;}
+.svc-badge-cyan{background:#ECFEFF;color:#0E7490;}
+.svc-badge-indigo{background:#EEF2FF;color:#4338CA;}
+.svc-badge-yellow{background:#FEFCE8;color:#A16207;}
+
+/* ---------- TOOLBAR ---------- */
+.svc-toolbar{display: grid;
+  align-items: center;
+grid-template-columns: 1fr 8fr;
+  gap: 10px;
+  flex-wrap: wrap;
+  border-radius: 10px;
+ justify-content: space-between; 
+ margin-bottom: 12px;
+
+.view-header{
+  margin-bottom: 0px;
+}
+
+}
+.svc-search-box{display:flex; width: 100%; max-width:400px;
+  align-items:center;gap:8px;border:1px solid #e2e6ec;border-radius:10px;padding:0 12px;
+  height:38px;background: #fff;
+@media(max-width:1199px){
+max-width:none;
+}
+
+}
+.svc-search-box i{color:#98a2b3;font-size:15px;}
+.svc-search-box input{flex:1;border:none;outline:none;font-size:13px;color:#172033;height:100%;background:transparent;}
+.svc-toolbar select{height:38px;padding:0 10px;border:1px solid #e2e6ec;
+  border-radius:10px;background:#fff;color:#344054;font-size:13px;cursor:pointer;
+@media(max-width:992px){
+width: 100%;
+}
+}
+.svc-sort{display:flex;align-items:center;gap:8px;font-size:13px;color:#667085;
+  white-space:nowrap;
+
+  @media(max-width:992px){
+width: 100%;
+}
+}
+.svc-view-toggle{ display: flex;
+  gap: 4px;
+  background: var(--bg);
+  border-radius: 10px;
+  padding: 2px 3px;
+  margin-left: auto;
+svg{
+  color: #fff;
+}
+}
+.svc-view-btn{width:32px;height:32px;border:none;background:transparent;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#667085;cursor:pointer;}
+.svc-view-btn.active{background:#fff;
+  box-shadow:0 1px 2px rgba(16,24,40,0.08);
+svg{
+color: var(--accent)!important;
+}
+}
+
+/* ---------- FILTER DROPDOWN ---------- */
+.svc-filter-btn{position:relative;width:38px;height:38px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border:1px solid #e2e6ec;border-radius:10px;background:#fff;color:#344054;font-size:16px;cursor:pointer;}
+.svc-filter-btn:hover{background:#f8f9fb;}
+.svc-filter-btn.has-filters{border-color:var(--accent);color:var(--accent);}
+.svc-filter-badge{position:absolute;top:-6px;right:-6px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;line-height:1;min-width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0 3px;}
+.svc-filter-menu{flex-direction:column;gap:12px;min-width:220px;}
+.svc-filter-menu.open{display:flex;}
+
+/* ---------- SERVICE CARDS ---------- */
+.svc-grid{display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+
+
+}
+.scrollingMainall1{
+  overflow: auto;
+  height: calc(100dvh - 180px - var(--shell-extra, 0px));
+}
+.service-card{ box-shadow: 0px 1px 3px 0px #1018280D; background:#fff;border:1px solid #eef0f3;border-radius:14px;padding:1.1rem;display:flex;flex-direction:column;}
+.service-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+.service-icon{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.service-price{font-size:15px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.service-name-row{display:flex;align-items:center;gap:8px;margin-top:10px;}
+.service-name{font-size:14.5px;font-weight:600;color:#101828; text-transform: capitalize;}
+.service-price-inline{display:none;font-size:13.5px;font-weight:700;color:var(--accent);white-space:nowrap;}
+.service-desc{font-size:12.5px;color:#667085;margin:4px 0 14px;line-height:1.5;
+  text-transform: capitalize;
+ }
+.service-meta{display:flex;align-items:center;gap:14px;font-size:12px;color:#475467;margin-bottom:14px;flex-wrap:wrap;}
+.service-meta span{display:flex;align-items:center;gap:5px;}
+.service-meta i{font-size:17px;color:#98a2b3;}
+.service-status{margin-left:auto;font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;}
+.service-status.active{background:#ECFDF5;color:#15803D;}
+.service-status.inactive{background:#F2F4F7;color:#475467;}
+.service-actions{display:flex;gap:8px;margin-top:auto;}
+.service-actions .btn{flex:1;height:34px;font-size:12.5px;}
+.service-edit-btn{font-size: 15px;
+  border-color: #fa0100;
+  color: #fff;
+  background: #fa0100;}
+.service-edit-btn:hover{background:var(--bg);}
+.service-delete-btn{border:1px solid #fecaca;background:#fef2f2;color:#B91C1C;}
+.service-delete-btn:hover{background:#fee2e2;}
+
+/* ---------- EMPTY STATE ---------- */
+.svc-empty{padding:40px 0;text-align:center;color:#98a2b3;font-size:13px;}
+
+/* ---------- LIST VIEW ---------- */
+.svc-grid.list-view{grid-template-columns:1fr ;}
+.svc-grid.list-view .service-card{flex-direction:row;align-items:center;gap:16px;padding:12px 16px;}
+.svc-grid.list-view .service-card-top{gap:6px;}
+.svc-grid.list-view .service-price{display:none;}
+.svc-grid.list-view .service-name-row{margin-top:0;}
+.svc-grid.list-view .service-price-inline{display:inline;}
+.svc-grid.list-view .service-desc{display:none;}
+.svc-grid.list-view .service-meta{margin-bottom:0;flex:1;}
+.svc-grid.list-view .service-actions{margin-top:0;flex:0 0 auto;}
+.svc-grid.list-view .service-actions .btn{width:80px;flex:none;}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:1199px){
+  .svc-stats-grid,.svc-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width:700px){
+  .svc-stats-grid,.svc-grid{grid-template-columns:1fr 1fr;height: calc(100dvh - 211px - var(--shell-extra, 0px));}
+  .svc-toolbar{flex-direction:column;align-items:stretch; display: grid; grid-template-columns:1fr; }
+  .svc-view-toggle{margin-left:0;}
+  .svc-grid.list-view .service-card{flex-direction:column;align-items:stretch;}
+  .sortedByFlex{flex-wrap:wrap;}
+  .sortedByFlex .svc-search-box{flex:1 1 100%;}
+}
+
+.sortedByFlex{
+    display: flex;
+  gap:10px;
+  align-items: center;
+  justify-self: end; width: 100%;
+}
+
+ @media(max-width:1199px){
+  .svc-grid{
+  grid-template-columns: 1fr 1fr;
+  }
+
+ }
+ .view{
+   @media(max-width:1199px){
+  height: calc(100dvh - 137px - var(--shell-extra, 0px));
+   }
+ }
+
+ @media(max-width:1199px){
+  .view-header{
+    position: sticky;
+    top: 0;
+    z-index: 6;
+    background: #f4f4f4;
+    padding-bottom: 0px;
+  }
+
+ }
+/* Search box — same style as the header search (white, soft border, blue icon) */
+.svc-search-box{height:40px;padding:0 14px;gap:10px;border:1px solid #e4e7ec;background:#fff;border-radius:10px;align-items:center;}
+.svc-search-box:focus-within{border-color:#d0d5dd;box-shadow:0 0 0 3px rgba(14,165,233,.12);}
+.svc-search-box i.ti-search{color:#fa0100;font-size:17px;flex-shrink:0;}
+.svc-search-box input{font-size:14px;color:#101828;}
+.svc-search-box input::placeholder{color:#667085;}
+
+/* Service required products row */
+.svc-prod-row {
+  display: grid;
+  grid-template-columns: 2.2fr 1fr 1fr 1.2fr 36px;
+  gap: 8px;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eef0f3;
+  border-radius: 8px;
+  padding: 6px 8px;
+}
+.svc-prod-row input {
+  height: 34px;
+  padding: 0 10px;
+  border: 1px solid #d0d5dd;
+  border-radius: 6px;
+  font-size: 13px;
+  background: #fff;
+  color: #101828;
+  width: 100%;
+}
+.svc-prod-row input:focus {
+  border-color: var(--accent);
+  outline: none;
+}
+.svc-prod-del-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  border: 1px solid #fee4e2;
+  background: #fef3f2;
+  color: #d92d20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.svc-prod-del-btn:hover {
+  background: #fee4e2;
+  color: #b42318;
+}
+
+@media(max-width: 640px) {
+   .svc-grid{
+  grid-template-columns: 1fr ;
+  }
+  .svc-prod-row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 10px;
+  }
+  .svc-prod-row .svc-prod-name {
+    grid-column: span 2;
+  }
+  #svcProductsHeader {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================
+   Services and Products pages — same design as the other pages (Queue, Job Cards, Payments)
+   ========================================================================== */
+/* ---- Header: light background + shared pattern (shell.css), 10px 15px padding, 34px title ---- */
+:is(#services,#products) .svc-toolbar{
+  grid-template-columns:auto minmax(0,1fr);gap:16px;margin:0 0 0px;padding:10px 15px;border-radius:0;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+:is(#services,#products) .svc-toolbar .view-header{margin:0;padding:0;background:transparent;position:static;}
+:is(#services,#products) .svc-toolbar .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;white-space:nowrap;}
+:is(#services,#products) .sortedByFlex{justify-content:flex-end;}
+:is(#services,#products) .svc-search-box{height:42px;max-width:380px;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+:is(#services,#products) .svc-search-box:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+/* grid / list toggle: white segmented control, active = red */
+:is(#services,#products) .svc-view-toggle{margin-left:0;padding:3px;gap:2px;background:#fff;border:1px solid #e4e7ec;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+:is(#services,#products) .svc-view-toggle svg{color:#667085;}
+:is(#services,#products) .svc-view-btn{width:34px;height:34px;border-radius:9px;}
+:is(#services,#products) .svc-view-btn:hover{background:#f5f6f8;}
+:is(#services,#products) .svc-view-btn.active{background:var(--accent);box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}
+:is(#services,#products) .svc-view-btn.active svg{color:#fff !important;}
+:is(#services,#products) #addServiceBtn,:is(#services,#products) #addProductBtn{height:42px;padding:0 18px;border-radius:12px;font-weight:600;white-space:nowrap;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+/* content lines up with the title; the header grew ~20px so the scroll area gives it back */
+:is(#services,#products) .scrollingMainall1{padding:0 15px 15px;height:calc(100dvh - 161px - var(--shell-extra, 0px));}
+:is(#services,#products) .svc-empty{margin:0 15px;}
+
+/* ---- Service cards ---- */
+:is(#services,#products) .svc-grid{gap:10px;}
+:is(#services,#products) .service-card{
+  position:relative;isolation:isolate;padding:18px;
+  border:1px solid #e6e8ec;border-radius:16px;background:#fff;
+  box-shadow:0 12px 28px -22px rgba(16,24,40,.4);
+  transition:border-color .18s ease,box-shadow .18s ease,transform .18s ease;
+}
+:is(#services,#products) .service-card::before{   /* soft tint in the corner */
+  content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;z-index:-1;
+  background:radial-gradient(circle,rgba(227,18,27,.07),transparent 70%);
+}
+:is(#services,#products) .service-card:hover{border-color:#f3c9c9;box-shadow:0 18px 32px -20px rgba(16,24,40,.45);}
+
+:is(#services,#products) .service-icon{width:48px;height:48px;border-radius:14px;font-size:22px;box-shadow:inset 0 0 0 1px rgba(16,24,40,.05);}
+:is(#services,#products) .service-price{padding:5px 12px;border-radius:999px;background:#fff1f1;border:1px solid #f8d0d0;color:var(--accent);font-size:14.5px;font-weight:800;}
+:is(#services,#products) .service-name-row{margin-top:14px;}
+:is(#services,#products) .service-name{font-size:16px;font-weight:700;}
+:is(#services,#products) .service-desc{font-size:13px;margin:4px 0 14px;}
+:is(#services,#products) .service-meta{gap:6px;margin-bottom:0px;}
+:is(#services,#products) .service-meta span{padding:5px 10px;border-radius:999px;background:#f5f6f8;color:#344054;font-weight:500;}
+:is(#services,#products) .service-meta i{font-size:15px;color:#667085;}
+:is(#services,#products) .service-meta .service-status{margin-left:auto;font-weight:700;}
+:is(#services,#products) .service-meta .service-status.active{background:#ecfdf3;color:#15803d;}
+:is(#services,#products) .service-meta .service-status.inactive{background:#f2f4f7;color:#475467;}
+:is(#services,#products) .service-actions{gap:8px;padding-top:14px;border-top:1px dashed #e6e8ec;}
+:is(#services,#products) .service-actions .btn{height:38px;border-radius:10px;font-size:13.5px;font-weight:600;gap:6px;}
+:is(#services,#products) .service-edit-btn{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+:is(#services,#products) .service-edit-btn:hover{background:#c0111a;border-color:#c0111a;}
+:is(#services,#products) .service-delete-btn{background:#fff;border:1.5px solid #f6c3c3;color:#c0111a;}
+:is(#services,#products) .service-delete-btn:hover{background:#fff1f1;}
+
+/* list view keeps its row layout */
+:is(#services,#products) .svc-grid.list-view .service-card{padding:14px 18px;}
+:is(#services,#products) .svc-grid.list-view .service-name-row{margin-top:0;}
+:is(#services,#products) .svc-grid.list-view .service-actions{padding-top:0;border-top:none;}
+
+/* ---- Tablets / phones ---- */
+@media (max-width:1199px){
+  :is(#services,#products) .svc-toolbar{grid-template-columns:1fr;gap:10px;}
+  :is(#services,#products) .svc-toolbar .view-title{font-size:28px;}
+  :is(#services,#products) .sortedByFlex{justify-content:flex-start;}
+  :is(#services,#products) .svc-search-box{max-width:none;flex:1 1 auto;}
+  :is(#services,#products) .scrollingMainall1{height:calc(100dvh - 252px - var(--shell-extra, 0px));}
+}
+@media (max-width:767px){
+  :is(#services,#products) .svc-toolbar{padding:10px 12px;}
+  :is(#services,#products) .scrollingMainall1{padding:0 15px 15px;}
+  :is(#services,#products) .svc-empty{margin:0;}
+}
+
+/* ---- Tablets / phones: one scroll (the page), no fixed-height boxes that leave empty space at the bottom ---- */
+@media (max-width:1199px){
+  :is(#services,#products) .scrollingMainall1{height:auto !important;overflow:visible;padding-bottom:34px;}
+  :is(#services,#products) .svc-grid{height:auto !important;align-content:start;}
+  /* header stays pinned while the cards scroll under it */
+  :is(#services,#products) .svc-toolbar{position:sticky;top:0;z-index:6;}
+}
+
+/* ---- No sideways scroll: card columns may shrink below their content width ---- */
+:is(#services,#products) .scrollingMainall1{overflow-x:hidden;}
+:is(#services,#products) .svc-grid{grid-template-columns:repeat(4,minmax(0,1fr));}
+:is(#services,#products) .service-card{min-width:0;}
+:is(#services,#products) .service-meta{min-width:0;}
+:is(#services,#products) .service-meta span{white-space:nowrap;}
+@media (max-width:1399px){ :is(#services,#products) .svc-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media (max-width:1199px){ :is(#services,#products) .svc-grid{grid-template-columns:1fr 1fr} }
+@media (max-width:640px){ :is(#services,#products) .svc-grid{grid-template-columns:minmax(0,1fr);} }
+:is(#services,#products) .svc-grid.list-view{grid-template-columns:minmax(0,1fr);}

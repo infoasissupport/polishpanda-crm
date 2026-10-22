@@ -1,0 +1,388 @@
+/* Job cards — single unified table with per-row status, filterable (used only on jobcards.html) */
+#jobcards {
+height: calc(100dvh - 85px - var(--shell-extra, 0px))!important;
+
+
+  .view-header{
+    align-items: center;
+  }
+  }
+
+#jcTableScroll{height: calc(100dvh - 296px - var(--shell-extra, 0px));overflow-y:auto;}
+
+/* Keep the header fixed in place — only the toolbar/table/pagination below it scroll. */
+#jcScrollArea{height:calc(100dvh - 172px - var(--shell-extra, 0px)); background: #fff; border-radius: 10px;}
+@media (max-width:1199px){#jcScrollArea{height:calc(100dvh - 220px - var(--shell-extra, 0px));}}
+
+.jc-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:0px;
+  flex-wrap:wrap; padding: 15px;}
+.jc-search{flex:1;min-width:220px;display:flex;align-items:center;gap:6px;height:36px;padding:0 10px;border:1px solid #e2e6ec;background:#f6f7f9;border-radius:10px;transition:border-color .15s ease;
+
+  i{
+    color: #fa0100!important;
+  }
+@media (max-width: 768px) {
+flex: auto;
+}
+
+}
+.jc-search:focus-within{border-color:#C9D3E2;background:#fff;}
+.jc-search i{font-size:15px;color:#94a3b8;flex-shrink:0;}
+.jc-search input{background:none;border:none;outline:none;color:#172033;font-family:var(--font);font-size:13px;width:100%;}
+.jc-search input::placeholder{color:#94a3b8;}
+.jc-toolbar select, .jc-toolbar input[type="date"]{height:36px;padding:0 10px;border:1px solid #C9D3E2;border-radius:10px;background:#fff;color:#172033;font-size:12.5px;cursor:pointer;}
+
+
+.jc-filter-toggle{display:none;}
+.jc-filter-fields{display:contents;}
+.jc-filter-badge{display:inline-flex;align-items:center;justify-content:center;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:#fff;font-size:11px;font-weight:700;margin-left:2px;}
+
+.jc-id{font-family:var(--mono);font-size:13px;font-weight:700;}
+.jc-row-sub{ text-transform: capitalize; margin-top:2px;font-size:11.5px;color:#70757e;display:flex;align-items:center;gap:4px;}
+.jc-row-primary{font-size:13px;font-weight:600;color:#171a20;display:flex;align-items:center;gap:6px;}
+.jc-row-primary i{font-size:14px;color:#94a3b8;}
+
+.jc-vc-cell{display:flex;align-items:center;gap:10px;}
+.jc-vc-icon{width:34px;height:34px;border-radius:9px;background:#f1f2f4;color:#94a3b8;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+
+.jc-service-item{font-size:12.5px;color:#475569;line-height:1.5;}
+.jc-note{display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:220px;font-size:12.5px;color:#475569;line-height:1.4;cursor:help;white-space:pre-line;}
+.jc-note-src{display:inline-block;margin-right:5px;padding:0 6px;border-radius:8px;background:#eef2ff;color:#4f46e5;font-size:10.5px;font-weight:600;vertical-align:1px;}
+.jc-note-empty{color:#94a3b8;}
+.jc-service-clamp{display:-webkit-box;-webkit-line-clamp:2;line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;max-width:220px;cursor:help;}
+
+.jc-bay-pill{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700;}
+
+.jc-actions{display:flex;align-items:center;gap:6px;}
+.jc-action-btn{height:32px;padding:0 12px;border-radius:10px;font-size:12px;font-weight:600;gap:6px;background:#fff;border:1px solid currentColor;}
+.jc-action-btn:hover{background:#f6f7f9;}
+.jc-action-btn i{font-size:13px;}
+
+.jc-delete-btn{width:32px;height:32px;border-radius:10px;border:none;background:#fdecec;color:#991b1b;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;}
+.jc-delete-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+
+.jc-edit-btn{width:32px;height:32px;border-radius:10px;border:none;background:#EFF6FF;color:#1D4ED8;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;}
+.jc-edit-btn:hover{background:#dbeafe;color:#1e40af;}
+
+
+/* ---------- JOB CARD MODAL ---------- */
+#jobCardModalTitle{display:flex;align-items:center;gap:10px;}
+.jc-modal-id{font-family:var(--mono);}
+
+.jc-modal-vehicle{display:flex;align-items:center;gap:12px;}
+.jc-modal-vehicle .jc-vc-icon{width:40px;height:40px;}
+.jc-modal-vehicle .jc-vc-icon svg{width:20px;height:20px;}
+.jcard-name{font-size:14.5px;font-weight:700;color:#171a20; text-transform: capitalize;}
+
+.jc-meta{display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+  font-size: 12.5px;
+  color: #171a20;
+  background: #f9fafb;
+  border: 1px solid #eef1f5;
+  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 4px;
+  align-items: center;}
+.jc-meta-item{display:flex;align-items:center;gap:5px;}
+.jc-meta-item:not(:last-child){padding-right:16px;border-right:1px solid #e5e7eb;}
+.jc-meta i{font-size:14px;color:#94a3b8;}
+.jc-meta-label{color:#94a3b8;}
+.jc-meta-value{color:#171a20;font-weight:600; text-transform: capitalize;}
+
+.jc-modal-section{background:#fff;border:1px solid #eef1f5;
+  border-radius:12px;padding:14px;}
+.jc-modal-section h3{font-size:12px;font-weight:700;color:#171a20;text-transform:uppercase;letter-spacing:.03em;margin-bottom:10px;}
+.jc-modal-section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.jc-modal-section-head h3{margin-bottom:0;}
+.jc-checklist-count{font-size:11.5px;font-weight:700;color:#475569;background:#f1f2f4;border-radius:999px;padding:2px 10px;}
+
+.jc-progress-track{height:5px;border-radius:99px;background:#eef1f5;overflow:hidden;margin-bottom:10px;}
+.jc-progress-fill{height:100%;background:#16a34a;border-radius:99px;transition:width .2s ease;}
+
+.jc-checklist-row{display:flex;align-items:center;gap:9px;padding:9px 10px;border-radius:10px;font-size:13px;color:#475569;cursor:pointer;border:1px solid transparent;}
+.jc-checklist-row:hover{background:#f6f7f9;border-color:#eef1f5;}
+.jc-checklist-row .jc-check{width:19px;height:19px;border-radius:6px;border:1.5px solid #d7dbe1;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:11px;color:transparent;transition:background .15s ease,border-color .15s ease;}
+.jc-checklist-row.done .jc-check{background:#16a34a;border-color:#16a34a;color:#fff;}
+.jc-checklist-row.done{color:#171a20;text-decoration:line-through;text-decoration-color:#d7dbe1;}
+.jc-checklist-label{flex:1;}
+.jc-checklist-delete{width:22px;height:22px;border-radius:6px;border:none;background:none;color:#c0c4cc;display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;}
+.jc-checklist-delete:hover{background:#fdecec;color:#991b1b;}
+.jc-checklist-delete i{font-size:13px;}
+
+.jc-checklist-add{display:flex;gap:8px;margin-top:10px;}
+.jc-checklist-add input{flex:1;height:36px;padding:0 12px;border:1px solid #e2e6ec;border-radius:10px;font-size:13px;color:#172033;outline:none;background:#fff;}
+.jc-checklist-add input:focus{border-color:var(--accent);}
+.jc-checklist-add button{height:36px;padding:0 14px;font-size:12.5px;flex-shrink:0;}
+
+.jc-photo-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+.photo-ph{flex:0 0 64px;height:56px;border-radius:8px;background:#f1f2f4;border:1px solid #eef1f5;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:13px;cursor:pointer;}
+.jc-add-photo{flex:0 0 64px;height:56px;border-radius:10px;border:1px dashed #d7dbe1;background:none;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-size:17px;cursor:pointer;}
+.jc-add-photo:hover{background:#f6f7f9;color:#475569;}
+
+.jc-cancel-btn{background:#fdecec;color:#991b1b;border:none;}
+.jc-cancel-btn:hover{background:#fbd5d5;color:#7f1d1d;}
+.jc-cancel-btn i{color:inherit;}
+
+@media (max-width: 768px) {
+  .jc-tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    border-radius: 12px;
+  }
+  .jc-tab {
+    flex: 0 0 auto;
+    min-width: 130px;
+    padding: 12px 14px;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+}
+
+/* search + Filters toggle (collapsible filter fields) on tablets and phones */
+@media (max-width: 1199px) {
+  .jc-toolbar { flex-direction: column; align-items: stretch; }
+
+  .jc-filter-toggle{
+    display:flex; align-items:center; justify-content:center; gap:8px;
+    width:100%; height:38px; font-size:13px; font-weight:600; color:#fff;
+  }
+  .jc-filter-toggle i{font-size:15px;}
+  .jc-filter-chevron{margin-left:2px;transition:transform .2s ease;}
+  .jc-filter-toggle.open .jc-filter-chevron{transform:rotate(180deg);}
+  .jc-filter-toggle.open{border-color:var(--accent);color:var(--accent);}
+
+  .jc-filter-fields{
+    display:none; flex-direction:column; align-items:stretch;
+    width:100%; gap:10px; margin-top:0px;
+  }
+  .jc-filter-fields.open{display: grid;
+    grid-template-columns: 1fr 1fr 1fr;}
+  .jc-filter-fields select, .jc-filter-fields input[type="date"]{width:100%;}
+}
+
+@media (max-width: 1199px) {
+  .jc-filter-fields .jc-field{width:100%;}
+  .jc-filter-fields .jc-field select,.jc-filter-fields .jc-field input[type="date"]{width:100%;min-width:0;}
+  .jc-filter-fields .jc-btn-clear,.jc-filter-fields .jc-btn-apply{justify-content:center;}
+}
+/* phones: one filter per row */
+@media (max-width: 768px) {
+  .jc-filter-fields.open{grid-template-columns:1fr;}
+}
+
+/* ---------- Job cards table -> stacked cards below 992px ----------
+   8 columns (Job Card, Vehicle & Customer, Service, Bay, Assigned To,
+   Start Time, Status, Action) can't fit a tablet/phone width without
+   horizontal scrolling, so each row becomes a card laid out with CSS
+   grid — no JS/markup changes needed, td order stays the same and is
+   just re-placed into named grid areas. */
+@media (max-width: 992px) {
+  #jcTableScroll{height:auto;overflow:visible;border:none;border-radius:0;background:transparent;}
+  #jcTableScroll table, #jcTableScroll tbody{display:block;width:100%;}
+  #jcTableScroll thead{display:none;}
+
+  #jcTableRows tr[data-id]{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    grid-template-areas:
+      "jobid   jobid   status"
+      "vehicle vehicle vehicle"
+      "service service service"
+      "bay     staff   time"
+      "note    note    note"
+      "actions actions actions";
+    gap:10px;
+    background:#fff;
+    border:1px solid #e5e7eb;
+    border-radius:14px;
+    padding:14px;
+    margin-bottom:10px;
+    box-shadow:0 1px 4px rgba(15,23,42,.05);
+  }
+  #jcTableRows tr:not([data-id]) td{display:block;padding:24px 0;}
+
+  #jcTableRows td{padding:0;border-bottom:none;}
+  #jcTableRows td.jc-td-sl{display:none;}
+  #jcTableRows td:nth-child(2){grid-area:jobid;align-self:center;}
+  #jcTableRows td:nth-child(3){grid-area:vehicle;padding-top:10px;border-top:0.5px dashed #e5e7eb;}
+  #jcTableRows td:nth-child(4){grid-area:service;}
+  #jcTableRows td:nth-child(5){grid-area:bay;}
+  #jcTableRows td:nth-child(6){grid-area:staff;}
+  #jcTableRows td:nth-child(7){grid-area:time;}
+  #jcTableRows td:nth-child(8){grid-area:note;}
+  #jcTableRows td:nth-child(8) .jc-note{max-width:none;}
+  #jcTableRows td:nth-child(8):has(.jc-note-empty){display:none;}
+  #jcTableRows td:nth-child(9){grid-area:status;justify-self:end;align-self:center;}
+  #jcTableRows td:nth-child(10){grid-area:actions;padding-top:10px;border-top:0.5px dashed #e5e7eb;}
+  #jcTableRows td:nth-child(10) .jc-actions{flex-wrap:wrap;}
+  #jcTableRows td:nth-child(10) .jc-action-btn{flex:1;justify-content:center;}
+}
+
+
+
+/* Sl No column */
+#jcTableRows .jc-td-sl,.jc-col-sl{width:56px;text-align:center;}
+#jcTableRows .jc-td-sl{color:#667085;font-size:13px;font-weight:600;}
+
+/* =====================================================================
+   Job cards redesign — icon filters, Clear/Apply buttons, dark header, empty state
+   ===================================================================== */
+.jc-toolbar{gap:12px;padding:16px;}
+.jc-search{height:42px;padding:0 14px;gap:10px;border-color:#e4e7ec;background:#fff;}
+.jc-search i{font-size:17px;}
+.jc-search input{font-size:13.5px;}
+.jc-search input::placeholder{color:#98a2b3;}
+
+.jc-field{position:relative;display:inline-flex;align-items:center;cursor:pointer;}
+.jc-field-icon{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:#344054;pointer-events:none;z-index:1;}
+.jc-toolbar .jc-field select,.jc-toolbar .jc-field input[type="date"]{
+  height:42px;padding:0 38px 0 42px;border:1px solid #e4e7ec;border-radius:10px;color:#101828;font-family:var(--font);font-size:13.5px;font-weight:500;
+  -webkit-appearance:none;appearance:none;cursor:pointer;
+  background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23344054' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat right 13px center/15px 15px;
+}
+.jc-toolbar .jc-field select:hover,.jc-toolbar .jc-field input[type="date"]:hover{border-color:#d0d5dd;}
+.jc-toolbar .jc-field select:focus-visible,.jc-toolbar .jc-field input[type="date"]:focus-visible{outline:2px solid var(--accent);outline-offset:1px;}
+/* Native date picker: invisible but stretched over the whole field so a click anywhere opens it */
+.jc-field--date input[type="date"]{position:relative;min-width:170px;}
+.jc-field--date input[type="date"]::-webkit-calendar-picker-indicator{position:absolute;inset:0;width:auto;height:auto;opacity:0;cursor:pointer;}
+
+.jc-toolbar .jc-btn-clear,.jc-toolbar .jc-btn-apply{height:42px;padding:0 20px;border-radius:10px;font-size:14px;font-weight:600;gap:8px;}
+.jc-toolbar .jc-btn-clear{background:#fff;color:#101828;border:1px solid #d0d5dd;}
+.jc-toolbar .jc-btn-clear:hover{background:#f5f6f8;}
+.jc-toolbar .jc-btn-apply{border:1px solid var(--accent);}
+.jc-toolbar .jc-btn-apply:hover{background:#e00100;}
+
+/* Table header: rounded dark bar */
+#jcTableScroll{margin:0 16px;border:1px solid #eef0f3;border-radius:12px;}
+#jcTableScroll thead th{background:#111418;color:#fff;font-size:11.5px;font-weight:700;letter-spacing:.03em;padding:16px 12px;border-bottom:none;white-space:nowrap;}
+#jcTableScroll thead tr th:first-child{border-top-left-radius:12px;}
+#jcTableScroll thead tr th:last-child{border-top-right-radius:12px;}
+
+/* Empty state */
+#jcTableRows tr.jc-empty-row td{padding:0;border-bottom:none;}
+.jc-empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:30px 16px 36px;}
+.jc-empty-icon{position:relative;width:96px;height:96px;border-radius:50%;background:#fdecec;color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:18px;}
+.jc-empty-badge{position:absolute;right:22px;bottom:22px;width:20px;height:20px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 3px #fdecec;}
+.jc-empty-title{font-size:17px;font-weight:700;color:#101828;margin-bottom:4px;text-transform:none;}
+.jc-empty-sub{font-size:13.5px;color:#475467;text-transform:none;}
+
+@media (max-width:992px){
+  .jc-filter-fields .jc-field{width:100%;}
+  .jc-filter-fields .jc-field select,.jc-filter-fields .jc-field input[type="date"]{width:100%;min-width:0;}
+  .jc-filter-fields .jc-btn-clear,.jc-filter-fields .jc-btn-apply{justify-content:center;}
+  #jcTableScroll{margin:0;border:none;border-radius:0;}
+  #jcTableRows tr.jc-empty-row{display:block;}
+  #jcTableRows tr.jc-empty-row td{display:block;}
+}
+
+/* ==========================================================================
+   Header: same design and alignment as the Queue page header
+   (light background + shared pattern from shell.css, 10px 15px padding,
+   34px title, content inset 15px to line up with the title)
+   ========================================================================== */
+#jobcards .view-header{
+  align-items:center;justify-content:space-between;gap:16px;
+  margin:0 0 0px;padding:10px 15px;min-height:auto;
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%);
+}
+#jobcards .view-header .view-title{font-size:34px;font-weight:800;color:#0b0b0c;letter-spacing:-.4px;line-height:1.15;}
+
+
+@media (max-width:1199px){
+  #jobcards .view-header .view-title{font-size:28px;}
+  #jcScrollArea{height:calc(100dvh - 234px - var(--shell-extra, 0px));}
+}
+@media (max-width:767px){
+  #jobcards .view-header{padding:10px 12px;}
+ 
+}
+
+/* ==========================================================================
+   Job cards table — redesign (matches the Queue tables):
+   panel card, light table header, table + pagination joined, segmented pager
+   ========================================================================== */
+#jcScrollArea{border:1px solid #ccc;border-radius:15px; 
+  box-shadow:0 12px 28px -20px rgba(16,24,40,.35); margin: 0 15px;}
+
+/* toolbar: one control height, softer search box */
+#jobcards .jc-toolbar{padding:16px;gap:10px;}
+#jobcards .jc-search{height:42px;padding:0 14px;gap:10px;border:1px solid #e4e7ec;background:#fff;border-radius:10px;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#jobcards .jc-search:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+#jobcards .jc-search input{font-size:13.5px;}
+#jobcards .jc-toolbar .jc-field select:focus,#jobcards .jc-toolbar .jc-field input[type="date"]:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(227,18,27,.12);outline:none;}
+#jobcards .jc-toolbar .jc-btn-apply{box-shadow:0 6px 14px -8px rgba(227,18,27,.8);}
+
+@media (min-width:993px){
+  #jcTableScroll{height:calc(100dvh - 330px - var(--shell-extra, 0px));margin:0 16px;border:1px solid #e6e8ec;border-bottom:none;border-radius:16px 16px 0 0;background:#fff;}
+  #jcTableScroll thead th{
+    background:#fafafb;color: #000 !important;
+  font-size: 14px;
+  font-weight: 900;text-transform:capitalize;letter-spacing:.06em;
+    padding:14px 14px;border-bottom:1px solid #eef0f3;
+  }
+  #jcTableScroll thead tr th:first-child{border-top-left-radius:16px;}
+  #jcTableScroll thead tr th:last-child{border-top-right-radius:16px;text-align:right;padding-right:20px;}
+  #jcTableRows tr[data-id] td{padding:14px;border-bottom:1px solid #f1f2f5;vertical-align:middle;transition:background-color .15s ease;}
+  #jcTableRows tr[data-id]:last-child td{border-bottom:none;}
+  #jcTableRows tr[data-id]:hover td{background:#fff8f8;}
+  #jcTableRows tr[data-id]:hover td:first-child{box-shadow:inset 3px 0 0 var(--accent);}
+  #jcTableRows tr[data-id] td:last-child{text-align:right;padding-right:20px;}
+  #jcTableRows tr[data-id] td:last-child .jc-actions{justify-content:flex-end;}
+  #jcTableRows .jc-td-sl{color:#98a2b3;}
+
+  /* footer bar joined to the table */
+  #jcScrollArea .table-pagination{margin:0 16px 16px;border:1px solid #e6e8ec;border-top:1px solid #eef0f3;border-radius:0 0 16px 16px;background:#fafafb;padding:10px 12px 10px 18px;}
+}
+@media (max-width:992px){
+  #jcScrollArea .table-pagination{border:none;background:transparent;padding:14px 16px 16px;}
+}
+
+/* segmented pager  [‹ Prev | 1 2 3 | Next ›] */
+#jobcards .table-pagination{color:#667085;font-size:13px;font-weight:500;}
+#jobcards .pagination-btns.sw-pager{gap:0;padding:3px;border:1px solid #e4e7ec;border-radius:12px;background:#fff;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#jobcards .pagination-btns.sw-pager > .btn{height:32px;padding:0 12px;border:none;border-radius:9px;background:transparent;color:#344054;font-weight:600;}
+#jobcards .pagination-btns.sw-pager > .btn:hover:not(:disabled){background:#f5f6f8;}
+#jobcards .pagination-btns.sw-pager > .btn:disabled,
+#jobcards .pagination-btns.sw-pager > .btn:disabled:hover{background:transparent;color:#c0c5cf;}
+#jobcards .sw-pager .pagination-pages{gap:2px;padding:0 4px;margin:0 2px;border-left:1px solid #eef0f3;border-right:1px solid #eef0f3;}
+#jobcards .sw-pager .page-num{min-width:32px;height:32px;border:none;border-radius:9px;background:transparent;color:#475467;}
+#jobcards .sw-pager .page-num:hover{background:#f5f6f8;color:#101828;}
+#jobcards .sw-pager .page-num.active{background:var(--accent);color:#fff;box-shadow:0 4px 10px -4px rgba(227,18,27,.7);}
+
+/* stacked toolbar (≤1199px): the search box and Filters button keep their height —
+   flex:1 in a column layout was collapsing the search box */
+@media (max-width:1199px){
+  #jobcards .jc-toolbar > .jc-search{flex:0 0 auto;width:100%;min-width:0;height:42px;}
+  #jobcards .jc-toolbar > .jc-filter-toggle{flex:0 0 auto;height:42px;border-radius:10px;}
+  #jobcards .jc-toolbar{flex-shrink:0;}
+}
+
+/* ==========================================================================
+   Same table design and scrolling as the Lead Management table:
+   no outer panel; the toolbar sits above one table card (table + pagination);
+   the table grows with its rows and the whole area under the header scrolls
+   ========================================================================== */
+#jcScrollArea{background:transparent;border:none;border-radius:0;box-shadow:none;overflow-y:auto;padding-bottom:15px;}
+#jobcards .jc-toolbar{padding:0 0 10px;}
+
+@media (min-width:993px){
+  #jcTableScroll{
+    height:auto;max-height:none;overflow-x:auto;overflow-y:visible;margin:0;
+    border:1px solid #e6e8ec;border-bottom:none;border-radius:16px 16px 0 0;background:#fff;
+    box-shadow:0 12px 28px -20px rgba(16,24,40,.35);
+  }
+  #jcTableScroll thead th{position:static;}
+  #jcScrollArea .table-pagination{
+    margin:0;border:1px solid #e6e8ec;border-top:1px solid #eef0f3;border-radius:0 0 16px 16px;
+    background:#fafafb;padding:10px 12px 10px 18px;box-shadow:0 12px 28px -20px rgba(16,24,40,.35);
+  }
+  #jcTableRows tr[data-id] td{padding:14px 16px;}
+  #jcTableRows tr[data-id] td:first-child{padding-left:16px;}
+}
+@media (max-width:992px){
+  #jobcards .jc-toolbar{padding:0 0 10px;}
+  #jcScrollArea .table-pagination{padding:14px 0 0;}
+}

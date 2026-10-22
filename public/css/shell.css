@@ -1,0 +1,228 @@
+/* App shell (sidebar, header, page hero) — loaded after common.css by layouts/app.blade.php */
+/* ==========================================================================
+   App shell: sidebar + header (Forward Prime Solutions design)
+   ========================================================================== */
+:root{ --shell-head:76px; --shell-red:#e3121b; --shell-red-2:#ff2d2d; }
+
+/* ---- Sidebar ---- */
+.sidebar{background:#050505;box-shadow:none;}
+.sidebar::after{
+  background:
+    linear-gradient(118deg, transparent 0 63%, rgba(227,18,27,.55) 63.4%, rgba(227,18,27,0) 65.5%),
+    linear-gradient(118deg, transparent 0 71%, rgba(227,18,27,.30) 71.3%, rgba(227,18,27,0) 74%),
+    linear-gradient(118deg, transparent 0 80%, rgba(227,18,27,.18) 80.2%, rgba(227,18,27,0) 84%),
+    radial-gradient(110% 45% at 100% 0%, rgba(227,18,27,.22), transparent 70%),
+    radial-gradient(90% 40% at 100% 100%, rgba(227,18,27,.16), transparent 70%),
+    #050505;
+}
+.sidebar-head{
+  position:relative;z-index:2;flex-shrink:0;
+  height:var(--shell-head);display:flex;align-items:center;gap:12px;padding:0 16px;
+}
+.sidebar-collapse-btn{
+  width:36px;height:36px;flex-shrink:0;display:inline-flex;align-items:center;justify-content:center;
+  border:0;border-radius:10px;background:transparent;color:#fff;cursor:pointer;transition:background-color .18s ease;
+}
+.sidebar-collapse-btn:hover{background:rgba(255,255,255,.08);}
+.sidebar-logo{display:flex;align-items:center;gap:10px;min-width:0;color:#fff;text-decoration:none;}
+.sidebar-logo img{width:60px;flex-shrink:0;border-radius:50%;background:#fff;padding:2px;box-shadow:0 0 0 2px rgba(255,255,255,.12);}
+.sidebar-logo-text{display:flex;flex-direction:column;line-height:1.15;min-width:0;}
+.sidebar-logo-text strong{font-size:17px;font-weight:700;color:#fff;letter-spacing:-.2px;white-space:nowrap;}
+.sidebar-logo-text small{font-size:12.5px;color:#d0d0d0;white-space:nowrap;margin-top:2px;}
+
+.sidebar-menu{padding:0px 14px 0px;flex:1;}
+.nav-group{margin:0;padding:12px 0 10px;}
+.nav-group + .nav-group{border-top:1px solid rgba(255,255,255,.09);}
+.nav-group:first-child{padding-top:4px;}
+.nav-group:first-child .nav-label{display:none;}
+.nav-label{display:block;padding-left:12px;margin-bottom:8px;font-size:11.5px;font-weight:600;letter-spacing:.14em;color:#9a9a9a;}
+.nav-label::before{display:none !important;}
+
+.sidebar .nav-item{
+  gap:6px;padding:10px 14px;margin-bottom:4px;border:0;border-radius:10px;
+  font-size:14.5px;font-weight:500;color:#f5f5f5;
+  transition:background-color .18s ease,color .18s ease,box-shadow .18s ease;
+}
+.sidebar .nav-item i{font-size:22px;width:24px;color:var(--shell-red-2);transition:color .18s ease;}
+.sidebar .nav-item:hover{background:rgba(255,255,255,.07);border:0;padding-left:14px;}
+.sidebar .nav-item.active,
+.sidebar .nav-item.active:hover{
+  background:linear-gradient(90deg,#e3121b 0%,#d10f17 100%);color:#fff;border:0;padding-left:14px;
+  box-shadow:0 8px 18px -6px rgba(227,18,27,.6);
+}
+.sidebar .nav-item.active i{color:#fff;}
+.sidebar .nav-item.active::before{display:none;}
+.sidebar .nav-item.active::after{
+  content:"";margin-left:auto;width:16px;height:16px;flex-shrink:0;background:#fff;
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6l-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6l-6 6'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.sidebar .nav-item:focus-visible,.sidebar-collapse-btn:focus-visible{outline:2px solid #fff;outline-offset:2px;}
+
+/* ---- Header ---- */
+.topbar{
+  height:var(--shell-head);gap:18px;padding:0 24px;
+  background:
+    linear-gradient(118deg, rgba(227,18,27,.10) 0 3%, transparent 9%),
+    linear-gradient(180deg,#ffffff 0%,#f6f6f7 100%);
+  border-bottom:1px solid #ececef;box-shadow:none;
+}
+.topbar-search{
+  position:relative;flex:1;max-width:580px;width:auto;height:46px;gap:10px;padding:0 10px 0 14px;
+  background:#fff;border:1px solid #e7e7ea;border-radius:12px;box-shadow:0 1px 2px rgba(16,24,40,.05);
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+.topbar-search:focus-within{border-color:var(--shell-red);box-shadow:0 0 0 3px rgba(227,18,27,.12);}
+.topbar-search .topbar-search-icon{color:var(--shell-red);flex-shrink:0;}
+.topbar-search input{font-size:14px;color:#101828;}
+.topbar-search input::placeholder{color:#7c8494;}
+.topbar-search-kbd{
+  flex-shrink:0;font-family:var(--font);font-size:11.5px;font-weight:600;color:#667085;
+  padding:3px 8px;border:1px solid #e4e7ec;border-radius:6px;background:#f8f9fb;white-space:nowrap;
+}
+.topbar-right{gap:10px;}
+
+.branch-pill{
+  height:46px;padding:0 14px;gap:8px;background:#fff;border:1px solid #e7e7ea;border-radius:12px;
+  font-size:13.5px;font-weight:600;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.05);
+}
+.branch-pill .ti-map-pin{color:var(--shell-red);font-size:18px;}
+.branch-pill .ti-chevron-down{font-size:16px;color:#344054;}
+
+#notifToggle,#waToggle{width:46px;height:46px;border-radius:12px;}
+#notifToggle{background:#fff;border:1px solid #e7e7ea;color:#101828;box-shadow:0 1px 2px rgba(16,24,40,.05);}
+#notifToggle:hover{background:#f7f7f8;color:#101828;}
+#notifToggle .ti-bell{color:#101828;font-size:22px;}
+#waToggle .wa-logo{width:24px;height:24px;}
+#notifToggle .dot,#waToggle .dot{top:9px;right:9px;width:9px;height:9px;}
+
+.topbar-user .topbar-user-toggle{
+  display:flex;align-items:center;gap:10px;padding:4px 6px 4px 4px;border:0;border-radius:14px;
+  background:transparent;cursor:pointer;color:#101828;text-align:left;transition:background-color .18s ease;
+}
+.topbar-user .topbar-user-toggle:hover{background:rgba(16,24,40,.05);}
+.topbar-user .avatar{width:44px;height:44px;border-radius:50%;background:var(--shell-red);color:#fff;font-size:15px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;}
+.topbar-user-details{display:flex;flex-direction:column;line-height:1.2;min-width:0;}
+.topbar-user-details strong{font-size:14px;font-weight:700;color:#101828;white-space:nowrap;max-width:150px;overflow:hidden;text-overflow:ellipsis;text-transform:capitalize;}
+.topbar-user-details small{font-size:12px;color:#667085;margin-top:2px;}
+.topbar-user-caret{color:#344054;flex-shrink:0;transition:transform .2s ease;}
+.topbar-user:has(.dropdown-menu.open) .topbar-user-caret{transform:rotate(180deg);}
+.topbar-user-menu{top:calc(100% + 10px)!important;bottom:auto!important;left:auto!important;right:0!important;min-width:240px!important;}
+
+/* ---- Desktop: logo lives in the sidebar; collapsible to icons ---- */
+@media (min-width:1200px){
+  .topbar-brand-mobile{display:none !important;}
+  .sidebar-close-btn{display:none !important;}
+  body.sidebar-collapsed .app{grid-template-columns:84px 1fr;}
+  body.sidebar-collapsed .app-footer{left:84px;}
+  body.sidebar-collapsed .sidebar-head{justify-content:center;padding:0;}
+  body.sidebar-collapsed .sidebar-logo,
+  body.sidebar-collapsed .nav-label{display:none;}
+  body.sidebar-collapsed .sidebar-menu{padding:8px 12px 24px;}
+  body.sidebar-collapsed .sidebar .nav-item{font-size:0;justify-content:center;padding:11px 0;gap:0;}
+  body.sidebar-collapsed .sidebar .nav-item:hover,
+  body.sidebar-collapsed .sidebar .nav-item.active{padding-left:0;}
+  body.sidebar-collapsed .sidebar .nav-item.active::after{display:none;}
+}
+@media (min-width:1200px) and (max-width:1399px){
+  .topbar-search-kbd{display:none;}
+  .topbar-user-details strong{max-width:110px;}
+}
+
+/* ---- Tablet / phone: sidebar is a drawer, header keeps its own logo ---- */
+@media (max-width:1199px){
+  .sidebar-collapse-btn{display:none;}
+  .sidebar-head{padding:0 56px 0 16px;}
+  .sidebar-close-btn{top:50% !important;transform:translateY(-50%);right:14px !important;}
+  .topbar{height:auto;gap:8px;}
+  .topbar-search{flex:0 0 100%;max-width:none;height:44px;}
+  .topbar-search-kbd{display:none;}
+  .branch-pill{height:42px;}
+  .topbar-user-details,.topbar-user-caret{display:none;}
+  .topbar-user .avatar{width:40px;height:40px;font-size:14px;}
+  .topbar-user .topbar-user-toggle{padding:0;}
+}
+/* wider sidebar for the logo + single-line labels; quiet scrollbar on dark */
+@media (min-width:1200px){
+  body:not(.sidebar-collapsed) .app{grid-template-columns:272px 1fr;}
+  body:not(.sidebar-collapsed) .app-footer{left:272px;}
+}
+.sidebar-menu{scrollbar-color:rgba(255,255,255,.18) transparent;}
+.sidebar-menu::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);}
+.sidebar-menu::-webkit-scrollbar-thumb:hover{background:rgba(255,255,255,.3);}
+/* phones: one header row (menu, logo … branch, bell, avatar) + search row */
+@media (max-width:1199px){
+  .topbar-brand-mobile{margin-right:auto;}
+}
+@media (max-width:480px){
+  .topbar{padding:10px 10px !important;column-gap:6px;}
+  .topbar-right{gap:6px !important;}
+  .branch-pill{width:42px;padding:0 !important;justify-content:center;max-width:none !important;}
+  .branch-pill #branchLabel,.branch-pill .ti-chevron-down{display:none !important;}
+  #notifToggle{width:42px;height:42px;}
+}
+/* drawer matches the desktop sidebar width */
+@media (max-width:1199px){
+  .sidebar{width:272px !important;left:-290px;}
+  .sidebar.open{left:0 !important;}
+}
+
+/* Page hero photo (Dashboard, Queue): the car fills the right side at any header height,
+   fading softly into the light background on the left and into the page at the bottom */
+#dashboard .dash-hero,#queue .q-header{
+  background:linear-gradient(180deg,#fbfbfb 0%,#f6f6f7 100%) !important;
+  min-height:0 !important;
+}
+.page-hero-media{
+  position:absolute;top:0;right:0;bottom:0;width:min(60%,820px);z-index:-2;pointer-events:none;
+  background:url("../images/dash-hero-car.jpg") center 58% / cover no-repeat;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 22%,#000 45%);
+          mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.55) 22%,#000 45%);
+}
+/* red light streaks sit over the photo's fading edge */
+#dashboard .dash-hero::before,#queue .q-header::before{
+  background:
+    linear-gradient(118deg,transparent 0 50%,rgba(227,18,27,.5) 50.5%,transparent 53%),
+    linear-gradient(118deg,transparent 0 56%,rgba(227,18,27,.25) 56.4%,transparent 59%) !important;
+}
+/* the action button stays crisp on top of the photo */
+#dashboard .dash-hero-btn,#queue .q-header-btn{position:relative;z-index:1;}
+@media (max-width:767px){
+  .page-hero-media{width:100%;opacity:.35;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 70%);mask-image:linear-gradient(90deg,transparent 0%,#000 70%);}
+}
+/* show the car's headlights, hood and windows in the strip above the cards */
+.page-hero-media{bottom:30px;background-position:center 40%;
+}
+@media (max-width:767px){ .page-hero-media{bottom:0;} }
+/* hero heights: min-height is auto (set in queue.css / dashboard.css) so headers size to their content */
+.page-hero-media{bottom:40px;background-position:center 46%;}
+.page-hero-media{bottom:0px;background-position:center 37%;}
+
+/* ==========================================================================
+   Page header pattern (all pages): red ribbons + fine dot grid on the right,
+   fading in from the left. Background only — header spacing is untouched.
+   ========================================================================== */
+/* .view-header is already sticky (positioned); the others need a containing block */
+.leads-header,.svc-toolbar{position:relative;}
+.view-header,.leads-header,.svc-toolbar,#queue .q-header,#dashboard .dash-hero{isolation:isolate;}
+.view-header::before,.leads-header::before,.svc-toolbar::before,
+#queue .q-header::before,#dashboard .dash-hero::before{
+  content:"" !important;display:block !important;position:absolute;top:0;bottom:0;right:0;left:auto;width:100%;z-index:-1;pointer-events:none;border-radius:inherit;
+  background:
+    linear-gradient(115deg, transparent 57%, rgba(227,18,27,.75) 57%, rgba(227,18,27,.75) 57.5%, transparent 57.5%),
+    linear-gradient(115deg, transparent 60%, rgba(227,18,27,.16) 60%, rgba(227,18,27,.16) 67%, transparent 67%),
+    linear-gradient(115deg, transparent 69%, rgba(227,18,27,.08) 69%, rgba(227,18,27,.08) 84%, transparent 84%),
+    radial-gradient(circle, rgba(227,18,27,.22) 1px, transparent 1.6px) 0 0 / 14px 14px,
+    radial-gradient(70% 140% at 100% 0%, rgba(227,18,27,.10), transparent 70%) !important;
+  /* soft mask: fades in from the left, out toward the right edge and the bottom */
+  opacity:.65;
+  -webkit-mask-image:linear-gradient(90deg, transparent 0%, #000 40%, #000 70%, transparent 100%),
+                     linear-gradient(180deg, #000 0%, rgba(0,0,0,.6) 55%, transparent 100%);
+  -webkit-mask-composite:source-in;
+          mask-image:linear-gradient(90deg, transparent 0%, #000 40%, #000 70%, transparent 100%),
+                     linear-gradient(180deg, #000 0%, rgba(0,0,0,.6) 55%, transparent 100%);
+          mask-composite:intersect;
+}
+/* services/products: the pattern sits on the whole toolbar, not the small title cell inside it */
+.svc-toolbar .view-header::before{content:none !important;display:none !important;}

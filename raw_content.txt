@@ -1,0 +1,366 @@
+Created At: 2026-08-05T15:52:35+05:30
+Completed At: 2026-08-05T15:52:35+05:30
+File Path: `file:///Users/aromalmanohar/Documents/Playground/carwash-admin-portal/public/js/payments.js`
+Total Lines: 358
+Total Bytes: 13394
+Showing lines 1 to 358
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: // Page-specific behavior for payments.html
+2: (function () {
+3:   var tableBody = document.getElementById('invoiceTableBody');
+4:   var emptyState = document.getElementById('invoiceEmptyState');
+5:   var searchInput = document.getElementById('invoiceSearchInput');
+6:   var chips = document.querySelectorAll('.toolbar .chip');
+7:   var prevBtn = document.getElementById('invoicePrevBtn');
+8:   var nextBtn = document.getElementById('invoiceNextBtn');
+9:   var pageInfo = document.getElementById('invoicePageInfo');
+10:   var createBtn = document.getElementById('createInvoiceBtn');
+11:   var form = document.getElementById('invoiceForm');
+12:   if (!tableBody) return;
+13: 
+14:   var PAGE_SIZE = 10;
+15:   var activeFilter = 'all';
+16:   var currentPage = 1;
+17:   var selectedId = '';
+18:   var nextNumber = 843;
+19: 
+20:   var METHOD_LABEL = { cash: 'Cash', upi: 'UPI', card: 'Card' };
+21:   var METHOD_STYLE = {
+22:     cash: 'background:var(--surface-2);color:var(--text-2);',
+23:     upi: 'background:var(--info-bg);color:var(--info-text);',
+24:     card: 'background:var(--surface-2);color:var(--text-2);'
+25:   };
+26: 
+27:   var INVOICES = [];
+28: 
+29:   function escapeHtml(str) {
+30:     return String(str).replace(/[&<>"']/g, function (c) {
+31:       return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+32:     });
+33:   }
+34: 
+35:   function findInvoice(id) {
+36:     return INVOICES.filter(function (i) { return i.id === id; })[0];
+37:   }
+38: 
+39:   function formatMoney(value) {
+40:     return '₹' + value.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+41:   }
+42: 
+43:   function methodCell(inv) {
+44:     if (inv.status === 'pending') return '—';
+45:     return '<span class="tag" style="' + (METHOD_STYLE[inv.method] || '') + '">' + METHOD_LABEL[inv.method] + '</span>';
+46:   }
+47: 
+48:   function statusCell(inv) {
+49:     return inv.status === 'paid'
+50:       ? '<span class="tag" style="background:var(--success-bg);color:var(--success-text);">Paid</span>'
+51:       : '<span class="tag" style="background:var(--danger-bg);color:var(--danger-text);">Pending</span>';
+52:   }
+53: 
+54:   function matchesFilter(inv) {
+55:     if (activeFilter === 'all') return true;
+56:     if (activeFilter === 'pending') return inv.status === 'pending';
+57:     return inv.method === activeFilter;
+58:   }
+59: 
+60:   function matchesSearch(inv, query) {
+61:     if (!query) return true;
+62:     return (inv.id + ' ' + inv.customer).toLowerCase().indexOf(query) !== -1;
+63:   }
+64: 
+65:   function getFiltered() {
+66:     var query = searchInput ? searchInput.value.trim().toLowerCase() : '';
+67:     return INVOICES.filter(function (i) { return matchesFilter(i) && matchesSearch(i, query); });
+68:   }
+69: 
+70:   function renderTable() {
+71:     var filtered = getFiltered();
+72:     var totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
+73:     if (currentPage > totalPages) currentPage = totalPages;
+74:     if (currentPage < 1) currentPage = 1;
+75: 
+76:     var start = (currentPage - 1) * PAGE_SIZE;
+77:     var pageItems = filtered.slice(start, start + PAGE_SIZE);
+78: 
+79:     tableBody.innerHTML = '';
+80:     pageItems.forEach(function (inv) {
+81:       var tr = document.createElement('tr');
+82:       tr.className = 'inv-row' + (inv.id === selectedId ? ' selected' : '');
+83:       tr.innerHTML =
+84:         '<td class="mono cell-primary">' + escapeHtml(inv.id) + '</td>' +
+85:         '<td>' + escapeHtml(inv.customer) + '</td>' +
+86:         '<td class="mono">₹' + inv.amount.toLocaleString('en-IN') + '</td>' +
+87:         '<td>' + methodCell(inv) + '</td>' +
+88:         '<td>' + statusCell(inv) + '</td>';
+89:       tr.addEventListener('click', function () { selectInvoice(inv.id); });
+90:       tableBody.appendChild(tr);
+91:     });
+92: 
+93:     if (emptyState) emptyState.style.display = filtered.length ? 'none' : 'block';
+94:     if (pageInfo) {
+95:       if (filtered.length === 0) {
+96:         pageInfo.textContent = 'No invoices';
+97:       } else {
+98:         var rangeStart = start + 1;
+99:         var rangeEnd = Math.min(start + PAGE_SIZE, filtered.length);
+100:         pageInfo.textContent = 'Showing ' + rangeStart + '–' + rangeEnd + ' of ' + filtered.length + ' invoices';
+101:       }
+102:     }
+103:     if (prevBtn) prevBtn.disabled = currentPage <= 1;
+104:     if (nextBtn) nextBtn.disabled = currentPage >= totalPages;
+105:   }
+106: 
+107:   function selectInvoice(id) {
+108:     var inv = findInvoice(id);
+109:     if (!inv) return;
+110:     selectedId = id;
+111: 
+112:     tableBody.querySelectorAll('tr').forEach(function (row, i) {
+113:       var filtered = getFiltered();
+114:       var start = (currentPage - 1) * PAGE_SIZE;
+115:       var rowInv = filtered[start + i];
+116:       row.classList.toggle('selected', rowInv && rowInv.id === id);
+117:     });
+118: 
+119:     var subtotal = Number(inv.subtotal || inv.amount || 0);
+120:     var taxRate = Number(inv.tax_rate || 18);
+121:     var gst = Number(inv.tax_amount || (subtotal * (taxRate / 100)));
+122:     var discount = Number(inv.discount_amount || 0);
+123:     var total = Number(inv.amount || (subtotal + gst - discount));
+124: 
+125:     document.getElementById('previewMeta').textContent = inv.id + ' · ' + inv.date + (inv.branch_id ? ' · Branch #' + inv.branch_id : '');
+126:     document.getElementById('previewService').textContent = inv.service;
+127:     document.getElementById('previewAmount').textContent = formatMoney(subtotal);
+128:     document.getElementById('previewGst').textContent = formatMoney(gst);
+129:     document.getElementById('previewTotal').textContent = formatMoney(total);
+130:   }
+131: 
+132:   function clearPreview() {
+133:     document.getElementById('previewMeta').textContent = 'No invoice selected';
+134:     document.getElementById('previewService').textContent = 'Create or complete a wash to see billing here';
+135:     document.getElementById('previewAmount').textContent = '₹0.00';
+136:     document.getElementById('previewGst').textContent = '₹0.00';
+137:     document.getElementById('previewTotal').textContent = '₹0.00';
+138:   }
+139: 
+140:   chips.forEach(function (chip) {
+141:     chip.addEventListener('click', function () {
+142:       chips.forEach(function (c) { c.classList.remove('active'); });
+143:       chip.classList.add('active');
+144:       activeFilter = chip.getAttribute('data-filter');
+145:       currentPage = 1;
+146:       renderTable();
+147:     });
+148:   });
+149: 
+150:   if (searchInput) {
+151:     searchInput.addEventListener('input', function () {
+152:       currentPage = 1;
+153:       renderTable();
+154:     });
+155:   }
+156: 
+157:   if (prevBtn) prevBtn.addEventListener('click', function () { currentPage--; renderTable(); });
+158:   if (nextBtn) nextBtn.addEventListener('click', function () { currentPage++; renderTable(); });
+159: 
+160:   var emailBtn = document.getElementById('previewEmailBtn');
+161:   if (emailBtn) {
+162:     emailBtn.addEventListener('click', function () {
+163:       var inv = findInvoice(selectedId);
+164:       if (inv) window.SW.showToast('Invoice emailed to ' + inv.customer);
+165:     });
+166:   }
+167: 
+168:   var whatsappBtn = document.getElementById('previewWhatsappBtn');
+169:   if (whatsappBtn) {
+170:     whatsappBtn.addEventListener('click', function () {
+171:       var inv = findInvoice(selectedId);
+172:       if (!inv) return;
+173:       var digits = inv.phone.replace(/\D/g, '');
+174:       window.open('https://wa.me/' + digits, '_blank', 'noopener');
+175:     });
+176:   }
+177: 
+178:     var pdfBtn = document.getElementById('previewPdfBtn');
+179:     if (pdfBtn) {
+180:       pdfBtn.addEventListener('click', function () {
+181:         var inv = findInvoice(selectedId);
+182:         if (!inv) return;
+183:         var subtotal = Number(inv.subtotal || inv.amount || 0);
+184:         var taxRate = Number(inv.tax_rate || 18);
+185:         var gst = Number(inv.tax_amount || (subtotal * (taxRate / 100)));
+186:         var discount = Number(inv.discount_amount || 0);
+187:         var total = Number(inv.amount || (subtotal + gst - discount));
+188:         var lines = [
+189:           'Shinewise Sparkle Auto Care',
+190:           'Invoice ' + inv.id,
+191:           'Date: ' + inv.date,
+192:           'Customer: ' + inv.customer,
+193:           '',
+194:           inv.service + '   ' + formatMoney(subtotal),
+195:           'GST (' + taxRate + '%)   ' + formatMoney(gst),
+196:           'Discount   ' + formatMoney(discount),
+197:           'Total   ' + formatMoney(total)
+198:         ];
+199:         var blob = new Blob([lines.join('\r\n')], { type: 'text/plain;charset=utf-8;' });
+200:         var url = URL.createObjectURL(blob);
+201:         var link = document.createElement('a');
+202:       link.href = url;
+203:       link.download = inv.id + '.txt';
+204:       document.body.appendChild(link);
+205:       link.click();
+206:       document.body.removeChild(link);
+207:       URL.revokeObjectURL(url);
+208:       window.SW.showToast('Downloaded ' + inv.id);
+209:     });
+210:   }
+211: 
+212:   async function populateServices() {
+213:     var dropdown = document.getElementById('invServiceName');
+214:     if (!dropdown) return;
+215:     try {
+216:       var res = await fetch('/api/services');
+217:       if (res.ok) {
+218:         var services = await res.json();
+219:         dropdown.innerHTML = '<option value="">Select a service</option>';
+220:         services.forEach(function (s) {
+221:           var opt = document.createElement('option');
+222:           opt.value = s.name;
+223:           opt.textContent = s.name + ' (₹' + s.price + ')';
+224:           dropdown.appendChild(opt);
+225:         });
+226:       }
+227:     } catch (e) {
+228:       console.error(e);
+229:     }
+230:   }
+231: 
+232:   async function populateBranches(selectedId) {
+233:     var dropdown = document.getElementById('invBranch');
+234:     if (!dropdown) return;
+235:     try {
+236:       var res = await fetch('/api/global');
+237:       if (!res.ok) return;
+238:       var data = await res.json();
+239:       var branches = data.branches || [];
+240:       dropdown.innerHTML = '<option value="">Select branch</option>';
+241:       branches.forEach(function (branch, index) {
+242:         var opt = document.createElement('option');
+243:         opt.value = branch.id;
+244:         opt.textContent = (branch.code ? branch.code + ' · ' : '') + branch.name + (branch.location ? ' · ' + branch.location : '');
+245:         if ((selectedId && String(selectedId) === String(branch.id)) || (!selectedId && index === 0)) {
+246:           opt.selected = true;
+247:         }
+248:         dropdown.appendChild(opt);
+249:       });
+250:     } catch (e) {
+251:       console.error(e);
+252:     }
+253:   }
+254: 
+255:   if (createBtn) {
+256:     createBtn.addEventListener('click', async function () {
+257:       await populateBranches();
+258:       await populateServices();
+259:       var taxRate = document.getElementById('invTaxRate');
+260:       if (taxRate && !taxRate.value) taxRate.value = '18';
+261:       var discount = document.getElementById('invDiscount');
+262:       if (discount && !discount.value) discount.value = '0';
+263:       var dueAt = document.getElementById('invDueAt');
+264:       if (dueAt && !dueAt.value) dueAt.value = new Date(Date.now() + 7 * 86400000).toISOString().slice(0, 10);
+265:       window.SW.openModal('invoiceModal');
+266:     });
+267:   }
+268: 
+269:   if (form) {
+270:     form.addEventListener('submit', async function (e) {
+271:       e.preventDefault();
+272:       var customer = document.getElementById('invCustomer').value.trim();
+273:       var phone = document.getElementById('invPhone').value.trim() || 'Not provided';
+274:       var service = document.getElementById('invServiceName').value;
+275:       var subtotal = Number(document.getElementById('invAmount').value) || 0;
+276:       var branchId = document.getElementById('invBranch') ? document.getElementById('invBranch').value : '';
+277:       var taxRate = Number(document.getElementById('invTaxRate').value) || 18;
+278:       var discountAmount = Number(document.getElementById('invDiscount').value) || 0;
+279:       var dueAt = document.getElementById('invDueAt').value || null;
+280:       var method = document.getElementById('invMethod').value;
+281:       var status = method === 'pending' ? 'pending' : 'paid';
+282: 
+283:       try {
+284:         var res = await fetch('/api/invoices', {
+285:           method: 'POST',
+286:           headers: {
+287:             'Content-Type': 'application/json',
+288:             'Accept': 'application/json'
+289:           },
+290:           body: JSON.stringify({
+291:             customer: customer,
+292:             phone: phone,
+293:             service: service,
+294:             subtotal: subtotal,
+295:             tax_rate: taxRate,
+296:             discount_amount: discountAmount,
+297:             branch_id: branchId || null,
+298:             due_at: dueAt,
+299:             method: method,
+300:             status: status
+301:           })
+302:         });
+303: 
+304:         if (res.ok) {
+305:           var newInv = await res.json();
+306:           chips.forEach(function (c) { c.classList.remove('active'); });
+307:           document.querySelector('.toolbar .chip[data-filter="all"]').classList.add('active');
+308:           activeFilter = 'all';
+309:           if (searchInput) searchInput.value = '';
+310:           currentPage = 1;
+311: 
+312:           await loadInvoices();
+313:           selectInvoice(newInv.id);
+314: 
+315:           window.SW.closeModal('invoiceModal');
+316:           window.SW.showToast('Invoice created: ' + newInv.id);
+317:           form.reset();
+318:         } else {
+319:           var err = await res.json();
+320:           alert('Error: ' + (err.message || 'Could not create invoice.'));
+321:         }
+322:       } catch (err) {
+323:         console.error(err);
+324:         alert('A connection error occurred.');
+325:       }
+326:     });
+327:   }
+328: 
+329:   async function loadInvoices() {
+330:     try {
+331:       var res = await fetch('/api/invoices');
+332:       if (res.ok) {
+333:         INVOICES = await res.json();
+334:         var focusId = localStorage.getItem('sw_focus_invoice');
+335:         if (focusId && INVOICES.some(function (i) { return i.id === focusId; })) {
+336:           selectedId = focusId;
+337:           localStorage.removeItem('sw_focus_invoice');
+338:         }
+339:         renderTable();
+340:         if (INVOICES.length > 0) {
+341:           var exists = INVOICES.some(function (i) { return i.id === selectedId; });
+342:           if (!exists) {
+343:             selectedId = INVOICES[0].id;
+344:           }
+345:           if (selectedId) {
+346:             selectInvoice(selectedId);
+347:           }
+348:         } else {
+349:           clearPreview();
+350:         }
+351:       }
+352:     } catch (err) {
+353:       console.error('Failed to load invoices:', err);
+354:     }
+355:   }
+356:   loadInvoices();
+357: })();
+358: 
+The above content shows the entire, complete file contents of the requested file.
